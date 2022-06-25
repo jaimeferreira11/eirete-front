@@ -69,15 +69,16 @@ let lightTheme = createTheme({
         variant: 'contained',
         size: 'small',
         disableElevation: true,
-        color: 'info',
       },
       styleOverrides: {
         root: {
+          color: '#fff',
           textTransform: 'none',
           boxShadow: 'none',
           borderRadius: 10,
           ':hover': {
-            backgroundColor: 'rgba(0,0,0,0.05)',
+            color: '#000000',
+            backgroundColor: '#FEEFC3',
             transition: 'all 0.3s ease-in-out',
           },
         },
