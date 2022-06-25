@@ -1,4 +1,4 @@
-import { Box, Divider } from '@mui/material';
+import { Box } from '@mui/material';
 import { useTranslation } from 'next-i18next';
 import { Logo } from '..';
 import { SideBarListItems } from './SideBarListItems';
@@ -8,19 +8,15 @@ export const SideBar = () => {
 
   return (
     <Box
-      display="flex"
-      flexDirection="column"
-      width="100%"
-      height="100vh"
+      flex={1}
       sx={{
-        paddingTop: 5,
-        border: 'black',
         backgroundColor: '#FFF',
         borderRadius: 2,
+        maxWidth: '240px',
       }}
     >
       <Logo />
-      <Divider />
+
       <SideBarListItems t={t} />
     </Box>
   );

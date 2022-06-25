@@ -12,10 +12,10 @@ export const Logo = () => {
       alignItems="center"
       sx={{ width: 'auto', textAlign: 'center', pb: 2 }}
     >
-      <GrainIcon color="primary" sx={{ fontSize: { xs: 38, sm: 75 } }} />
+      <GrainIcon color="primary" sx={{ fontSize: { xs: 60, sm: 100 } }} />
       <Typography
         sx={{ display: { xs: 'none', sm: 'block' } }}
-        variant="body1"
+        variant="h5"
         component="h5"
         fontWeight={800}
       >
@@ -23,7 +23,7 @@ export const Logo = () => {
       </Typography>
       <Typography
         sx={{ display: { xs: 'none', sm: 'block' } }}
-        variant="body2"
+        variant="h6"
         fontWeight={400}
       >
         {t('logo.texto2')}

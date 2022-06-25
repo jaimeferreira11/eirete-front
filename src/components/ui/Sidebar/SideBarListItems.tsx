@@ -8,7 +8,6 @@ import {
 } from '@mui/icons-material';
 
 import {
-  Box,
   List,
   ListItem,
   ListItemIcon,
@@ -22,37 +21,37 @@ import { FC } from 'react';
 const menuItems = [
   {
     id: 'caja',
-    icon: <CajaIcon sx={{ fontSize: { xs: 22, sm: 24 } }} />,
+    icon: <CajaIcon />,
     text: 'links.caja',
     roles: [''],
   },
   {
     id: 'cierre-caja',
-    icon: <CierreCajaIcon sx={{ fontSize: { xs: 22, sm: 24 } }} />,
+    icon: <CierreCajaIcon />,
     text: 'links.cierreDeCaja',
     roles: [''],
   },
   {
     id: 'delivery',
-    icon: <DeliveryIcon sx={{ fontSize: { xs: 22, sm: 24 } }} />,
+    icon: <DeliveryIcon />,
     text: 'links.delivery',
     roles: [''],
   },
   {
-    id: 'caja',
-    icon: <StockIcon sx={{ fontSize: { xs: 22, sm: 24 } }} />,
+    id: 'stock',
+    icon: <StockIcon />,
     text: 'links.stock',
     roles: [''],
   },
   {
     id: 'movimientos',
-    icon: <MovimientosIcon sx={{ fontSize: { xs: 22, sm: 24 } }} />,
+    icon: <MovimientosIcon />,
     text: 'links.movimientos',
     roles: [''],
   },
   {
     id: 'clientes',
-    icon: <ClientesIcon sx={{ fontSize: { xs: 22, sm: 24 } }} />,
+    icon: <ClientesIcon />,
     text: 'links.clientes',
     roles: [''],
   },
@@ -65,28 +64,22 @@ interface Props {
 
 export const SideBarListItems: FC<Props> = ({ t }) => {
   return (
-    <Box display="flex" justifyContent="center">
-      <List sx={{ width: '100%' }}>
-        {menuItems.map((menuItem) => (
-          <ListItem
-            sx={{ mb: 1, width: '100%', px: { xs: '8.5px', sm: '16px' } }}
-            button
-            key={menuItem.id}
-          >
-            <ListItemIcon
-              sx={{
-                width: '100%',
-              }}
-            >
-              {menuItem.icon}
-            </ListItemIcon>
-            <ListItemText
-              sx={{ display: { xs: 'none', sm: 'block' }, overflow: 'clip' }}
-              primary={<Typography>{t(menuItem.text) as any}</Typography>}
-            />
-          </ListItem>
-        ))}
-      </List>
-    </Box>
+    <List>
+      {menuItems.map((menuItem) => (
+        <ListItem sx={{ mb: 1 }} button key={menuItem.id}>
+          <ListItemIcon sx={{ display: 'flex', justifyContent: 'center' }}>
+            {menuItem.icon}
+          </ListItemIcon>
+          <ListItemText
+            sx={{ display: { xs: 'none', sm: 'block' }, overflow: 'clip' }}
+            primary={
+              <Typography sx={{ fontSize: '14px' }}>
+                {t(menuItem.text) as any}
+              </Typography>
+            }
+          />
+        </ListItem>
+      ))}
+    </List>
   );
 };

@@ -1,5 +1,6 @@
 {
-  "homePage": {
-    "test": "ok"
+  "forms": {
+    "required": "Campo requerido",
+    "minLengthField": "Mínimo de {{cantidad}} caracteres"
   }
 }

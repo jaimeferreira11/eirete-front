@@ -1,0 +1,9 @@
+{
+  "username": "Usuario",
+  "password": "Contraseña",
+  "logo": {
+    "texto1": "Sandoichi",
+    "texto2": "Multiplaza"
+  },
+  "iniciarSesion": "Iniciar Sesión"
+}
