@@ -1,14 +1,13 @@
-import { Box } from '@mui/material';
-import { useTranslation } from 'next-i18next';
+import { Box, Divider } from '@mui/material';
 import { Logo } from '..';
+import { MenuUser } from './MenuUser';
 import { SideBarListItems } from './SideBarListItems';
-
 export const SideBar = () => {
-  const { t } = useTranslation('sidebar');
-
   return (
     <Box
       flex={1}
+      display="flex"
+      flexDirection="column"
       sx={{
         backgroundColor: '#FFF',
         borderRadius: 2,
@@ -17,7 +16,13 @@ export const SideBar = () => {
     >
       <Logo />
 
-      <SideBarListItems t={t} />
+      <SideBarListItems />
+
+      <Box flex={1} />
+
+      <Divider />
+
+      <MenuUser />
     </Box>
   );
 };

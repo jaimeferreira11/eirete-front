@@ -15,7 +15,7 @@ import {
   Typography,
 } from '@mui/material';
 
-import { TFunction } from 'next-i18next';
+import { useTranslation } from 'next-i18next';
 import { FC } from 'react';
 
 const menuItems = [
@@ -58,11 +58,11 @@ const menuItems = [
 ];
 
 interface Props {
-  t: TFunction;
   children?: React.ReactNode;
 }
 
-export const SideBarListItems: FC<Props> = ({ t }) => {
+export const SideBarListItems: FC<Props> = () => {
+  const { t } = useTranslation('sidebar');
   return (
     <List>
       {menuItems.map((menuItem) => (

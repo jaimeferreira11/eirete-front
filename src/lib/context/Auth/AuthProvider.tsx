@@ -1,4 +1,4 @@
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import { FC, useEffect, useReducer } from 'react';
 import { IUser } from '../../interfaces';
 import { AuthContext, authReducer } from './';
@@ -29,10 +29,15 @@ export const AuthProvider: FC<Props> = ({ children }) => {
     }
   }, [data, status]);
 
+  const logout = () => {
+    signOut();
+  };
+
   return (
     <AuthContext.Provider
       value={{
         ...state,
+        logout,
       }}
     >
       {children}
