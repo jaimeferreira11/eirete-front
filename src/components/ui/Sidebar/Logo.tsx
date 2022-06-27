@@ -3,7 +3,7 @@ import { Box, Typography } from '@mui/material';
 import { useTranslation } from 'next-i18next';
 
 export const Logo = () => {
-  const { t } = useTranslation('sidebar');
+  const { t } = useTranslation('sidebar', { keyPrefix: 'logo' });
   return (
     <Box
       display="flex"
@@ -19,14 +19,14 @@ export const Logo = () => {
         component="h5"
         fontWeight={800}
       >
-        {t('logo.texto1')}
+        {t('texto1')}
       </Typography>
       <Typography
         sx={{ display: { xs: 'none', sm: 'block' } }}
         variant="h6"
         fontWeight={400}
       >
-        {t('logo.texto2')}
+        {t('texto2')}
       </Typography>
     </Box>
   );

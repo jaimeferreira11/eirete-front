@@ -13,5 +13,6 @@
   },
   "imprimirArqueo": "Imprimir último arqueo",
   "contactarSoporte": "Contactar soporte",
-  "cerrarSesion": "Cerrar sesión"
+  "cerrarSesion": "Cerrar sesión",
+  "logoutConfirm": "¿Está seguro de cerrar su sesión?"
 }

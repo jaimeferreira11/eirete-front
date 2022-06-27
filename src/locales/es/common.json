@@ -2,5 +2,9 @@
   "forms": {
     "required": "Campo requerido",
     "minLengthField": "Mínimo de {{cantidad}} caracteres"
+  },
+  "modal": {
+    "ok": "Aceptar",
+    "cancelar": "Cancelar"
   }
 }

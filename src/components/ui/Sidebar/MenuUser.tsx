@@ -1,8 +1,11 @@
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-import ContactSupportOutlinedIcon from '@mui/icons-material/ContactSupportOutlined';
-import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
-import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
-import PrintOutlinedIcon from '@mui/icons-material/PrintOutlined';
+import {
+  AccountCircleOutlined as UserIcon,
+  ContactSupportOutlined as SupportIcon,
+  LogoutOutlined as LogoutIcon,
+  MoreVertOutlined as MoreIcon,
+  PrintOutlined as PrintIcon,
+} from '@mui/icons-material';
+
 import {
   Box,
   IconButton,
@@ -15,11 +18,14 @@ import {
 import { useTranslation } from 'next-i18next';
 import { useState } from 'react';
 import { useAuthProvider } from '../../../lib/hooks';
+import ModalConfirmation from '../ConfirmationModal/ModalConfirmation';
 export const MenuUser = () => {
   const { t } = useTranslation('sidebar');
 
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [openOptions, setOpenOptions] = useState(false);
+
+  const [openModal, setOpenModal] = useState(false);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -32,6 +38,11 @@ export const MenuUser = () => {
 
   const { user, logout } = useAuthProvider();
 
+  const handleCerrarSesion = () => {
+    setOpenModal(false);
+    logout();
+  };
+
   // TODO modularizar componente
 
   return (
@@ -41,12 +52,19 @@ export const MenuUser = () => {
       justifyContent="space-between"
       alignItems="center"
     >
+      <ModalConfirmation
+        onAccept={handleCerrarSesion}
+        onCancel={() => setOpenModal(false)}
+        message={t('logoutConfirm')}
+        title={t('cerrarSesion')}
+        open={openModal}
+      />
       <Box display="flex" gap={1}>
-        <AccountCircleOutlinedIcon />
+        <UserIcon />
         <Typography>{user?.username}</Typography>
       </Box>
       <IconButton id="long-button" onClick={handleClick}>
-        <MoreVertOutlinedIcon />
+        <MoreIcon />
       </IconButton>
       <Menu
         id="long-menu"
@@ -67,24 +85,24 @@ export const MenuUser = () => {
       >
         <MenuItem onClick={handleClose}>
           <ListItemIcon>
-            <PrintOutlinedIcon fontSize="small" />
+            <PrintIcon fontSize="small" />
           </ListItemIcon>
           <ListItemText>{t('imprimirArqueo')}</ListItemText>
         </MenuItem>
         <MenuItem onClick={handleClose}>
           <ListItemIcon>
-            <ContactSupportOutlinedIcon fontSize="small" />
+            <SupportIcon fontSize="small" />
           </ListItemIcon>
           <ListItemText>{t('contactarSoporte')}</ListItemText>
         </MenuItem>
         <MenuItem
           onClick={() => {
             handleClose();
-            logout();
+            setOpenModal(true);
           }}
         >
           <ListItemIcon>
-            <LogoutOutlinedIcon fontSize="small" />
+            <LogoutIcon fontSize="small" />
           </ListItemIcon>
           <ListItemText>{t('cerrarSesion')}</ListItemText>
         </MenuItem>

@@ -1,11 +1,22 @@
-import type { GetServerSideProps, NextPage } from 'next';
-import { getSession } from 'next-auth/react';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { AppLayout } from '../components/layouts';
+import { ReactElement } from 'react';
 
-const HomePage: NextPage = () => {
+import type { GetServerSideProps } from 'next';
+import { getSession } from 'next-auth/react';
+
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+
+import { AppLayout } from '../components/layouts';
+import { NextPageWithLayout } from './_app';
+
+const HomePage: NextPageWithLayout = () => {
+  return <div></div>;
+};
+
+HomePage.getLayout = function getLayout(page: ReactElement) {
   return (
-    <AppLayout title="Eirete - Home Page" pageDescription="Página"></AppLayout>
+    <AppLayout title="Eirete - Home Page" pageDescription="Página">
+      {page}
+    </AppLayout>
   );
 };
 
