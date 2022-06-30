@@ -1,0 +1,17 @@
+{
+  "title": "Usuarios",
+  "noRowsLabel": "Sin usuarios que mostrar",
+  "labelRowsPerPage": "Nro. usuarios por página",
+  "form": {
+    "username": "Username",
+    "nombreApellido": "Nombres y apellidos",
+    "password": "Contraseña",
+    "perfiles": "Perfiles",
+    "sucursal": "Sucursal",
+    "save": "Guardar",
+    "cancel": "Cancelar"
+  },
+  "newUser": "Nuevo Usuario",
+  "usuarioPersist": "Usuario creado exitosamente",
+  "usuarioPersistError": "Ocurrió un error al guardar el usuario"
+}

@@ -1,3 +1,4 @@
+import { SnackBarEirete } from '@components/ui/Snackbar';
 import { Box } from '@mui/material';
 import Head from 'next/head';
 import { FC } from 'react';
@@ -28,6 +29,7 @@ export const AppLayout: FC<Props> = ({ children, title, pageDescription }) => {
           gap={3}
           sx={{ backgroundColor: '#E5E5E5', px: 4, py: 4 }}
         >
+          <SnackBarEirete />
           <SideBar />
 
           <Box
@@ -35,6 +37,8 @@ export const AppLayout: FC<Props> = ({ children, title, pageDescription }) => {
             sx={{
               backgroundColor: '#fff',
               borderRadius: 2,
+              py: 4,
+              px: 6,
             }}
           >
             {children}

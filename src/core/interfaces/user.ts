@@ -1,0 +1,15 @@
+import { IPerfil } from '.';
+
+export interface IUser {
+  uid: string;
+  nombreApellido?: string;
+  username: string;
+  estado: string;
+  token: string;
+  rol: IUserRol;
+  perfiles: IPerfil[];
+  correo?: string;
+  celular?: string;
+}
+
+export type IUserRol = 'ROOT_ROLE' | 'ADMIN_ROLE' | 'USER_ROLE';

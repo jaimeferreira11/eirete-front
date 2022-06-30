@@ -9,7 +9,8 @@
     "delivery": "Delivery",
     "stock": "Stock",
     "movimientos": "Movimientos",
-    "clientes": "Clientes"
+    "clientes": "Clientes",
+    "usuarios": "Usuarios"
   },
   "imprimirArqueo": "Imprimir último arqueo",
   "contactarSoporte": "Contactar soporte",

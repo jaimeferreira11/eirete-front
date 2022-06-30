@@ -1,7 +1,9 @@
+import { IUser } from '@core/interfaces';
 import { signOut, useSession } from 'next-auth/react';
 import { FC, useEffect, useReducer } from 'react';
-import { IUser } from '../../interfaces';
-import { AuthContext, authReducer } from './';
+
+import eireteApi from '@core/api';
+import { AuthContext, authReducer } from '.';
 
 export interface AuthState {
   isLoggedIn: boolean;
@@ -25,7 +27,12 @@ export const AuthProvider: FC<Props> = ({ children }) => {
   useEffect(() => {
     if (status === 'authenticated') {
       console.log('data', data);
-      dispatch({ type: 'login', payload: data.user as IUser });
+      const user = data.user as IUser;
+      eireteApi.defaults.headers.common['x-token'] = user.token;
+      dispatch({
+        type: 'login',
+        payload: user,
+      });
     }
   }, [data, status]);
 

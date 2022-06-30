@@ -123,7 +123,7 @@ const ModalConfirmation: FC<Props> = ({
       </DialogContent>
       <DialogActions>
         <Button variant="contained" onClick={onCancel} sx={{ py: 1, px: 2 }}>
-          {t('cancelar')}
+          {t('cancel')}
         </Button>
         <Button
           variant="outlined"

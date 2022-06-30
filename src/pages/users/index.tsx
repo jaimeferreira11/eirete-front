@@ -6,21 +6,25 @@ import { getSession } from 'next-auth/react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import { AppLayout } from '@components/layouts';
-import { NextPageWithLayout } from './_app';
+import { UsersDataGrid } from '@components/users';
+import { UserProvider } from '@lib/context';
+import { NextPageWithLayout } from '../_app';
 
-const HomePage: NextPageWithLayout = () => {
-  return <div></div>;
+const UsersPage: NextPageWithLayout = () => {
+  return <UsersDataGrid />;
 };
 
-HomePage.getLayout = function getLayout(page: ReactElement) {
+UsersPage.getLayout = function getLayout(page: ReactElement) {
   return (
-    <AppLayout title="Eirete - Home Page" pageDescription="Página">
-      {page}
-    </AppLayout>
+    <UserProvider>
+      <AppLayout title="Eirete - Home Page" pageDescription="Página">
+        {page}
+      </AppLayout>
+    </UserProvider>
   );
 };
 
-export default HomePage;
+export default UsersPage;
 
 // You should use getServerSideProps when:
 // - Only if you need to pre-render a page whose data must be fetched at request time
@@ -45,7 +49,11 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   return {
     props: {
-      ...(await serverSideTranslations(locale || 'es', ['common', 'sidebar'])),
+      ...(await serverSideTranslations(locale || 'es', [
+        'common',
+        'sidebar',
+        'usersABM',
+      ])),
     },
   };
 };

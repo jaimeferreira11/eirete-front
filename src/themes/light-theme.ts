@@ -5,21 +5,15 @@ let lightTheme = createTheme({
     mode: 'light',
     primary: {
       main: '#F5B223',
-      '100': '#FEEFC3',
     },
     secondary: {
       main: '#3A64D8',
     },
     success: {
       main: '#59AF25',
-      '100': '#CEF5B6',
     },
     error: {
       main: '#E83035',
-      '100': '#FCE3E3',
-    },
-    info: {
-      main: '#fff',
     },
   },
   components: {
@@ -64,6 +58,31 @@ let lightTheme = createTheme({
     //   },
     // },
 
+    MuiListItemButton: {
+      styleOverrides: {
+        root: {
+          '&.Mui-selected': {
+            border: `0.5px solid #fff`,
+            backgroundColor: '#F5B223',
+            color: '#fff',
+            '& *': {
+              fontWeight: 800,
+            },
+            fontSize: 18,
+            '&&:hover': {
+              color: '#141414',
+              backgroundColor: '#FEEFC3',
+              transition: 'all 0.4s ease-in-out',
+              '& *': {
+                color: '#141414',
+                fontWeight: 500,
+                transition: 'all 0.1s ease-in-out',
+              },
+            },
+          },
+        },
+      },
+    },
     MuiButton: {
       defaultProps: {
         variant: 'contained',
@@ -73,6 +92,7 @@ let lightTheme = createTheme({
       styleOverrides: {
         root: {
           color: '#fff',
+          padding: '8px 16px',
           textTransform: 'none',
           boxShadow: 'none',
           borderRadius: 10,

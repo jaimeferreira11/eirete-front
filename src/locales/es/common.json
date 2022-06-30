@@ -5,6 +5,6 @@
   },
   "modal": {
     "ok": "Aceptar",
-    "cancelar": "Cancelar"
+    "cancel": "Cancelar"
   }
 }

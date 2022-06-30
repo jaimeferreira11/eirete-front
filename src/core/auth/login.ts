@@ -1,23 +1,21 @@
 import { EireteApi } from '..';
+import { IAuthUser } from '../interfaces';
 
-interface IUserAuth {
+interface CredentialsProps {
   username: string;
   password: string;
 }
 
-export const userLogin = async ({ username, password }: IUserAuth) => {
+export const userLogin = async ({ username, password }: CredentialsProps) => {
   try {
-    const { data } = await EireteApi.post('/auth/login', {
+    const { data } = await EireteApi.post<IAuthUser>('/auth/login', {
       username,
       password,
     });
-
     if (data)
       return {
-        username,
-        nombreApellido: data.usuario?.nombreApellido,
-        _id: data.usuario?.uid,
-        estado: data.usuario?.estado,
+        ...data.usuario,
+        token: data.token,
       };
 
     return null;
