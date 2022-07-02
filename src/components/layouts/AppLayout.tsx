@@ -21,23 +21,20 @@ export const AppLayout: FC<Props> = ({ children, title, pageDescription }) => {
         <meta name="og:description" content={pageDescription} />
       </Head>
 
-      <main>
+      <main style={{ height: '100vh' }}>
         <Box
           display="flex"
-          width="100%"
-          height="100vh"
           gap={3}
-          sx={{ backgroundColor: '#E5E5E5', px: 4, py: 4 }}
+          sx={{ backgroundColor: '#E5E5E5', px: 4, py: 4, height: '100%' }}
         >
-          <SnackBarEirete />
           <SideBar />
-
+          <SnackBarEirete />
           <Box
             flex={2}
             sx={{
               backgroundColor: '#fff',
               borderRadius: 2,
-              py: 4,
+              py: 7.5,
               px: 6,
             }}
           >
@@ -45,8 +42,6 @@ export const AppLayout: FC<Props> = ({ children, title, pageDescription }) => {
           </Box>
         </Box>
       </main>
-      {/* Footer */}
-      <footer>{/* TODO CustomFooter */}</footer>
     </>
   );
 };

@@ -8,10 +8,14 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { AppLayout } from '@components/layouts';
 import { UsersDataGrid } from '@components/users';
 import { UserProvider } from '@lib/context';
+import { useAuthProvider } from '@lib/hooks';
+import { CircularProgress } from '@mui/material';
 import { NextPageWithLayout } from '../_app';
 
 const UsersPage: NextPageWithLayout = () => {
-  return <UsersDataGrid />;
+  const { isLoggedIn } = useAuthProvider();
+
+  return !isLoggedIn ? <CircularProgress /> : <UsersDataGrid />;
 };
 
 UsersPage.getLayout = function getLayout(page: ReactElement) {

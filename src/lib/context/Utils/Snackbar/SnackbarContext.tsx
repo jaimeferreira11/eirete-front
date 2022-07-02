@@ -1,10 +1,11 @@
+import { AlertColor } from '@mui/material';
 import { createContext } from 'react';
 import { SnackbarState } from './SnackbarProvider';
 
 interface ContextProps {
   message: string;
   show: boolean;
-  type: string;
+  type: AlertColor;
   showSnackbar: (options: SnackbarState) => void;
   closeSnackbar: () => void;
 }

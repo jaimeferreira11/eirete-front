@@ -4,10 +4,10 @@ import { Button, Chip, Grid, Typography } from '@mui/material';
 import { GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 
 import { DataGridEirete } from '@components/ui/DataGridComponents';
-import { UsuarioForm } from '@components/ui/Users/UsuarioForm';
 import { IUser, ListPaginationOptions } from '@core/interfaces';
 import { useUsers } from '@lib/hooks';
 import { useTranslation } from 'next-i18next';
+import { UsuarioForm } from './UsuarioForm';
 
 const columns: GridColDef[] = [
   { field: 'username', headerName: 'Username', width: 100 },
@@ -58,6 +58,7 @@ export const UsersDataGrid = () => {
   const [pagination, setPagination] = useState<ListPaginationOptions>({
     desde: 0,
     limite: 10,
+    total: 0,
   });
 
   const [showModal, setShowModal] = useState(false);
@@ -71,7 +72,7 @@ export const UsersDataGrid = () => {
   }, [users?.data]);
 
   const onPageChange = (page: number) => {
-    setPagination((prev) => ({ ...prev, desde: page - 1 }));
+    setPagination((prev) => ({ ...prev, desde: page * prev.limite }));
   };
 
   const onPageSizeChange = (pageSize: number) => {
@@ -84,10 +85,16 @@ export const UsersDataGrid = () => {
   };
 
   return (
-    <Grid flexDirection="column" container>
+    <>
       <UsuarioForm open={showModal} handleClose={handleCloseModal} />
-      <Grid item sx={{ mb: 2 }}>
-        <Grid container alignItems="center" justifyContent="space-between">
+      <Grid direction="column" container sx={{ width: '100%' }}>
+        <Grid
+          xs={1}
+          item
+          container
+          justifyContent="space-between"
+          sx={{ mb: 2 }}
+        >
           <Grid item>
             <Typography variant="h4" component="h1">
               {t('title')}
@@ -106,22 +113,24 @@ export const UsersDataGrid = () => {
             </Button>
           </Grid>
         </Grid>
+
+        <Grid xs={11} item>
+          <DataGridEirete
+            config={{
+              columns,
+              isLoading: isLoading,
+              noRowsLabel: t('noRowsLabel'),
+              labelRowsPerPage: t('labelRowsPerPage'),
+              onPageChange,
+              onPageSizeChange,
+              paginationState: pagination,
+              rows: usuarios,
+              title: t('title'),
+              total: users?.total || 0,
+            }}
+          />
+        </Grid>
       </Grid>
-      <Grid item>
-        <DataGridEirete
-          config={{
-            columns,
-            isLoading,
-            noRowsLabel: t('noRowsLabel'),
-            labelRowsPerPage: t('labelRowsPerPage'),
-            onPageChange,
-            onPageSizeChange,
-            paginationState: pagination,
-            rows: usuarios,
-            title: t('title'),
-          }}
-        />
-      </Grid>
-    </Grid>
+    </>
   );
 };

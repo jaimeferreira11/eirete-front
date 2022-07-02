@@ -11,4 +11,5 @@ export interface IDataGridEireteConfig {
   noRowsLabel: string;
   labelRowsPerPage: string;
   title: string;
+  total: number;
 }

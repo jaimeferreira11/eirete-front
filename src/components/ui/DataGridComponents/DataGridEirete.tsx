@@ -19,6 +19,7 @@ export const DataGridEirete: FC<Props> = ({ config }) => {
     onPageSizeChange,
     paginationState,
     rows,
+    total,
   } = config;
 
   return (
@@ -29,6 +30,8 @@ export const DataGridEirete: FC<Props> = ({ config }) => {
           rows={rows}
           columns={columns}
           pageSize={paginationState.limite}
+          paginationMode="server"
+          rowCount={total}
           rowsPerPageOptions={[5, 10, 20]}
           onPageChange={onPageChange}
           onPageSizeChange={onPageSizeChange}

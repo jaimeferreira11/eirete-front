@@ -20,7 +20,6 @@ import {
 } from '@mui/material';
 
 import { IUser } from '@core/interfaces';
-import { INewUser } from '@lib/interfaces/NewUser';
 
 import {
   usePerfil,
@@ -28,6 +27,7 @@ import {
   useSucursal,
   useUserProvider,
 } from '@lib/hooks';
+import { INewUser } from '@lib/interfaces';
 
 interface Props {
   children?: React.ReactNode;
@@ -64,13 +64,15 @@ export const UsuarioForm: FC<Props> = ({
   const onSubmit = async (newUser: INewUser) => {
     const newUserCrud = {
       ...newUser,
+      // TODO encriptar contraseña
       perfiles: newUser.perfiles.map((perfil) => ({ _id: perfil })),
       sucursal: { _id: newUser.sucursal },
     };
 
-    try {
-      setIsSaving(true);
-      await saveUser(newUserCrud);
+    setIsSaving(true);
+    const result = await saveUser(newUserCrud);
+
+    if (!result.hasError) {
       showSnackbar({
         message: t('usuarioPersist'),
         type: 'success',
@@ -78,13 +80,13 @@ export const UsuarioForm: FC<Props> = ({
       });
       setIsSaving(false);
       handleClose();
-    } catch (error) {
-      console.log(error);
+    } else {
       showSnackbar({
-        message: t('usuarioPersistError'),
+        message: result.message || t('usuarioPersistError'),
         type: 'error',
         show: true,
       });
+      setIsSaving(false);
     }
   };
 

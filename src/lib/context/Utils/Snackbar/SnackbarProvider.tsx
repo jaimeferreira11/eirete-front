@@ -1,18 +1,17 @@
+import { AlertColor } from '@mui/material';
 import { FC, PropsWithChildren, useReducer } from 'react';
 import { SnackbarContext, snackbarReducer } from './';
 
-export type SnackbarMessageType = 'success' | 'error' | 'warning' | 'info' | '';
-
 export interface SnackbarState {
   message: string;
-  type: SnackbarMessageType;
+  type: AlertColor;
   show: boolean;
 }
 
 const SNACKBAR_INITIAL_STATE: SnackbarState = {
   message: '',
   show: false,
-  type: '',
+  type: 'success',
 };
 
 export const SnackbarProvider: FC<PropsWithChildren<any>> = ({ children }) => {
