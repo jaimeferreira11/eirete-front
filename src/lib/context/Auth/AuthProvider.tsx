@@ -26,7 +26,6 @@ export const AuthProvider: FC<Props> = ({ children }) => {
 
   useEffect(() => {
     if (status === 'authenticated') {
-      console.log('data', data);
       const user = data.user as IUser;
       eireteApi.defaults.headers.common['x-token'] = user.token;
       dispatch({

@@ -6,4 +6,5 @@ export interface INewUser {
   password: string;
   perfiles: string[];
   sucursal: string;
+  passwordConfirmation: string;
 }

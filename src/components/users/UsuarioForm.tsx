@@ -33,20 +33,34 @@ interface Props {
   children?: React.ReactNode;
   open: boolean;
   handleClose: () => void;
-  usuario?: IUser;
+  user?: IUser;
 }
 
 export const UsuarioForm: FC<Props> = ({
   open,
   handleClose,
-  usuario = undefined,
+  user = undefined,
 }) => {
   const { saveUser } = useUserProvider();
   const { showSnackbar } = useSnackbarProvider();
   const { t } = useTranslation('usersABM');
   const { t: tForm } = useTranslation('common', { keyPrefix: 'forms' });
 
-  const title = usuario ? t('ediUser') : t('newUser');
+  const title = user ? t('editUser') : t('newUser');
+
+  const initialData = user
+    ? {
+        username: user?.username,
+        nombreApellido: user?.nombreApellido,
+        perfiles: user.perfiles.map((perfil) => perfil._id),
+        sucursal: user.sucursal._id,
+      }
+    : {
+        username: '',
+        nombreApellido: '',
+        perfiles: [],
+        sucursal: '',
+      };
 
   const [isSaving, setIsSaving] = useState(false);
 
@@ -55,26 +69,25 @@ export const UsuarioForm: FC<Props> = ({
 
   const {
     control,
-    register,
     handleSubmit,
     reset,
+    getValues,
     formState: { errors },
   } = useForm<INewUser>();
 
   const onSubmit = async (newUser: INewUser) => {
     const newUserCrud = {
       ...newUser,
-      // TODO encriptar contraseña
       perfiles: newUser.perfiles.map((perfil) => ({ _id: perfil })),
       sucursal: { _id: newUser.sucursal },
     };
 
     setIsSaving(true);
-    const result = await saveUser(newUserCrud);
+    const result = await saveUser(newUserCrud, user);
 
     if (!result.hasError) {
       showSnackbar({
-        message: t('usuarioPersist'),
+        message: !user ? t('usuarioPersist') : t('usuarioUpdated'),
         type: 'success',
         show: true,
       });
@@ -114,48 +127,58 @@ export const UsuarioForm: FC<Props> = ({
         <DialogContent style={{ maxHeight: '450px' }}>
           <Grid spacing={3} container sx={{ px: 1, mt: 1 }}>
             <Grid xs={6} item>
-              <TextField
-                inputProps={{
-                  autoComplete: 'username',
-                  form: {
-                    autoComplete: 'off',
-                  },
-                }}
-                label={t('form.username')}
-                fullWidth
-                {...register('username', {
-                  required: tForm('required'),
-                })}
-                error={!!errors.username}
-                helperText={errors.username?.message}
-              />
-            </Grid>
-            <Grid xs={6} item>
-              <TextField
-                inputProps={{
-                  autoComplete: 'nombreApellido',
-                  form: {
-                    autoComplete: 'off',
-                  },
-                }}
-                label={t('form.nombreApellido')}
-                fullWidth
-                {...register('nombreApellido', {
-                  required: tForm('required'),
-                  minLength: {
-                    value: 6,
-                    message: tForm('minLengthField', { cantidad: 6 }),
-                  },
-                })}
-                error={!!errors.password}
-                helperText={errors.password?.message}
+              <Controller
+                control={control}
+                name="username"
+                defaultValue={initialData?.username}
+                rules={{ required: tForm('required') }}
+                render={({ field }) => (
+                  <TextField
+                    label={t('form.username')}
+                    fullWidth
+                    {...field}
+                    inputProps={{
+                      autoComplete: 'username',
+                      form: {
+                        autoComplete: 'off',
+                      },
+                    }}
+                    disabled={user !== undefined}
+                    error={!!errors.username}
+                    helperText={errors.username?.message}
+                  />
+                )}
               />
             </Grid>
             <Grid xs={6} item>
               <Controller
                 control={control}
-                rules={{ required: tForm('required') }}
+                name="nombreApellido"
+                defaultValue={initialData?.nombreApellido}
+                rules={{
+                  required: tForm('required'),
+                  minLength: {
+                    value: 6,
+                    message: tForm('minLengthField', { cantidad: 6 }),
+                  },
+                }}
+                render={({ field }) => (
+                  <TextField
+                    label={t('form.nombreApellido')}
+                    fullWidth
+                    {...field}
+                    error={!!errors.password}
+                    helperText={errors.password?.message}
+                  />
+                )}
+              />
+            </Grid>
+            <Grid xs={6} item>
+              <Controller
+                control={control}
                 name="perfiles"
+                defaultValue={initialData?.perfiles}
+                rules={{ required: tForm('required') }}
                 render={({ field }) => {
                   return (
                     <TextField
@@ -166,7 +189,6 @@ export const UsuarioForm: FC<Props> = ({
                       value={field.value || []}
                       error={!!errors.perfiles}
                       helperText={errors.perfiles?.message}
-                      defaultValue={[]}
                       SelectProps={{
                         multiple: true,
                         native: false,
@@ -202,50 +224,90 @@ export const UsuarioForm: FC<Props> = ({
               />
             </Grid>
             <Grid xs={6} item>
-              <TextField
-                select
-                inputProps={{
-                  autoComplete: 'sucursal',
-                  form: {
-                    autoComplete: 'off',
-                  },
-                }}
-                label={t('form.sucursal')}
-                fullWidth
-                {...register('sucursal', {
+              <Controller
+                control={control}
+                name="sucursal"
+                defaultValue={initialData?.sucursal}
+                rules={{
                   required: tForm('required'),
-                })}
-                error={!!errors.sucursal}
-                helperText={errors.sucursal?.message}
-                defaultValue=""
-              >
-                {sucursales?.map((sucursal) => (
-                  <MenuItem key={sucursal._id} value={sucursal._id}>
-                    {sucursal.descripcion}
-                  </MenuItem>
-                ))}
-              </TextField>
+                }}
+                render={({ field }) => (
+                  <TextField
+                    select
+                    label={t('form.sucursal')}
+                    fullWidth
+                    {...field}
+                    error={!!errors.sucursal}
+                    helperText={errors.sucursal?.message}
+                  >
+                    {sucursales?.map((sucursal) => (
+                      <MenuItem key={sucursal._id} value={sucursal._id}>
+                        {sucursal.descripcion}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                )}
+              />
             </Grid>
-            <Grid xs={12} item>
-              <TextField
-                inputProps={{
-                  autoComplete: 'password',
-                  form: {
-                    autoComplete: 'off',
-                  },
-                }}
-                type="password"
-                label={t('form.password')}
-                fullWidth
-                {...register('password', {
-                  required: tForm('required'),
+            <Grid xs={6} item>
+              <Controller
+                control={control}
+                name="password"
+                defaultValue=""
+                rules={{
+                  required: !user ? tForm('required') : false,
                   minLength: {
                     value: 6,
                     message: tForm('minLengthField', { cantidad: 6 }),
                   },
-                })}
-                error={!!errors.password}
-                helperText={errors.password?.message}
+                }}
+                render={({ field }) => (
+                  <TextField
+                    type="password"
+                    label={t('form.password')}
+                    fullWidth
+                    {...field}
+                    inputProps={{
+                      autoComplete: 'password',
+                      form: {
+                        autoComplete: 'off',
+                      },
+                    }}
+                    error={!!errors.password}
+                    helperText={errors.password?.message}
+                  />
+                )}
+              />
+            </Grid>
+            <Grid xs={6} item>
+              <Controller
+                control={control}
+                name="passwordConfirmation"
+                defaultValue=""
+                rules={{
+                  required: !user ? tForm('required') : false,
+                  validate: {
+                    confirmPassword: (value) =>
+                      value === getValues().password ||
+                      t('form.confirmPasswordError'),
+                  },
+                }}
+                render={({ field }) => (
+                  <TextField
+                    type="password"
+                    label={t('form.passwordConfirmation')}
+                    fullWidth
+                    {...field}
+                    inputProps={{
+                      autoComplete: 'passwordConfirmation',
+                      form: {
+                        autoComplete: 'off',
+                      },
+                    }}
+                    error={!!errors.passwordConfirmation}
+                    helperText={errors.passwordConfirmation?.message}
+                  />
+                )}
               />
             </Grid>
           </Grid>

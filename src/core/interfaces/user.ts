@@ -10,6 +10,10 @@ export interface IUser {
   perfiles: IPerfil[];
   correo?: string;
   celular?: string;
+  sucursal: {
+    _id: string;
+    descripcion: string;
+  };
 }
 
 export type IUserRol = 'ROOT_ROLE' | 'ADMIN_ROLE' | 'USER_ROLE';

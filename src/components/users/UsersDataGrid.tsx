@@ -1,64 +1,38 @@
 import { useMemo, useState } from 'react';
 
+import {
+  EditOutlined as EditIcon,
+  PersonRemoveOutlined as DeleteIcon,
+} from '@mui/icons-material';
 import { Button, Chip, Grid, Typography } from '@mui/material';
 import { GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 
-import { DataGridEirete } from '@components/ui/DataGridComponents';
-import { IUser, ListPaginationOptions } from '@core/interfaces';
-import { useUsers } from '@lib/hooks';
 import { useTranslation } from 'next-i18next';
-import { UsuarioForm } from './UsuarioForm';
 
-const columns: GridColDef[] = [
-  { field: 'username', headerName: 'Username', width: 100 },
-  { field: 'nombreApellido', headerName: 'Nombre y apellido', width: 300 },
-  {
-    field: 'estado',
-    headerName: 'Estado',
-    width: 300,
-    renderCell: (params: GridValueGetterParams) =>
-      params.row.estado ? (
-        <Chip color="success" label="Activo" variant="outlined" />
-      ) : (
-        <Chip color="error" label="Inactivo" variant="outlined" />
-      ),
-  },
-  // {
-  //   field: 'paid',
-  //   headerName: 'Payment',
-  //   description: 'Show if the order is paid',
-  //   width: 200,
-  //   renderCell: (params: GridValueGetterParams) =>
-  //     params.row.paid ? (
-  //       <Chip color="success" label="Paid" variant="outlined" />
-  //     ) : (
-  //       <Chip color="error" label="Pending payment" variant="outlined" />
-  //     ),
-  // },
-  // {
-  //   field: 'orderlink',
-  //   headerName: 'Order detail',
-  //   width: 200,
-  //   sortable: false,
-  //   editable: false,
-  //   renderCell: (params: GridValueGetterParams) => (
-  //     <NextLink href={`/orders/${params.row.id}`} passHref prefetch={false}>
-  //       <Link color="secondary" underline="always">
-  //         Go to detail
-  //       </Link>
-  //     </NextLink>
-  //   ),
-  // },
-];
+import ModalConfirmation from '@components/ui/ConfirmationModal/ModalConfirmation';
+import {
+  ActionsColumn,
+  DataGridEirete,
+} from '@components/ui/DataGridComponents';
+import { IUser, ListPaginationOptions } from '@core/interfaces';
+import { useSnackbarProvider, useUserProvider, useUsers } from '@lib/hooks';
+import { UsuarioForm } from './UsuarioForm';
 
 export const UsersDataGrid = () => {
   const { t } = useTranslation('usersABM');
 
+  const { deactivateUser } = useUserProvider();
+  const { showSnackbar } = useSnackbarProvider();
+
   const [usuarios, setUsuarios] = useState<IUser[]>([]);
+
+  const [editUser, setEditUser] = useState<IUser | undefined>(undefined);
+
+  const [openRemoveModal, setOpenRemoveModal] = useState(false);
+
   const [pagination, setPagination] = useState<ListPaginationOptions>({
     desde: 0,
     limite: 10,
-    total: 0,
   });
 
   const [showModal, setShowModal] = useState(false);
@@ -81,12 +55,106 @@ export const UsersDataGrid = () => {
 
   const handleCloseModal = () => {
     setShowModal(false);
+    setEditUser(undefined);
     mutate();
   };
 
+  const handleDeactivation = async () => {
+    const result = await deactivateUser(editUser?.uid!);
+
+    if (!result.hasError) {
+      showSnackbar({
+        message: t('usuarioUpdated'),
+        type: 'success',
+        show: true,
+      });
+      setEditUser(undefined);
+      setOpenRemoveModal(false);
+      mutate();
+    } else {
+      showSnackbar({
+        message: result.message || t('usuarioPersistError'),
+        type: 'error',
+        show: true,
+      });
+      setOpenRemoveModal(false);
+    }
+  };
+  // columnas
+  const columns: GridColDef[] = [
+    { field: 'username', headerName: t('form.username'), width: 100 },
+    {
+      field: 'nombreApellido',
+      headerName: t('form.nombreApellido'),
+      flex: 1,
+    },
+    {
+      field: 'sucursal',
+      headerName: t('form.sucursal'),
+
+      renderCell: (params: GridValueGetterParams) =>
+        params.row.sucursal.descripcion,
+    },
+    {
+      field: 'estado',
+      headerName: t('form.estado'),
+
+      renderCell: (params: GridValueGetterParams) =>
+        params.row.estado ? (
+          <Chip color="success" label={t('form.active')} variant="outlined" />
+        ) : (
+          <Chip color="error" label={t('form.deactive')} variant="outlined" />
+        ),
+    },
+    {
+      field: 'actions',
+      headerName: t('form.actions'),
+      description: t('form.actionsDescription'),
+
+      renderCell: (params: GridValueGetterParams) => (
+        <ActionsColumn
+          actions={[
+            {
+              id: 'editar',
+              onClick: () => {
+                setEditUser(params.row);
+                setShowModal(true);
+              },
+              icon: <EditIcon />,
+              title: t('form.edit'),
+            },
+            {
+              id: 'desactivar',
+              onClick: () => {
+                setOpenRemoveModal(true);
+                setEditUser(params.row);
+              },
+              icon: <DeleteIcon />,
+              title: t('form.remove'),
+            },
+          ]}
+        />
+      ),
+    },
+  ];
+
   return (
     <>
-      <UsuarioForm open={showModal} handleClose={handleCloseModal} />
+      <UsuarioForm
+        open={showModal}
+        handleClose={handleCloseModal}
+        user={editUser}
+      />
+      <ModalConfirmation
+        onCancel={() => {
+          setOpenRemoveModal(false);
+          setEditUser(undefined);
+        }}
+        message={t('confirmDeactivation')}
+        open={openRemoveModal}
+        onAccept={handleDeactivation}
+        title={t('userDeactivation')}
+      />
       <Grid direction="column" container sx={{ width: '100%' }}>
         <Grid
           xs={1}

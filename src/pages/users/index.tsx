@@ -35,12 +35,11 @@ export default UsersPage;
 
 export const getServerSideProps: GetServerSideProps = async ({
   req,
-  query,
   locale,
 }) => {
   const session = await getSession({ req });
 
-  const { p = '/' } = query;
+  const p = req.url;
 
   if (!session) {
     return {

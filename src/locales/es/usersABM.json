@@ -6,12 +6,25 @@
     "username": "Username",
     "nombreApellido": "Nombres y apellidos",
     "password": "Contraseña",
+    "estado": "Estado",
     "perfiles": "Perfiles",
     "sucursal": "Sucursal",
     "save": "Guardar",
-    "cancel": "Cancelar"
+    "cancel": "Cancelar",
+    "active": "Activo",
+    "deactive": "Desactivado",
+    "actions": "Acciones",
+    "actionsDescription": "Acciones aplicables",
+    "edit": "Editar",
+    "remove": "Desactivar",
+    "passwordConfirmation": "Confirmar contraseña",
+    "confirmPasswordError": "La contraseñas ingresadas no coinciden"
   },
   "newUser": "Nuevo Usuario",
+  "editUser": "Editar Usuario",
   "usuarioPersist": "Usuario creado exitosamente",
-  "usuarioPersistError": "Ocurrió un error al guardar el usuario"
+  "usuarioUpdated": "Usuario modificado exitosamente",
+  "usuarioPersistError": "Ocurrió un error al guardar el usuario",
+  "confirmDeactivation": "¿Está seguro de cambiar el estado?",
+  "userDeactivation": "Desactivar usuario"
 }

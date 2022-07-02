@@ -36,6 +36,7 @@ export const DataGridEirete: FC<Props> = ({ config }) => {
           onPageChange={onPageChange}
           onPageSizeChange={onPageSizeChange}
           loading={isLoading}
+          disableSelectionOnClick
           localeText={{
             noRowsLabel: noRowsLabel,
             MuiTablePagination: {
