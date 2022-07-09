@@ -10,7 +10,7 @@ export const Logo = () => {
       flexDirection="column"
       justifyContent="space-around"
       alignItems="center"
-      sx={{ width: 'auto', textAlign: 'center', pb: 2 }}
+      sx={{ width: 'auto', textAlign: 'center', pb: 2, pt: 2 }}
     >
       <GrainIcon color="primary" sx={{ fontSize: { xs: 60, sm: 100 } }} />
       <Typography

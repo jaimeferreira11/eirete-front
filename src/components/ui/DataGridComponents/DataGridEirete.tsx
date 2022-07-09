@@ -22,11 +22,12 @@ export const DataGridEirete: FC<Props> = ({ config }) => {
     total,
   } = config;
 
+  console.log('rows', rows);
   return (
     <>
       <Box sx={{ height: 650, width: '100%' }}>
         <DataGrid
-          getRowId={(row) => row.uid}
+          getRowId={(row) => row._id}
           rows={rows}
           columns={columns}
           pageSize={paginationState.limite}

@@ -1,4 +1,5 @@
 export * from './ApiResponses';
+export * from './endpointResult';
 export * from './ListPaginationOptions';
 export * from './perfil';
 export * from './sucursal';

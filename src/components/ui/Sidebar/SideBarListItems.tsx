@@ -12,6 +12,7 @@ import {
   MonitorOutlined as CajaIcon,
   PersonOutlineOutlined as ClientesIcon,
   ShoppingCartOutlined as MovimientosIcon,
+  StorefrontOutlined as SucursalIcon,
 } from '@mui/icons-material';
 import {
   Link,
@@ -65,6 +66,13 @@ const menuItems = [
     text: 'links.clientes',
     roles: [''],
     path: '/',
+  },
+  {
+    id: 'sucursales',
+    icon: <SucursalIcon />,
+    text: 'links.sucursales',
+    roles: [''],
+    path: '/sucursales',
   },
   {
     id: 'usuarios',

@@ -37,7 +37,6 @@ const LoginPage: NextPageWithLayout = () => {
   const onSubmit = async ({ username, password }: FormData) => {
     try {
       setIsLogging(true);
-      // TODO encriptar contraseña
       await signIn('credentials', { username, password });
       setIsLogging(false);
     } catch (error) {

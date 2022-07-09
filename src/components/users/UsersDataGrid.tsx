@@ -38,7 +38,7 @@ export const UsersDataGrid = () => {
   const [showModal, setShowModal] = useState(false);
 
   const { isLoading, users, mutate } = useUsers(
-    `/usuarios?limite=${pagination.limite}&desde=${pagination.desde}`
+    `/usuarios?paginado=true&limite=${pagination.limite}&desde=${pagination.desde}`
   );
 
   useMemo(() => {
@@ -91,7 +91,7 @@ export const UsersDataGrid = () => {
     {
       field: 'sucursal',
       headerName: t('form.sucursal'),
-
+      flex: 1,
       renderCell: (params: GridValueGetterParams) =>
         params.row.sucursal.descripcion,
     },
@@ -155,7 +155,7 @@ export const UsersDataGrid = () => {
         onAccept={handleDeactivation}
         title={t('userDeactivation')}
       />
-      <Grid direction="column" container sx={{ width: '100%' }}>
+      <Grid direction="column" container sx={{ width: '100%', p: 3 }}>
         <Grid
           xs={1}
           item

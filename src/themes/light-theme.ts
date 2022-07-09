@@ -35,28 +35,22 @@ let lightTheme = createTheme({
       },
     },
 
-    // MuiTypography: {
-    //   styleOverrides: {
-    //     h1: {
-    //       fontSize: 30,
-    //       fontWeight: 600,
-    //     },
-    //     h2: {
-    //       fontSize: 20,
-    //       fontWeight: 400,
-    //     },
-    //     subtitle1: {
-    //       fontSize: 18,
-    //       fontWeight: 600,
-    //     },
-    //     h5: {
-    //       fontSize: '1.5625rem',
-    //       [`@media screen and (max-width: ${breakpoints.values.lg}px)`]: {
-    //         fontSize: '0.6785rem',
-    //       },
-    //     },
-    //   },
-    // },
+    MuiTypography: {
+      styleOverrides: {
+        h1: {
+          fontSize: 30,
+          fontWeight: 600,
+        },
+        h2: {
+          fontSize: 20,
+          fontWeight: 400,
+        },
+        subtitle1: {
+          fontSize: 18,
+          fontWeight: 600,
+        },
+      },
+    },
 
     MuiListItemButton: {
       styleOverrides: {
@@ -91,13 +85,11 @@ let lightTheme = createTheme({
       },
       styleOverrides: {
         root: {
-          color: '#fff',
           padding: '8px 16px',
           textTransform: 'none',
           boxShadow: 'none',
           borderRadius: 10,
           ':hover': {
-            color: '#000000',
             backgroundColor: '#FEEFC3',
             transition: 'all 0.3s ease-in-out',
           },

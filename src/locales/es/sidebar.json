@@ -10,7 +10,8 @@
     "stock": "Stock",
     "movimientos": "Movimientos",
     "clientes": "Clientes",
-    "usuarios": "Usuarios"
+    "usuarios": "Usuarios",
+    "sucursales": "Sucursales"
   },
   "imprimirArqueo": "Imprimir último arqueo",
   "contactarSoporte": "Contactar soporte",

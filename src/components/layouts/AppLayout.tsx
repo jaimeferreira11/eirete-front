@@ -34,8 +34,6 @@ export const AppLayout: FC<Props> = ({ children, title, pageDescription }) => {
             sx={{
               backgroundColor: '#fff',
               borderRadius: 2,
-              py: 7.5,
-              px: 6,
             }}
           >
             {children}
