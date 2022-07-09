@@ -143,7 +143,7 @@ export const SucursalTab: FC<Props> = ({ tipo }) => {
       </Box>
       <Box
         flex={1}
-        sx={{ pl: 2 }}
+        sx={{ pl: 2, pt: 1 }}
         display="flex"
         flexDirection="column"
         justifyContent="center"

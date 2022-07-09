@@ -35,7 +35,13 @@ export const SucursalesDataGrid = () => {
         flexDirection="column"
         sx={{ p: 2, height: '100%' }}
       >
-        <Box display="flex" justifyContent="space-between">
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          sx={{
+            borderBottom: '0.1em solid #EAEAEA',
+          }}
+        >
           <Box>
             <Tabs
               value={actualTab}
