@@ -4,12 +4,13 @@ import { Controller, useForm } from 'react-hook-form';
 
 import { useTranslation } from 'next-i18next';
 
-import { Button, Grid, MenuItem, TextField } from '@mui/material';
+import { Autocomplete, Button, Grid, TextField } from '@mui/material';
 
 import { ISucursal } from '@core/interfaces';
 
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
+import { useCiudades } from '@lib/hooks';
 import { INewSucursal } from '@lib/interfaces/NewSucursal';
 
 interface Props {
@@ -46,26 +47,9 @@ export const useSucursalForm = ({ sucursal = undefined }: Props) => {
 
   const [disabled, setDisabled] = useState(sucursal ? true : false);
 
-  // TODO CAMBIAR CIUDADES PARA OBTENER DE BD
+  const { ciudades } = useCiudades();
 
-  const ciudades = [
-    {
-      _id: 'Asuncion',
-      descripcion: 'Asunción',
-    },
-    {
-      _id: 'LUQ',
-      descripcion: 'Luque',
-    },
-    {
-      _id: '3',
-      descripcion: 'Capiata',
-    },
-    {
-      _id: 'MRA',
-      descripcion: 'Mariano',
-    },
-  ];
+  // TODO CAMBIAR CIUDADES PARA OBTENER DE BD
 
   const {
     control,
@@ -135,23 +119,28 @@ export const useSucursalForm = ({ sucursal = undefined }: Props) => {
             control={control}
             name="ciudad"
             rules={{ required: tForm('required') }}
-            render={({ field }) => {
+            render={({ field: { ref, onChange, ...field } }) => {
               return (
-                <TextField
-                  select
-                  label={t('form.ciudad')}
-                  fullWidth
-                  {...field}
-                  error={!!errors.ciudad}
-                  helperText={errors.ciudad?.message}
-                  disabled={disabled}
-                >
-                  {ciudades?.map((ciudad) => (
-                    <MenuItem key={ciudad._id} value={ciudad._id}>
-                      {ciudad.descripcion}
-                    </MenuItem>
-                  ))}
-                </TextField>
+                <Autocomplete
+                  options={ciudades || []}
+                  isOptionEqualToValue={(option, value) =>
+                    option._id === value._id
+                  }
+                  getOptionLabel={(option) => option.descripcion}
+                  onChange={(_, data) => onChange(data?.descripcion)}
+                  renderInput={(params) => (
+                    <TextField
+                      label={t('form.ciudad')}
+                      {...params}
+                      {...field}
+                      inputRef={ref}
+                      fullWidth
+                      error={!!errors.ciudad}
+                      helperText={errors.ciudad?.message}
+                      disabled={disabled}
+                    />
+                  )}
+                />
               );
             }}
           />

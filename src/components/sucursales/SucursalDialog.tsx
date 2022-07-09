@@ -14,6 +14,8 @@ import {
 
 import { ISucursal } from '@core/interfaces';
 
+import { useSnackbarProvider, useSucuralesProvider } from '@lib/hooks';
+import { INewSucursal } from '@lib/interfaces';
 import { useSucursalForm } from './useSucursalForm';
 
 interface Props {
@@ -29,7 +31,8 @@ export const SucursalDialog: FC<Props> = ({
   sucursal = undefined,
 }) => {
   const { t } = useTranslation('sucursalesABM');
-  const { t: tForm } = useTranslation('common', { keyPrefix: 'forms' });
+  const { save } = useSucuralesProvider();
+  const { showSnackbar } = useSnackbarProvider();
 
   const title = sucursal ? t('editUser') : t('newSucursal');
 
@@ -37,25 +40,25 @@ export const SucursalDialog: FC<Props> = ({
 
   const [isSaving, setIsSaving] = useState(false);
 
-  // TODO CAMBIAR CIUDADES PARA OBTENER DE BD
-
-  const ciudades = [
-    {
-      _id: '1',
-      descripcion: 'Asunción',
-    },
-    {
-      _id: '2',
-      descripcion: 'Luque',
-    },
-    {
-      _id: '3',
-      descripcion: 'Capiata',
-    },
-  ];
-
-  const onSubmit = (values) => {
-    console.log('values', values);
+  const onSubmit = async (newSucursal: INewSucursal) => {
+    setIsSaving(true);
+    const result = await save(newSucursal);
+    if (!result.hasError) {
+      showSnackbar({
+        message: t('sucursalPersist'),
+        type: 'success',
+        show: true,
+      });
+      setIsSaving(false);
+      handleClose();
+    } else {
+      showSnackbar({
+        message: result.message || t('sucursalPersistError'),
+        type: 'error',
+        show: true,
+      });
+      setIsSaving(false);
+    }
   };
 
   return (
@@ -77,7 +80,7 @@ export const SucursalDialog: FC<Props> = ({
         <DialogTitle>{title}</DialogTitle>
         <DialogContent style={{ maxHeight: '450px' }}>{form}</DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>
+          <Button onClick={handleClose} disabled={isSaving}>
             <Typography>{t('form.cancel')}</Typography>
           </Button>
           <Button type="submit" disabled={isSaving}>
