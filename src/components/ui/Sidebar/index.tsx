@@ -12,6 +12,8 @@ export const SideBar = () => {
         backgroundColor: '#FFF',
         borderRadius: 2,
         maxWidth: '240px',
+        minWidth: '100px',
+
         overflow: 'scroll',
       }}
     >

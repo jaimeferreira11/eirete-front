@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { Grid, List, TablePagination } from '@mui/material';
+import { Box, List, TablePagination } from '@mui/material';
 
 import { useTranslation } from 'next-i18next';
 import { ListEmpty } from './ListEmpty';
@@ -58,16 +58,17 @@ export const ListGeneric: FC<Props> = ({
     return <ListEmpty description={emptyText || t('emptyList')} />;
 
   return (
-    <Grid
-      container
-      direction="column"
+    <Box
+      display="flex"
+      flexDirection="column"
+      justifyContent="space-between"
       sx={{
         overflow: 'scroll',
+        height: '100%',
       }}
     >
-      <Grid
-        item
-        xs={11}
+      <Box
+        flex={1}
         sx={{
           width: '100%',
         }}
@@ -87,11 +88,9 @@ export const ListGeneric: FC<Props> = ({
             />
           ))}
         </List>
-      </Grid>
+      </Box>
 
-      <Grid
-        item
-        xs={1}
+      <Box
         sx={{
           width: '100%',
         }}
@@ -113,7 +112,7 @@ export const ListGeneric: FC<Props> = ({
           }}
           labelRowsPerPage={`${title} ${t('labelRowsPerPage')}`}
         />
-      </Grid>
-    </Grid>
+      </Box>
+    </Box>
   );
 };

@@ -3,7 +3,7 @@ import { FC, useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 
 import { SearchOutlined } from '@mui/icons-material';
-import { Grid, InputAdornment, TextField, Typography } from '@mui/material';
+import { Box, InputAdornment, TextField, Typography } from '@mui/material';
 
 import {
   FullScreenLoading,
@@ -96,31 +96,23 @@ export const SucursalTab: FC<Props> = ({ tipo }) => {
   }, []);
 
   return (
-    <Grid
-      container
-      sx={{
-        height: '100%',
-      }}
-      width="100%"
-    >
-      <Grid
-        container
-        direction="column"
-        item
-        xs={6}
+    <Box display="flex" sx={{ height: '100%' }}>
+      <Box
+        flex={1}
+        display="flex"
+        flexDirection="column"
+        alignItems="stretch"
         sx={{
           borderRight: '0.1em solid #EAEAEA',
+          pt: 1,
           px: 3,
           overflow: 'scroll',
         }}
-        height="100%"
       >
-        <Grid xs={1} item sx={{ mb: 2 }}>
-          <Typography variant="h5" component={'div'}>
+        <Box>
+          <Typography variant="h5" component={'div'} sx={{ mb: 2 }}>
             {t('title')}
           </Typography>
-        </Grid>
-        <Grid item xs={1}>
           <TextField
             fullWidth
             label="Buscar"
@@ -132,9 +124,9 @@ export const SucursalTab: FC<Props> = ({ tipo }) => {
               ),
             }}
           />
-        </Grid>
+        </Box>
 
-        <Grid item xs={10}>
+        <Box flex={1}>
           {isLoading ? (
             <FullScreenLoading />
           ) : (
@@ -147,31 +139,27 @@ export const SucursalTab: FC<Props> = ({ tipo }) => {
               onSelect={onSelect}
             />
           )}
-        </Grid>
-      </Grid>
-      <Grid
-        container
-        direction="column"
-        justifyContent="space-between"
-        item
-        xs={6}
+        </Box>
+      </Box>
+      <Box
+        flex={1}
         sx={{ pl: 2 }}
-        width="100%"
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
       >
-        <Grid xs={1} item>
-          <Typography variant="h5" component={'div'}>
-            {t('details')}
-          </Typography>
-        </Grid>
+        <Typography variant="h5" component={'div'}>
+          {t('details')}
+        </Typography>
 
-        <Grid xs={11} flex={1} item height="100%" container>
+        <Box height="100%" flex={1} display="flex">
           {!sucursalSelected ? (
             <SucursalDetailPlaceHolder message={t('sucursalSeleccionHelp')} />
           ) : (
             <SucursalEditView sucursal={sucursalSelected} onCancel={onCancel} />
           )}
-        </Grid>
-      </Grid>
-    </Grid>
+        </Box>
+      </Box>
+    </Box>
   );
 };

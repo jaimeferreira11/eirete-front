@@ -30,7 +30,7 @@ export const AppLayout: FC<Props> = ({ children, title, pageDescription }) => {
           <SideBar />
           <SnackBarEirete />
           <Box
-            flex={2}
+            flex={1}
             sx={{
               backgroundColor: '#fff',
               borderRadius: 2,

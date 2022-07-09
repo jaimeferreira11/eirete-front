@@ -45,7 +45,7 @@ export const SucursalEditView: FC<Props> = ({ sucursal, onCancel }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} style={{ height: '100%' }}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Grid
         container
         direction="column"

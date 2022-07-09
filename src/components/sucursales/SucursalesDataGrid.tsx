@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useTranslation } from 'next-i18next';
 
 import { AddOutlined } from '@mui/icons-material';
-import { Button, Grid, Tab, Tabs } from '@mui/material';
+import { Box, Button, Tab, Tabs } from '@mui/material';
 
 import { GenericTab } from '@components/ui';
 import { OptionsTab } from '@lib/interfaces';
@@ -29,15 +29,14 @@ export const SucursalesDataGrid = () => {
     <>
       <SucursalDialog open={showModal} handleClose={handleCloseModal} />
 
-      <Grid container direction="column">
-        <Grid
-          container
-          item
-          xs={1}
-          sx={{ p: 3 }}
-          justifyContent="space-between"
-        >
-          <Grid item>
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        flexDirection="column"
+        sx={{ p: 2, height: '100%' }}
+      >
+        <Box display="flex" justifyContent="space-between">
+          <Box>
             <Tabs
               value={actualTab}
               onChange={handleChange}
@@ -48,18 +47,18 @@ export const SucursalesDataGrid = () => {
               <Tab value="activos" label="Activos" />
               <Tab value="inactivos" label="Inactivos" />
             </Tabs>
-          </Grid>
+          </Box>
 
-          <Grid item>
+          <Box>
             <Button
               onClick={() => setShowModal(true)}
               startIcon={<AddOutlined />}
             >
               {t('newSucursal')}
             </Button>
-          </Grid>
-        </Grid>
-        <Grid item xs={11}>
+          </Box>
+        </Box>
+        <Box flexGrow={1} sx={{ height: '100%' }}>
           <>
             <GenericTab value={actualTab} index={'activos'}>
               <SucursalTab tipo="activos" />
@@ -68,8 +67,8 @@ export const SucursalesDataGrid = () => {
               <SucursalTab tipo="inactivos" />
             </GenericTab>
           </>
-        </Grid>
-      </Grid>
+        </Box>
+      </Box>
     </>
   );
 };
