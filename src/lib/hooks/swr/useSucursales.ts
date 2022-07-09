@@ -15,11 +15,12 @@ export const useSucursal = () => {
 interface Props {
   active: string;
   pagination: ListPaginationOptions;
+  search?: string;
 }
 
-export const useSucursalPaginado = ({ active, pagination }: Props) => {
+export const useSucursalPaginado = ({ active, pagination, search }: Props) => {
   const { data, error, mutate } = useSWR(
-    `/sucursales?paginado=true&estado=${active}&limite=${pagination.limite}&desde=${pagination.desde}`
+    `/sucursales?paginado=true&estado=${active}&limite=${pagination.limite}&desde=${pagination.desde}&search=${search}`
   );
 
   return {

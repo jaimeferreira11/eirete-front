@@ -1,9 +1,10 @@
-import { FC, useCallback, useMemo, useState } from 'react';
+import { ChangeEvent, FC, useCallback, useMemo, useState } from 'react';
 
 import { useTranslation } from 'next-i18next';
 
 import { SearchOutlined } from '@mui/icons-material';
 import { Box, InputAdornment, TextField, Typography } from '@mui/material';
+import debounce from 'debounce';
 
 import {
   FullScreenLoading,
@@ -23,6 +24,8 @@ interface Props {
 
 export const SucursalTab: FC<Props> = ({ tipo }) => {
   const { t } = useTranslation('sucursalesABM');
+
+  const [search, setSearch] = useState('');
 
   const [pagination, setPagination] = useState<ListPaginationOptions>({
     desde: 0,
@@ -59,6 +62,7 @@ export const SucursalTab: FC<Props> = ({ tipo }) => {
     useSucursalPaginado({
       active: tipo === 'activos' ? 'true' : 'false',
       pagination,
+      search,
     });
 
   const optionsPagination = useMemo<IListGenericaPagination>(() => {
@@ -95,6 +99,13 @@ export const SucursalTab: FC<Props> = ({ tipo }) => {
     setEditSucursal(undefined);
   }, []);
 
+  const onSearch = useCallback(
+    ({ target }: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      setSearch(target.value);
+    },
+    []
+  );
+
   return (
     <Box display="flex" sx={{ height: '100%' }}>
       <Box
@@ -115,7 +126,8 @@ export const SucursalTab: FC<Props> = ({ tipo }) => {
           </Typography>
           <TextField
             fullWidth
-            label="Buscar"
+            label={t('search')}
+            onChange={debounce(onSearch, 500)}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

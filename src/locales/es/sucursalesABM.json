@@ -30,5 +30,6 @@
   "sucursalSeleccionHelp": "Seleccione una sucursal para ver los detalles",
   "details": "Detalles",
   "emptyList": "Sin sucursales que mostrar",
-  "editData": "Editar datos"
+  "editData": "Editar datos",
+  "search": "Buscar"
 }
