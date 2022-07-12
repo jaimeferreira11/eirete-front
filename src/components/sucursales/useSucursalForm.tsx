@@ -49,8 +49,6 @@ export const useSucursalForm = ({ sucursal = undefined }: Props) => {
 
   const { ciudades } = useCiudades();
 
-  // TODO CAMBIAR CIUDADES PARA OBTENER DE BD
-
   const {
     control,
     handleSubmit,
@@ -83,7 +81,7 @@ export const useSucursalForm = ({ sucursal = undefined }: Props) => {
                 label={t('form.descripcion')}
                 fullWidth
                 {...field}
-                inputProps={{}}
+                inputProps={{ style: { textTransform: 'uppercase' } }}
                 error={!!errors.descripcion}
                 helperText={errors.descripcion?.message}
                 disabled={disabled}
@@ -161,7 +159,7 @@ export const useSucursalForm = ({ sucursal = undefined }: Props) => {
                 label={t('form.timbrado')}
                 fullWidth
                 {...field}
-                inputProps={{}}
+                inputProps={{ maxLength: 8 }}
                 error={!!errors.timbrado}
                 helperText={errors.timbrado?.message}
                 disabled={disabled}

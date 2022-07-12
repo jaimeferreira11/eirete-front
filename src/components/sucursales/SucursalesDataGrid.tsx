@@ -64,7 +64,7 @@ export const SucursalesDataGrid = () => {
             </Button>
           </Box>
         </Box>
-        <Box flexGrow={1} sx={{ height: '100%' }}>
+        <Box sx={{ height: '100%' }}>
           <>
             <GenericTab value={actualTab} index={'activos'}>
               <SucursalTab tipo="activos" />

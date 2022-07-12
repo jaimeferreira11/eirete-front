@@ -115,12 +115,9 @@ export const SucursalTab: FC<Props> = ({ tipo }) => {
         alignItems="stretch"
         sx={{
           borderRight: '0.1em solid #EAEAEA',
-          pt: 1,
-          px: 3,
-          overflow: 'scroll',
         }}
       >
-        <Box>
+        <Box sx={{ mx: 2, mt: 2 }}>
           <Typography variant="h5" component={'div'} sx={{ mb: 2 }}>
             {t('title')}
           </Typography>
@@ -138,7 +135,7 @@ export const SucursalTab: FC<Props> = ({ tipo }) => {
           />
         </Box>
 
-        <Box flex={1}>
+        <Box flexGrow={1} sx={{ mx: 2 }}>
           {isLoading ? (
             <FullScreenLoading />
           ) : (
@@ -155,7 +152,7 @@ export const SucursalTab: FC<Props> = ({ tipo }) => {
       </Box>
       <Box
         flex={1}
-        sx={{ pl: 2, pt: 1 }}
+        sx={{ pl: 2, pt: 2 }}
         display="flex"
         flexDirection="column"
         justifyContent="center"

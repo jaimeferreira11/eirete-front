@@ -16,13 +16,10 @@ export const GenericTab: FC<TabPanelProps> = (props) => {
         display: value === index ? 'flex' : 'none',
         width: '100%',
         height: '100%',
-        flexGrow: 1,
       }}
     >
       {value === index && (
-        <Box sx={{ width: '100%', height: '100%', flexGrow: 1 }}>
-          {children}
-        </Box>
+        <Box sx={{ width: '100%', height: '100%' }}>{children}</Box>
       )}
     </Box>
     // <div

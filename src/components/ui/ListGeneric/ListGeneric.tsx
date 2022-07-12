@@ -60,6 +60,7 @@ export const ListGeneric: FC<Props> = ({
   return (
     <Box
       display="flex"
+      flex={1}
       flexDirection="column"
       justifyContent="space-between"
       sx={{
@@ -68,14 +69,15 @@ export const ListGeneric: FC<Props> = ({
       }}
     >
       <Box
-        flex={1}
         sx={{
           width: '100%',
+          flex: 0.1,
         }}
       >
         <List
           aria-label={title}
           sx={{
+            maxHeight: '550px',
             overflow: 'scroll',
           }}
         >
