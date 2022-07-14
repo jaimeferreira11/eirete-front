@@ -25,7 +25,7 @@ export const UserProvider: FC<Props> = ({ children }) => {
   ): Promise<{ hasError: boolean; message?: string }> => {
     try {
       if (!user) await eireteApi.post('/usuarios', newUser);
-      else await eireteApi.put(`/usuarios/${user.uid}`, newUser);
+      else await eireteApi.put(`/usuarios/${user._id}`, newUser);
 
       return {
         hasError: false,
@@ -49,8 +49,33 @@ export const UserProvider: FC<Props> = ({ children }) => {
     id: string
   ): Promise<{ hasError: boolean; message?: string }> => {
     try {
-      await eireteApi.delete(`/usuarios/${id}`);
+      await eireteApi.put(`/usuarios/change-status/${id}/false`);
 
+      return {
+        hasError: false,
+      };
+    } catch (error) {
+      console.log('error', error);
+      if (axios.isAxiosError(error)) {
+        return {
+          hasError: true,
+          message: error.message || '',
+        };
+      }
+      return {
+        hasError: true,
+        message: 'Something went wrong! 😵‍💫',
+      };
+    }
+  };
+
+  const getByUsername = async (
+    username: string
+  ): Promise<{ hasError: boolean; message?: string }> => {
+    try {
+      await eireteApi.get(`/usuarios/username/${username}`);
+
+      // TODO: donde devuelvo la data?
       return {
         hasError: false,
       };
@@ -75,6 +100,7 @@ export const UserProvider: FC<Props> = ({ children }) => {
         ...state,
         saveUser,
         deactivateUser,
+        getByUsername,
       }}
     >
       {children}

@@ -1,9 +1,10 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, FocusEvent, useEffect, useState } from 'react';
 
 import { Controller, useForm } from 'react-hook-form';
 
 import { useTranslation } from 'next-i18next';
 
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import {
   Box,
   Button,
@@ -14,6 +15,8 @@ import {
   DialogContent,
   DialogTitle,
   Grid,
+  IconButton,
+  InputAdornment,
   MenuItem,
   TextField,
   Typography,
@@ -41,7 +44,7 @@ export const UsuarioForm: FC<Props> = ({
   handleClose,
   user = undefined,
 }) => {
-  const { saveUser } = useUserProvider();
+  const { saveUser, getByUsername } = useUserProvider();
   const { showSnackbar } = useSnackbarProvider();
   const { t } = useTranslation('usersABM');
   const { t: tForm } = useTranslation('common', { keyPrefix: 'forms' });
@@ -72,8 +75,14 @@ export const UsuarioForm: FC<Props> = ({
     handleSubmit,
     reset,
     getValues,
+    setError,
+    clearErrors,
     formState: { errors },
   } = useForm<INewUser>();
+
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
+  const handleMouseDownPassword = () => setShowPassword(!showPassword);
 
   const onSubmit = async (newUser: INewUser) => {
     const newUserCrud = {
@@ -107,6 +116,27 @@ export const UsuarioForm: FC<Props> = ({
     reset();
   }, [open, reset]);
 
+  const [isUniqueUsername, setIsUniqueUsername] = useState(true);
+  const handleFocusUsername = (e: FocusEvent<HTMLInputElement>) => {
+    const username = e.target.defaultValue;
+    if (!username) return;
+    usernameIsUnique(username);
+  };
+
+  const usernameIsUnique = async (username: string) => {
+    console.log('Buscando el username', username);
+    clearErrors('username');
+
+    const result = await getByUsername(username);
+
+    if (!result.hasError) {
+      setIsUniqueUsername(false);
+      setError('username', { message: t('form.usernameInUse') });
+    } else {
+      setIsUniqueUsername(true);
+    }
+  };
+
   return (
     <Dialog
       sx={{
@@ -131,10 +161,14 @@ export const UsuarioForm: FC<Props> = ({
                 control={control}
                 name="username"
                 defaultValue={initialData?.username}
-                rules={{ required: tForm('required') }}
+                rules={{
+                  required: tForm('required'),
+                  validate: () => isUniqueUsername || t('form.usernameInUse'),
+                }}
                 render={({ field }) => (
                   <TextField
                     label={t('form.username')}
+                    size="small"
                     fullWidth
                     {...field}
                     inputProps={{
@@ -143,6 +177,7 @@ export const UsuarioForm: FC<Props> = ({
                         autoComplete: 'off',
                       },
                     }}
+                    onBlur={handleFocusUsername}
                     disabled={user !== undefined}
                     error={!!errors.username}
                     helperText={errors.username?.message}
@@ -164,9 +199,11 @@ export const UsuarioForm: FC<Props> = ({
                 }}
                 render={({ field }) => (
                   <TextField
+                    size="small"
                     label={t('form.nombreApellido')}
                     fullWidth
                     {...field}
+                    inputProps={{ style: { textTransform: 'uppercase' } }}
                     error={!!errors.password}
                     helperText={errors.password?.message}
                   />
@@ -183,6 +220,7 @@ export const UsuarioForm: FC<Props> = ({
                   return (
                     <TextField
                       select
+                      size="small"
                       label={t('form.perfiles')}
                       fullWidth
                       {...field}
@@ -234,6 +272,7 @@ export const UsuarioForm: FC<Props> = ({
                 render={({ field }) => (
                   <TextField
                     select
+                    size="small"
                     label={t('form.sucursal')}
                     fullWidth
                     {...field}
@@ -263,7 +302,8 @@ export const UsuarioForm: FC<Props> = ({
                 }}
                 render={({ field }) => (
                   <TextField
-                    type="password"
+                    size="small"
+                    type={showPassword ? 'text' : 'password'}
                     label={t('form.password')}
                     fullWidth
                     {...field}
@@ -272,6 +312,19 @@ export const UsuarioForm: FC<Props> = ({
                       form: {
                         autoComplete: 'off',
                       },
+                    }}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
+                            onMouseDown={handleMouseDownPassword}
+                          >
+                            {showPassword ? <Visibility /> : <VisibilityOff />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
                     }}
                     error={!!errors.password}
                     helperText={errors.password?.message}
@@ -294,7 +347,8 @@ export const UsuarioForm: FC<Props> = ({
                 }}
                 render={({ field }) => (
                   <TextField
-                    type="password"
+                    type={showPassword ? 'text' : 'password'}
+                    size="small"
                     label={t('form.passwordConfirmation')}
                     fullWidth
                     {...field}
@@ -303,6 +357,19 @@ export const UsuarioForm: FC<Props> = ({
                       form: {
                         autoComplete: 'off',
                       },
+                    }}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
+                            onMouseDown={handleMouseDownPassword}
+                          >
+                            {showPassword ? <Visibility /> : <VisibilityOff />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
                     }}
                     error={!!errors.passwordConfirmation}
                     helperText={errors.passwordConfirmation?.message}
@@ -316,7 +383,7 @@ export const UsuarioForm: FC<Props> = ({
           <Button onClick={handleClose}>
             <Typography>{t('form.cancel')}</Typography>
           </Button>
-          <Button type="submit" disabled={isSaving}>
+          <Button type="submit" disabled={isSaving || !isUniqueUsername}>
             {isSaving ? (
               <CircularProgress size="25px" color="info" />
             ) : (
