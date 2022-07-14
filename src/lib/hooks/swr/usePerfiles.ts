@@ -4,8 +4,6 @@ import useSWR from 'swr';
 export const usePerfil = () => {
   const { data, error, mutate } = useSWR<IPerfil[]>('/perfiles');
 
-  console.log(data);
-
   return {
     perfiles: data || null,
     isLoading: !error && !data,

@@ -124,7 +124,6 @@ export const UsuarioForm: FC<Props> = ({
   };
 
   const usernameIsUnique = async (username: string) => {
-    console.log('Buscando el username', username);
     clearErrors('username');
 
     const result = await getByUsername(username);
