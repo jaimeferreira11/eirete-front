@@ -11,7 +11,8 @@
     "movimientos": "Movimientos",
     "clientes": "Clientes",
     "usuarios": "Usuarios",
-    "sucursales": "Sucursales"
+    "sucursales": "Sucursales",
+    "familiaArticulos": "Familia de artículos"
   },
   "imprimirArqueo": "Imprimir último arqueo",
   "contactarSoporte": "Contactar soporte",
