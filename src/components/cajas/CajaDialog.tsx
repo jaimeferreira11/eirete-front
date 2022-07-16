@@ -1,6 +1,7 @@
-import { IFamiliaArticulo } from '@core/interfaces';
-import { useSnackbarProvider } from '@lib/hooks';
-import { useFamiliasProvider } from '@lib/hooks/providers/useFamiliasProvider';
+import { FC, useState } from 'react';
+
+import { useTranslation } from 'next-i18next';
+
 import {
   Button,
   CircularProgress,
@@ -10,39 +11,45 @@ import {
   DialogTitle,
   Typography,
 } from '@mui/material';
-import { useTranslation } from 'next-i18next';
-import { FC, useState } from 'react';
-import { INewFamiliaArticulo } from '../../lib/interfaces/NewFamiliaArticulo';
-import { useFamiliaForm } from './useFamiliaForm';
+
+import { ICaja } from '@core/interfaces';
+
+import { useCajasProvider, useSnackbarProvider } from '@lib/hooks';
+import { INewCaja } from '@lib/interfaces';
+import { useCajaForm } from './useCajaForm';
 
 interface Props {
   children?: React.ReactNode;
   open: boolean;
   handleClose: () => void;
-  familia?: IFamiliaArticulo;
+  caja?: ICaja;
 }
 
-export const FamiliaDialog: FC<Props> = ({
+export const CajaDialog: FC<Props> = ({
   open,
   handleClose,
-  familia = undefined,
+  caja = undefined,
 }) => {
-  const { t } = useTranslation('familiaArticulosABM');
-  const { save } = useFamiliasProvider();
+  const { t } = useTranslation('cajasABM');
+  const { save } = useCajasProvider();
   const { showSnackbar } = useSnackbarProvider();
 
-  const title = familia ? t('editUser') : t('newFamilia');
+  const title = caja ? t('editCaja') : t('newCaja');
 
-  const { form, handleSubmit } = useFamiliaForm({ familia });
+  const { form, handleSubmit } = useCajaForm({ caja });
 
   const [isSaving, setIsSaving] = useState(false);
 
-  const onSubmit = async (newFamilia: INewFamiliaArticulo) => {
+  const onSubmit = async (newCaja: INewCaja) => {
+    const newCajaCrud = {
+      ...newCaja,
+      sucursal: { _id: newCaja.sucursal },
+    };
     setIsSaving(true);
-    const result = await save(newFamilia);
+    const result = await save(newCajaCrud);
     if (!result.hasError) {
       showSnackbar({
-        message: t('familiaPersist'),
+        message: t('cajaPersist'),
         type: 'success',
         show: true,
       });
@@ -50,7 +57,7 @@ export const FamiliaDialog: FC<Props> = ({
       handleClose();
     } else {
       showSnackbar({
-        message: result.message || t('familiaPersistError'),
+        message: result.message || t('cajaPersistError'),
         type: 'error',
         show: true,
       });

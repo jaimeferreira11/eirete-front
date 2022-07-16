@@ -6,7 +6,6 @@ import { useTranslation } from 'next-i18next';
 import { useEffect, useMemo, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
-
 interface Props {
   familia?: IFamiliaArticulo;
 }
@@ -19,7 +18,6 @@ export const useFamiliaForm = ({ familia = undefined }: Props) => {
     return familia
       ? {
           descripcion: familia.descripcion,
-
         }
       : {
           descripcion: '',
@@ -27,7 +25,6 @@ export const useFamiliaForm = ({ familia = undefined }: Props) => {
   }, [familia]);
 
   const [disabled, setDisabled] = useState(familia ? true : false);
-
 
   const {
     control,
@@ -51,7 +48,7 @@ export const useFamiliaForm = ({ familia = undefined }: Props) => {
     disabled,
     form: (
       <Grid spacing={3} container sx={{ px: 1, mt: 0.2 }}>
-        <Grid xs={6} item>
+        <Grid xs={12} item>
           <Controller
             control={control}
             name="descripcion"
@@ -69,7 +66,6 @@ export const useFamiliaForm = ({ familia = undefined }: Props) => {
             )}
           />
         </Grid>
-
 
         {familia && (
           <Grid xs={6} item>

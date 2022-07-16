@@ -1,3 +1,4 @@
+export * from './useCajas';
 export * from './useCiudades';
 export * from './useFamilias';
 export * from './usePerfiles';

@@ -33,7 +33,7 @@ const menuItems = [
     icon: <CajaIcon />,
     text: 'links.caja',
     roles: [''],
-    path: '/',
+    path: '/cajas',
   },
   {
     id: 'cierre-caja',

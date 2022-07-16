@@ -23,6 +23,7 @@ export const UserProvider: FC<Props> = ({ children }) => {
     newUser: any,
     user: IUser | undefined
   ): Promise<{ hasError: boolean; message?: string }> => {
+    console.log('saveUser', newUser);
     try {
       if (!user) await eireteApi.post('/usuarios', newUser);
       else await eireteApi.put(`/usuarios/${user._id}`, newUser);

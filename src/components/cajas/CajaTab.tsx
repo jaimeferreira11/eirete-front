@@ -1,26 +1,30 @@
+import { ChangeEvent, FC, useCallback, useMemo, useState } from 'react';
+
+import { useTranslation } from 'next-i18next';
+
+import { SearchOutlined } from '@mui/icons-material';
+import { Box, InputAdornment, TextField, Typography } from '@mui/material';
+import debounce from 'debounce';
+
 import {
   FullScreenLoading,
   IListGenericaPagination,
   ListGeneric,
 } from '@components/ui';
-import { IFamiliaArticulo, ListPaginationOptions } from '@core/interfaces';
-import { useFamiliaPaginado } from '@lib/hooks';
-import { SearchOutlined } from '@mui/icons-material';
-import { Box, InputAdornment, TextField, Typography } from '@mui/material';
-import debounce from 'debounce';
-import { useTranslation } from 'next-i18next';
-import { ChangeEvent, FC, useCallback, useMemo, useState } from 'react';
-import { parseFamiliasToItemList } from 'src/utils';
-import { FamiliaDetailPlaceHolder } from './FamiliaDetailPlaceHolder';
-import { FamiliaEditView } from './FamiliaEditView';
+import { ListPaginationOptions } from '@core/interfaces';
+import { useCajaPaginado } from '@lib/hooks';
+import { parseCajasToItemList } from 'src/utils';
+import { ICaja } from '../../core/interfaces/caja';
+import { CajaDetailPlaceHolder } from './CajaDetailPlaceHolder';
+import { CajaEditView } from './CajaEditView';
 
 interface Props {
   tipo: 'activos' | 'inactivos';
   children?: React.ReactNode;
 }
 
-export const FamiliaTab: FC<Props> = ({ tipo }) => {
-  const { t } = useTranslation('familiaArticulosABM');
+export const CajaTab: FC<Props> = ({ tipo }) => {
+  const { t } = useTranslation('cajasABM');
 
   const [search, setSearch] = useState('');
 
@@ -47,20 +51,17 @@ export const FamiliaTab: FC<Props> = ({ tipo }) => {
     }));
   }, []);
 
-  const [familiaSelected, setEditFamilia] = useState<
-    IFamiliaArticulo | undefined
-  >(undefined);
+  const [cajaSelected, setEditCaja] = useState<ICaja | undefined>(undefined);
 
   const {
-    familias,
+    cajas,
     isLoading,
     total,
-  }: { familias: IFamiliaArticulo[]; isLoading: boolean; total: number } =
-    useFamiliaPaginado({
-      active: tipo === 'activos' ? 'true' : 'false',
-      pagination,
-      search,
-    });
+  }: { cajas: ICaja[]; isLoading: boolean; total: number } = useCajaPaginado({
+    active: tipo === 'activos' ? 'true' : 'false',
+    pagination,
+    search,
+  });
 
   const optionsPagination = useMemo<IListGenericaPagination>(() => {
     return {
@@ -79,21 +80,18 @@ export const FamiliaTab: FC<Props> = ({ tipo }) => {
     total,
   ]);
 
-  const familiasAsItemList = useMemo(
-    () => parseFamiliasToItemList(familias),
-    [familias]
-  );
+  const cajasAsItemList = useMemo(() => parseCajasToItemList(cajas), [cajas]);
 
   const onSelect = useCallback(
     (_id: string) => {
-      const familiasS = familias.find((familia) => familia._id === _id);
-      setEditFamilia(familiasS);
+      const cajaS = cajas.find((caja) => caja._id === _id);
+      setEditCaja(cajaS);
     },
-    [familias]
+    [cajas]
   );
 
   const onCancel = useCallback(() => {
-    setEditFamilia(undefined);
+    setEditCaja(undefined);
   }, []);
 
   const onSearch = useCallback(
@@ -138,9 +136,9 @@ export const FamiliaTab: FC<Props> = ({ tipo }) => {
             <FullScreenLoading />
           ) : (
             <ListGeneric
-              items={familiasAsItemList}
+              items={cajasAsItemList}
               title={t('title')}
-              selected={familiaSelected?._id}
+              selected={cajaSelected?._id}
               pagination={optionsPagination}
               emptyText={t('emptyList')}
               onSelect={onSelect}
@@ -160,10 +158,10 @@ export const FamiliaTab: FC<Props> = ({ tipo }) => {
         </Typography>
 
         <Box height="100%" flex={1} display="flex">
-          {!familiaSelected ? (
-            <FamiliaDetailPlaceHolder message={t('familiaSeleccionHelp')} />
+          {!cajaSelected ? (
+            <CajaDetailPlaceHolder message={t('cajaSeleccionHelp')} />
           ) : (
-            <FamiliaEditView familia={familiaSelected} onCancel={onCancel} />
+            <CajaEditView caja={cajaSelected} onCancel={onCancel} />
           )}
         </Box>
       </Box>
