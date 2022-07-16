@@ -1,4 +1,5 @@
 export * from './ApiResponses';
+export * from './caja';
 export * from './ciudad';
 export * from './endpointResult';
 export * from './ListPaginationOptions';
