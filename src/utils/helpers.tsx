@@ -1,7 +1,9 @@
+import { IListItemGeneric } from '@components/ui';
+import CategoryIcon from '@mui/icons-material/Category';
 import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
+import { IFamiliaArticulo } from '../core/interfaces/familiaArticulo';
 
-import { IListItemGeneric } from '@components/ui';
 import { ICaja } from '@core/interfaces';
 import { ISucursal } from '../core/interfaces/sucursal';
 
@@ -17,6 +19,20 @@ export const parseSucursalesToItemList = (
     })
   );
 };
+
+export const parseFamiliasToItemList = (
+  familias: IFamiliaArticulo[]
+): IListItemGeneric[] => {
+  return familias.map(
+    (familia): IListItemGeneric => ({
+      _id: familia._id,
+      title: familia.descripcion,
+      subtitle: '',
+      icon: <CategoryIcon />,
+    })
+  );
+};
+
 export const parseCajasToItemList = (cajas: ICaja[]): IListItemGeneric[] => {
   return cajas.map(
     (caja): IListItemGeneric => ({
