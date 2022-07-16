@@ -60,7 +60,7 @@ export const UsersDataGrid = () => {
   };
 
   const handleDeactivation = async () => {
-    const result = await deactivateUser(editUser?.uid!);
+    const result = await deactivateUser(editUser?._id!);
 
     if (!result.hasError) {
       showSnackbar({

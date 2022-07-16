@@ -18,7 +18,8 @@
     "edit": "Editar",
     "remove": "Desactivar",
     "passwordConfirmation": "Confirmar contraseña",
-    "confirmPasswordError": "La contraseñas ingresadas no coinciden"
+    "confirmPasswordError": "La contraseñas ingresadas no coinciden",
+    "usernameInUse": "El username ya está en uso"
   },
   "newUser": "Nuevo Usuario",
   "editUser": "Editar Usuario",

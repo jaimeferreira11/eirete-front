@@ -1,10 +1,5 @@
-import { FC } from 'react';
-
-import NextLink from 'next/link';
-
-import { useTranslation } from 'next-i18next';
-
 import {
+  Category as CategoryIcon,
   DeliveryDiningOutlined as DeliveryIcon,
   Inventory2Outlined as StockIcon,
   LockOutlined as CierreCajaIcon,
@@ -14,7 +9,6 @@ import {
   ShoppingCartOutlined as MovimientosIcon,
   StorefrontOutlined as SucursalIcon,
 } from '@mui/icons-material';
-
 import {
   Link,
   List,
@@ -23,7 +17,10 @@ import {
   ListItemText,
   Typography,
 } from '@mui/material';
+import { useTranslation } from 'next-i18next';
+import NextLink from 'next/link';
 import { useRouter } from 'next/router';
+import { FC } from 'react';
 
 const menuItems = [
   {
@@ -31,7 +28,7 @@ const menuItems = [
     icon: <CajaIcon />,
     text: 'links.caja',
     roles: [''],
-    path: '/',
+    path: '/cajas',
   },
   {
     id: 'cierre-caja',
@@ -81,6 +78,14 @@ const menuItems = [
     text: 'links.usuarios',
     roles: [''],
     path: '/users',
+  },
+
+  {
+    id: 'familia-articulos',
+    icon: <CategoryIcon />,
+    text: 'links.familiaArticulos',
+    roles: [''],
+    path: '/familia-articulos',
   },
 ];
 

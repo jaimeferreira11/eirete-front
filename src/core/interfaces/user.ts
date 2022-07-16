@@ -1,7 +1,7 @@
 import { IPerfil } from '.';
 
 export interface IUser {
-  uid: string;
+  _id: string;
   nombreApellido?: string;
   username: string;
   estado: string;
