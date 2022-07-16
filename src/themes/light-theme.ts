@@ -7,13 +7,13 @@ let lightTheme = createTheme({
       main: '#F5B223',
     },
     secondary: {
-      main: '#3A64D8',
+      main: '#2366f5',
+    },
+    error: {
+      main: '#f44336',
     },
     success: {
       main: '#59AF25',
-    },
-    error: {
-      main: '#E83035',
     },
   },
   components: {

@@ -1,10 +1,12 @@
-import { ListUserResponse } from '@core/interfaces';
+import { IUser, ListPaginatedResponse } from '@core/interfaces';
 import useSWR, { SWRConfiguration } from 'swr';
 
 export const useUsers = (url: string, config: SWRConfiguration = {}) => {
-  const { data, error, mutate } = useSWR<ListUserResponse>(`${url}`, config);
+  const { data, error, mutate } = useSWR<ListPaginatedResponse<IUser>>(
+    `${url}`,
+    config
+  );
 
-  console.log('data', data);
   return {
     users: data || null,
     isLoading: !error && !data,

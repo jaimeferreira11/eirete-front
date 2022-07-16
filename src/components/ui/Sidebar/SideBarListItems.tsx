@@ -6,14 +6,15 @@ import { useTranslation } from 'next-i18next';
 
 import {
   DeliveryDiningOutlined as DeliveryIcon,
-  GroupOutlined as UsuarioIcon,
   Inventory2Outlined as StockIcon,
   LockOutlined as CierreCajaIcon,
+  ManageAccountsOutlined as UserIcon,
   MonitorOutlined as CajaIcon,
   PersonOutlineOutlined as ClientesIcon,
   ShoppingCartOutlined as MovimientosIcon,
   StorefrontOutlined as SucursalIcon,
 } from '@mui/icons-material';
+
 import {
   Link,
   List,
@@ -65,7 +66,7 @@ const menuItems = [
     icon: <ClientesIcon />,
     text: 'links.clientes',
     roles: [''],
-    path: '/',
+    path: '/clientes',
   },
   {
     id: 'sucursales',
@@ -76,7 +77,7 @@ const menuItems = [
   },
   {
     id: 'usuarios',
-    icon: <UsuarioIcon />,
+    icon: <UserIcon />,
     text: 'links.usuarios',
     roles: [''],
     path: '/users',

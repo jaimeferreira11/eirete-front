@@ -1,5 +1,6 @@
 export * from './ApiResponses';
 export * from './ciudad';
+export * from './cliente';
 export * from './endpointResult';
 export * from './ListPaginationOptions';
 export * from './perfil';

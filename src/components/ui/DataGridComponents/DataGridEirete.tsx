@@ -22,7 +22,6 @@ export const DataGridEirete: FC<Props> = ({ config }) => {
     total,
   } = config;
 
-  console.log('rows', rows);
   return (
     <>
       <Box sx={{ height: 650, width: '100%' }}>

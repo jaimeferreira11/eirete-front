@@ -1,1 +1,1 @@
-export * from './ListUserResponse';
+export * from './ListPaginatedResponse';
