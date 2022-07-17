@@ -7,6 +7,7 @@ interface ContextProps {
     newCliente: any,
     cliente?: ICliente | undefined
   ) => Promise<ResultRequest>;
+  changeStatus: (_id: string, status: boolean) => Promise<ResultRequest>;
 }
 
 export const ClienteContext = createContext({} as ContextProps);

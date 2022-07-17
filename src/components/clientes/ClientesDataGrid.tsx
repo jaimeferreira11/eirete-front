@@ -15,13 +15,18 @@ import {
   DataGridEirete,
 } from '@components/ui/DataGridComponents';
 import { ICliente, ListPaginationOptions } from '@core/interfaces';
-import { useClientes, useSnackbarProvider } from '@lib/hooks';
+import {
+  useClienteProvider,
+  useClientes,
+  useSnackbarProvider,
+} from '@lib/hooks';
 import { ClientesForm } from './ClientesForm';
 
 export const ClienteDataGrid = () => {
   const { t } = useTranslation('clientesABM');
 
   const { showSnackbar } = useSnackbarProvider();
+  const { changeStatus } = useClienteProvider();
 
   const [clientes, setClientes] = useState<ICliente[]>([]);
 
@@ -36,6 +41,8 @@ export const ClienteDataGrid = () => {
     limite: 10,
   });
 
+  const [search, setSearch] = useState({ search: '', active: 'true' });
+
   const [showModal, setShowModal] = useState(false);
 
   const {
@@ -43,7 +50,9 @@ export const ClienteDataGrid = () => {
     clientes: clientesDB,
     mutate,
   } = useClientes(
-    `/clientes?paginado=true&limite=${pagination.limite}&desde=${pagination.desde}`
+    `/clientes?paginado=true&limite=${pagination.limite}&desde=${pagination.desde}`,
+    search.search,
+    search.active
   );
 
   useMemo(() => {
@@ -64,27 +73,32 @@ export const ClienteDataGrid = () => {
     mutate();
   };
 
-  // const handleDeactivation = async () => {
-  //   const result = await deactivateUser(editCliente?.uid!);
+  const handleSearch = (query: string, active: string) => {
+    setSearch({ search: query, active });
+  };
 
-  //   if (!result.hasError) {
-  //     showSnackbar({
-  //       message: t('clienteUpdated'),
-  //       type: 'success',
-  //       show: true,
-  //     });
-  //     setEditCliente(undefined);
-  //     setOpenRemoveModal(false);
-  //     mutate();
-  //   } else {
-  //     showSnackbar({
-  //       message: result.message || t('clientePersistError'),
-  //       type: 'error',
-  //       show: true,
-  //     });
-  //     setOpenRemoveModal(false);
-  //   }
-  // };
+  const handleDeactivation = async () => {
+    console.log('editCliente', editCliente);
+    const result = await changeStatus(editCliente?._id!, !editCliente?.estado);
+
+    if (!result.hasError) {
+      showSnackbar({
+        message: t('clienteUpdated'),
+        type: 'success',
+        show: true,
+      });
+      setEditCliente(undefined);
+      setOpenRemoveModal(false);
+      mutate();
+    } else {
+      showSnackbar({
+        message: result.message || t('clientePersistError'),
+        type: 'error',
+        show: true,
+      });
+      setOpenRemoveModal(false);
+    }
+  };
   // columnas
   const columns: GridColDef[] = [
     {
@@ -163,10 +177,7 @@ export const ClienteDataGrid = () => {
         }}
         message={t('confirmDeactivation')}
         open={openRemoveModal}
-        onAccept={() => {
-          setOpenRemoveModal(false);
-          setEditCliente(undefined);
-        }}
+        onAccept={handleDeactivation}
         title={t('clienteDeactivation')}
       />
       <Grid direction="column" container sx={{ width: '100%', p: 3 }}>
@@ -209,6 +220,7 @@ export const ClienteDataGrid = () => {
               rows: clientes,
               title: t('title'),
               total: clientesDB?.total || 0,
+              handleSearch,
             }}
           />
         </Grid>

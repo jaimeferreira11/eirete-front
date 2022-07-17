@@ -25,6 +25,7 @@ export const UsersDataGrid = () => {
   const { showSnackbar } = useSnackbarProvider();
 
   const [usuarios, setUsuarios] = useState<IUser[]>([]);
+  const [search, setSearch] = useState({ search: '', active: 'true' });
 
   const [editUser, setEditUser] = useState<IUser | undefined>(undefined);
 
@@ -38,7 +39,8 @@ export const UsersDataGrid = () => {
   const [showModal, setShowModal] = useState(false);
 
   const { isLoading, users, mutate } = useUsers(
-    `/usuarios?paginado=true&limite=${pagination.limite}&desde=${pagination.desde}`
+    `/usuarios?paginado=true&limite=${pagination.limite}&desde=${pagination.desde}`,
+    search
   );
 
   useMemo(() => {
@@ -57,6 +59,10 @@ export const UsersDataGrid = () => {
     setShowModal(false);
     setEditUser(undefined);
     mutate();
+  };
+
+  const handleSearch = (query: string, active: string) => {
+    setSearch({ search: query, active });
   };
 
   const handleDeactivation = async () => {
@@ -195,6 +201,7 @@ export const UsersDataGrid = () => {
               rows: usuarios,
               title: t('title'),
               total: users?.total || 0,
+              handleSearch,
             }}
           />
         </Grid>

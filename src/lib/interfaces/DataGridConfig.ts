@@ -12,4 +12,5 @@ export interface IDataGridEireteConfig {
   labelRowsPerPage: string;
   title: string;
   total: number;
+  handleSearch: (query: string, activate: string) => void;
 }

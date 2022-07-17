@@ -3,6 +3,7 @@ import { IDataGridEireteConfig } from '@lib/interfaces';
 import { Box } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { FC } from 'react';
+import { FilterBox } from './FilterBox';
 
 interface Props {
   config: IDataGridEireteConfig;
@@ -20,11 +21,13 @@ export const DataGridEirete: FC<Props> = ({ config }) => {
     paginationState,
     rows,
     total,
+    handleSearch,
   } = config;
 
   return (
     <>
       <Box sx={{ height: 650, width: '100%' }}>
+        <FilterBox searchHandler={handleSearch} isLoading={isLoading} />
         <DataGrid
           getRowId={(row) => row._id}
           rows={rows}

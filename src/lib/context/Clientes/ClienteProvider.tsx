@@ -40,36 +40,38 @@ export const ClienteProvider: FC<Props> = ({ children }) => {
       };
     }
   };
-  // TODO implementar desactivacion?
-  // const deactivateUser = async (
-  //   id: string
-  // ): Promise<{ hasError: boolean; message?: string }> => {
-  //   try {
-  //     await eireteApi.delete(`/usuarios/${id}`);
 
-  //     return {
-  //       hasError: false,
-  //     };
-  //   } catch (error) {
-  //     console.log('error', error);
-  //     if (axios.isAxiosError(error)) {
-  //       return {
-  //         hasError: true,
-  //         message: error.message || '',
-  //       };
-  //     }
-  //     return {
-  //       hasError: true,
-  //       message: 'Something went wrong! 😵‍💫',
-  //     };
-  //   }
-  // };
+  const changeStatus = async (
+    _id: string,
+    status: boolean
+  ): Promise<{ hasError: boolean; message?: string }> => {
+    try {
+      await eireteApi.put(`/clientes/change-status/${_id}/${status}`);
+
+      return {
+        hasError: false,
+      };
+    } catch (error) {
+      console.log('error', error);
+      if (axios.isAxiosError(error)) {
+        return {
+          hasError: true,
+          message: error.message || '',
+        };
+      }
+      return {
+        hasError: true,
+        message: 'Something went wrong! 😵‍💫',
+      };
+    }
+  };
 
   return (
     <ClienteContext.Provider
       value={{
         ...state,
         saveCliente,
+        changeStatus,
       }}
     >
       {children}
