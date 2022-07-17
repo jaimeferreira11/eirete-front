@@ -1,9 +1,10 @@
-import { IUser, ListPaginatedResponse } from '@core/interfaces';
+import { ICliente, ListPaginatedResponse } from '@core/interfaces';
 import useSWR, { SWRConfiguration } from 'swr';
 
-export const useUsers = (
+export const useClientes = (
   url: string,
-  { search, active }: { search: string; active: string },
+  search: string,
+  active: string,
   config: SWRConfiguration = {}
 ) => {
   let urlProccess = url;
@@ -11,13 +12,14 @@ export const useUsers = (
 
   urlProccess = `${urlProccess}&estado=${active}`;
 
-  const { data, error, mutate } = useSWR<ListPaginatedResponse<IUser>>(
+  console.log('urlProcess', urlProccess);
+  const { data, error, mutate } = useSWR<ListPaginatedResponse<ICliente>>(
     `${urlProccess}`,
     config
   );
 
   return {
-    users: data || null,
+    clientes: data || null,
     isLoading: !error && !data,
     isError: error,
     mutate,

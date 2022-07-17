@@ -1,15 +1,15 @@
 import {
+  Category as CategoryIcon,
   DeliveryDiningOutlined as DeliveryIcon,
-  GroupOutlined as UsuarioIcon,
+  FormatListBulleted as FormatListBulletedIcon,
   Inventory2Outlined as StockIcon,
   LockOutlined as CierreCajaIcon,
+  ManageAccountsOutlined as UserIcon,
   MonitorOutlined as CajaIcon,
   PersonOutlineOutlined as ClientesIcon,
   ShoppingCartOutlined as MovimientosIcon,
   StorefrontOutlined as SucursalIcon,
 } from '@mui/icons-material';
-import CategoryIcon from '@mui/icons-material/Category';
-import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 
 import {
   Link,
@@ -65,7 +65,7 @@ const menuItems = [
     icon: <ClientesIcon />,
     text: 'links.clientes',
     roles: [''],
-    path: '/',
+    path: '/clientes',
   },
   {
     id: 'sucursales',
@@ -76,7 +76,7 @@ const menuItems = [
   },
   {
     id: 'usuarios',
-    icon: <UsuarioIcon />,
+    icon: <UserIcon />,
     text: 'links.usuarios',
     roles: [''],
     path: '/users',

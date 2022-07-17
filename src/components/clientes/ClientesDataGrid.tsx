@@ -14,20 +14,25 @@ import {
   ActionsColumn,
   DataGridEirete,
 } from '@components/ui/DataGridComponents';
-import { IUser, ListPaginationOptions } from '@core/interfaces';
-import { useSnackbarProvider, useUserProvider, useUsers } from '@lib/hooks';
-import { UsuarioForm } from './UsuarioForm';
+import { ICliente, ListPaginationOptions } from '@core/interfaces';
+import {
+  useClienteProvider,
+  useClientes,
+  useSnackbarProvider,
+} from '@lib/hooks';
+import { ClientesForm } from './ClientesForm';
 
-export const UsersDataGrid = () => {
-  const { t } = useTranslation('usersABM');
+export const ClienteDataGrid = () => {
+  const { t } = useTranslation('clientesABM');
 
-  const { deactivateUser } = useUserProvider();
   const { showSnackbar } = useSnackbarProvider();
+  const { changeStatus } = useClienteProvider();
 
-  const [usuarios, setUsuarios] = useState<IUser[]>([]);
-  const [search, setSearch] = useState({ search: '', active: 'true' });
+  const [clientes, setClientes] = useState<ICliente[]>([]);
 
-  const [editUser, setEditUser] = useState<IUser | undefined>(undefined);
+  const [editCliente, setEditCliente] = useState<ICliente | undefined>(
+    undefined
+  );
 
   const [openRemoveModal, setOpenRemoveModal] = useState(false);
 
@@ -36,16 +41,23 @@ export const UsersDataGrid = () => {
     limite: 10,
   });
 
+  const [search, setSearch] = useState({ search: '', active: 'true' });
+
   const [showModal, setShowModal] = useState(false);
 
-  const { isLoading, users, mutate } = useUsers(
-    `/usuarios?paginado=true&limite=${pagination.limite}&desde=${pagination.desde}`,
-    search
+  const {
+    isLoading,
+    clientes: clientesDB,
+    mutate,
+  } = useClientes(
+    `/clientes?paginado=true&limite=${pagination.limite}&desde=${pagination.desde}`,
+    search.search,
+    search.active
   );
 
   useMemo(() => {
-    setUsuarios(users?.data || []);
-  }, [users?.data]);
+    setClientes(clientesDB?.data || []);
+  }, [clientesDB?.data]);
 
   const onPageChange = (page: number) => {
     setPagination((prev) => ({ ...prev, desde: page * prev.limite }));
@@ -57,7 +69,7 @@ export const UsersDataGrid = () => {
 
   const handleCloseModal = () => {
     setShowModal(false);
-    setEditUser(undefined);
+    setEditCliente(undefined);
     mutate();
   };
 
@@ -66,20 +78,21 @@ export const UsersDataGrid = () => {
   };
 
   const handleDeactivation = async () => {
-    const result = await deactivateUser(editUser?._id!);
+    console.log('editCliente', editCliente);
+    const result = await changeStatus(editCliente?._id!, !editCliente?.estado);
 
     if (!result.hasError) {
       showSnackbar({
-        message: t('usuarioUpdated'),
+        message: t('clienteUpdated'),
         type: 'success',
         show: true,
       });
-      setEditUser(undefined);
+      setEditCliente(undefined);
       setOpenRemoveModal(false);
       mutate();
     } else {
       showSnackbar({
-        message: result.message || t('usuarioPersistError'),
+        message: result.message || t('clientePersistError'),
         type: 'error',
         show: true,
       });
@@ -88,18 +101,24 @@ export const UsersDataGrid = () => {
   };
   // columnas
   const columns: GridColDef[] = [
-    { field: 'username', headerName: t('form.username'), width: 100 },
     {
-      field: 'nombreApellido',
+      field: 'persona.nombreApellido',
       headerName: t('form.nombreApellido'),
       flex: 1,
+      renderCell: (params: GridValueGetterParams) =>
+        params.row.persona.nombreApellido,
     },
     {
-      field: 'sucursal',
-      headerName: t('form.sucursal'),
-      flex: 1,
-      renderCell: (params: GridValueGetterParams) =>
-        params.row.sucursal.descripcion,
+      field: 'persona.nroDoc',
+      headerName: t('form.nroDoc'),
+      width: 200,
+      renderCell: (params: GridValueGetterParams) => params.row.persona.nroDoc,
+    },
+    {
+      field: 'persona.tipoDoc',
+      headerName: t('form.tipoDoc'),
+      width: 200,
+      renderCell: (params: GridValueGetterParams) => params.row.persona.tipoDoc,
     },
     {
       field: 'estado',
@@ -123,7 +142,7 @@ export const UsersDataGrid = () => {
             {
               id: 'editar',
               onClick: () => {
-                setEditUser(params.row);
+                setEditCliente(params.row);
                 setShowModal(true);
               },
               icon: <EditIcon />,
@@ -133,7 +152,7 @@ export const UsersDataGrid = () => {
               id: 'desactivar',
               onClick: () => {
                 setOpenRemoveModal(true);
-                setEditUser(params.row);
+                setEditCliente(params.row);
               },
               icon: <DeleteIcon />,
               title: t('form.remove'),
@@ -146,20 +165,20 @@ export const UsersDataGrid = () => {
 
   return (
     <>
-      <UsuarioForm
+      <ClientesForm
         open={showModal}
         handleClose={handleCloseModal}
-        user={editUser}
+        cliente={editCliente}
       />
       <ModalConfirmation
         onCancel={() => {
           setOpenRemoveModal(false);
-          setEditUser(undefined);
+          setEditCliente(undefined);
         }}
         message={t('confirmDeactivation')}
         open={openRemoveModal}
         onAccept={handleDeactivation}
-        title={t('userDeactivation')}
+        title={t('clienteDeactivation')}
       />
       <Grid direction="column" container sx={{ width: '100%', p: 3 }}>
         <Grid
@@ -183,7 +202,7 @@ export const UsersDataGrid = () => {
               }}
               onClick={() => setShowModal(true)}
             >
-              {t('newUser')}
+              {t('newCliente')}
             </Button>
           </Grid>
         </Grid>
@@ -198,9 +217,9 @@ export const UsersDataGrid = () => {
               onPageChange,
               onPageSizeChange,
               paginationState: pagination,
-              rows: usuarios,
+              rows: clientes,
               title: t('title'),
-              total: users?.total || 0,
+              total: clientesDB?.total || 0,
               handleSearch,
             }}
           />
