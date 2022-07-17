@@ -1,10 +1,12 @@
 import { IListItemGeneric } from '@components/ui';
 import CategoryIcon from '@mui/icons-material/Category';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
+
 import { IFamiliaArticulo } from '../core/interfaces/familiaArticulo';
 
-import { ICaja } from '@core/interfaces';
+import { ICaja, ILineaArticulo } from '@core/interfaces';
 import { ISucursal } from '../core/interfaces/sucursal';
 
 export const parseSucursalesToItemList = (
@@ -40,6 +42,19 @@ export const parseCajasToItemList = (cajas: ICaja[]): IListItemGeneric[] => {
       title: `${caja.nro} - ${caja.descripcion}`,
       subtitle: caja.sucursal.descripcion,
       icon: <LocalAtmIcon />,
+    })
+  );
+};
+
+export const parseLineasToItemList = (
+  lineas: ILineaArticulo[]
+): IListItemGeneric[] => {
+  return lineas.map(
+    (linea): IListItemGeneric => ({
+      _id: linea._id,
+      title: `${linea.descripcion}`,
+      subtitle: linea.familia.descripcion,
+      icon: <FormatListBulletedIcon />,
     })
   );
 };

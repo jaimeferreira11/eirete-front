@@ -1,0 +1,29 @@
+{
+  "title": "Línea de articulos",
+  "noRowsLabel": "Sin líneas que mostrar",
+  "labelRowsPerPage": "Nro. líneas por página",
+  "form": {
+    "descripcion": "Descripción",
+    "familia": "Familia del artículo",
+    "active": "Activo",
+    "deactive": "Desactivado",
+    "actions": "Acciones",
+    "actionsDescription": "Acciones aplicables",
+    "edit": "Editar",
+    "remove": "Desactivar",
+    "cancel": "Cancelar",
+    "save": "Guardar"
+  },
+  "newLinea": "Nueva Línea",
+  "editLinea": "Editar Línea",
+  "lineaPersist": "Línea creada exitosamente",
+  "lineaUpdated": "Línea modificada exitosamente",
+  "lineaPersistError": "Ocurrió un error al guardar la Línea",
+  "confirmDeactivation": "¿Está seguro de cambiar el estado?",
+  "lineaDeactivation": "Desactivar línea",
+  "lineaSeleccionHelp": "Seleccione una línea para ver los detalles",
+  "details": "Detalles",
+  "emptyList": "Sin líneas que mostrar",
+  "editData": "Editar datos",
+  "search": "Buscar"
+}
