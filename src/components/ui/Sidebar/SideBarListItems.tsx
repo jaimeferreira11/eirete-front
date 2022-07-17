@@ -6,26 +6,23 @@ import {
   MonitorOutlined as CajaIcon,
   PersonOutlineOutlined as ClientesIcon,
   ShoppingCartOutlined as MovimientosIcon,
-  StorefrontOutlined as SucursalIcon
+  StorefrontOutlined as SucursalIcon,
 } from '@mui/icons-material';
 import CategoryIcon from '@mui/icons-material/Category';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+
 import {
   Link,
   List,
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Typography
+  Typography,
 } from '@mui/material';
 import { useTranslation } from 'next-i18next';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
-
-
-
-
-
 
 const menuItems = [
   {
@@ -91,6 +88,13 @@ const menuItems = [
     text: 'links.familiaArticulos',
     roles: [''],
     path: '/familia-articulos',
+  },
+  {
+    id: 'linea-articulos',
+    icon: <FormatListBulletedIcon />,
+    text: 'links.lineaArticulos',
+    roles: [''],
+    path: '/linea-articulos',
   },
 ];
 
