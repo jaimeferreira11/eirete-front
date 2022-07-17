@@ -1,6 +1,7 @@
 import {
   Category as CategoryIcon,
   DeliveryDiningOutlined as DeliveryIcon,
+  FormatListBulleted as FormatListBulletedIcon,
   Inventory2Outlined as StockIcon,
   LockOutlined as CierreCajaIcon,
   ManageAccountsOutlined as UserIcon,
@@ -9,6 +10,7 @@ import {
   ShoppingCartOutlined as MovimientosIcon,
   StorefrontOutlined as SucursalIcon,
 } from '@mui/icons-material';
+
 import {
   Link,
   List,
@@ -86,6 +88,13 @@ const menuItems = [
     text: 'links.familiaArticulos',
     roles: [''],
     path: '/familia-articulos',
+  },
+  {
+    id: 'linea-articulos',
+    icon: <FormatListBulletedIcon />,
+    text: 'links.lineaArticulos',
+    roles: [''],
+    path: '/linea-articulos',
   },
 ];
 
