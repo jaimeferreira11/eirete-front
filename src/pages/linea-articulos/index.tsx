@@ -3,8 +3,7 @@ import { LineasDataGrid } from '@components/linea-articulos';
 import { FullScreenLoading } from '@components/ui';
 import { LineasProvider } from '@lib/context/LineaArticulos';
 import { useAuthProvider } from '@lib/hooks';
-import { GetServerSideProps } from 'next';
-import { getSession } from 'next-auth/react';
+import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { ReactElement } from 'react';
 import { NextPageWithLayout } from '../_app';
@@ -30,23 +29,7 @@ LineaArticuloPage.getLayout = function getLayout(page: ReactElement) {
 
 export default LineaArticuloPage;
 
-export const getServerSideProps: GetServerSideProps = async ({
-  req,
-  locale,
-}) => {
-  const session = await getSession({ req });
-
-  const p = req.url;
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: `/auth/login?p=${p}`,
-        permanent: false,
-      },
-    };
-  }
-
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
       ...(await serverSideTranslations(locale || 'es', [

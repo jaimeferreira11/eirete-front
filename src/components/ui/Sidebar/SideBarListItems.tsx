@@ -1,3 +1,7 @@
+import NextLink from 'next/link';
+import { useRouter } from 'next/router';
+import { FC } from 'react';
+
 import {
   Category as CategoryIcon,
   DeliveryDiningOutlined as DeliveryIcon,
@@ -20,11 +24,8 @@ import {
   Typography,
 } from '@mui/material';
 import { useTranslation } from 'next-i18next';
-import NextLink from 'next/link';
-import { useRouter } from 'next/router';
-import { FC } from 'react';
 
-const menuItems = [
+export const menuItems = [
   {
     id: 'caja',
     icon: <CajaIcon />,
@@ -107,7 +108,7 @@ export const SideBarListItems: FC<Props> = () => {
   const { asPath } = useRouter();
 
   return (
-    <List>
+    <List sx={{ maxHeight: 600, overflow: 'scroll' }}>
       {menuItems.map((menuItem) => (
         <NextLink href={menuItem.path} passHref key={menuItem.id}>
           <Link sx={{ color: asPath === menuItem.path ? 'primary' : '#000' }}>

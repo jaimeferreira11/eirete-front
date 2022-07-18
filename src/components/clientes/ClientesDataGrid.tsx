@@ -189,7 +189,7 @@ export const ClienteDataGrid = () => {
           sx={{ mb: 2 }}
         >
           <Grid item>
-            <Typography variant="h4" component="h1">
+            <Typography variant="h1" component="h1">
               {t('title')}
             </Typography>
           </Grid>

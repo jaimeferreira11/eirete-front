@@ -1,8 +1,6 @@
 import { ReactElement } from 'react';
 
-import { GetServerSideProps } from 'next';
-import { getSession } from 'next-auth/react';
-
+import { GetStaticProps } from 'next';
 import { NextPageWithLayout } from '../_app';
 
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -34,23 +32,13 @@ SucursalesPage.getLayout = function getLayout(page: ReactElement) {
 
 export default SucursalesPage;
 
-export const getServerSideProps: GetServerSideProps = async ({
-  req,
-  locale,
-}) => {
-  const session = await getSession({ req });
+// You should use getStaticProps when:
+//- The data required to render the page is available at build time ahead of a user’s request.
+//- The data comes from a headless CMS.
+//- The data can be publicly cached (not user-specific).
+//- The page must be pre-rendered (for SEO) and be very fast — getStaticProps generates HTML and JSON files, both of which can be cached by a CDN for performance.
 
-  const p = req.url;
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: `/auth/login?p=${p}`,
-        permanent: false,
-      },
-    };
-  }
-
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
       ...(await serverSideTranslations(locale || 'es', [
