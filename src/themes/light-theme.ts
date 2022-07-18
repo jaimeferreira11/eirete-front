@@ -1,4 +1,4 @@
-import { createTheme, responsiveFontSizes } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
 
 let lightTheme = createTheme({
   palette: {
@@ -45,6 +45,16 @@ let lightTheme = createTheme({
           fontSize: 20,
           fontWeight: 400,
         },
+        h4: {
+          fontSize: 10,
+          fontWeight: 400,
+        },
+        h5: {
+          fontSize: 20,
+          fontWeight: 400,
+        },
+        body1: { fontSize: 14 },
+        body2: { fontSize: 14 },
         subtitle1: {
           fontSize: 18,
           fontWeight: 600,
@@ -108,9 +118,14 @@ let lightTheme = createTheme({
         },
       },
     },
+    MuiTextField: {
+      defaultProps: {
+        size: 'small',
+      },
+    },
   },
 });
 
-lightTheme = responsiveFontSizes(lightTheme);
+// lightTheme = responsiveFontSizes(lightTheme);
 
 export default lightTheme;

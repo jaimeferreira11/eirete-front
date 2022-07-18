@@ -107,7 +107,7 @@ export const SideBarListItems: FC<Props> = () => {
   const { asPath } = useRouter();
 
   return (
-    <List>
+    <List sx={{ maxHeight: 600, overflow: 'scroll' }}>
       {menuItems.map((menuItem) => (
         <NextLink href={menuItem.path} passHref key={menuItem.id}>
           <Link sx={{ color: asPath === menuItem.path ? 'primary' : '#000' }}>
