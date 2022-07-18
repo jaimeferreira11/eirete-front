@@ -1,7 +1,6 @@
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
-import { routes } from '@lib/routes';
 import { getToken } from 'next-auth/jwt';
 
 export async function middleware(req: NextRequest) {
@@ -23,6 +22,17 @@ export async function middleware(req: NextRequest) {
   return NextResponse.redirect(loginUrl);
 }
 
+/**
+ * * No se puede importar modulos ts. Se debe agregar las rutas manualmente.
+ */
 export const config = {
-  matcher: [...routes],
+  matcher: [
+    '/',
+    '/cajas',
+    '/clientes',
+    '/sucursales',
+    '/users',
+    '/familia-articulos',
+    '/linea-articulos',
+  ],
 };
