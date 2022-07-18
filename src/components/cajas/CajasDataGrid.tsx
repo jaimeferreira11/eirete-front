@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { useTranslation } from 'next-i18next';
 
@@ -12,7 +12,7 @@ import { CajaTab } from './CajaTab';
 
 export const CajasDataGrid = () => {
   const { t } = useTranslation('cajasABM');
-
+  const mutateRef = useRef<null | Function>(null);
   const [actualTab, setActualTab] = useState<OptionsTab>('activos');
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
@@ -23,6 +23,7 @@ export const CajasDataGrid = () => {
 
   const handleCloseModal = () => {
     setShowModal(false);
+    if (mutateRef?.current) mutateRef?.current();
   };
 
   return (
@@ -67,10 +68,10 @@ export const CajasDataGrid = () => {
         <Box sx={{ height: '100%' }}>
           <>
             <GenericTab value={actualTab} index={'activos'}>
-              <CajaTab tipo="activos" />
+              <CajaTab tipo="activos" mutateRef={mutateRef} />
             </GenericTab>
             <GenericTab value={actualTab} index={'inactivos'}>
-              <CajaTab tipo="inactivos" />
+              <CajaTab tipo="inactivos" mutateRef={mutateRef} />
             </GenericTab>
           </>
         </Box>

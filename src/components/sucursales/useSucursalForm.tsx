@@ -24,7 +24,7 @@ export const useSucursalForm = ({ sucursal = undefined }: Props) => {
   const initialData: INewSucursal = useMemo(() => {
     return sucursal
       ? {
-          ciudad: sucursal?.ciudad,
+          ciudad: sucursal.ciudad,
           descripcion: sucursal.descripcion,
           direccion: sucursal.direccion,
           establecimiento: sucursal.establecimiento,
@@ -56,7 +56,9 @@ export const useSucursalForm = ({ sucursal = undefined }: Props) => {
     getValues,
     formState: { errors },
   } = useForm<INewSucursal>({
-    defaultValues: initialData,
+    defaultValues: {
+      ...initialData,
+    },
   });
 
   useEffect(() => {
@@ -120,12 +122,16 @@ export const useSucursalForm = ({ sucursal = undefined }: Props) => {
             render={({ field: { ref, onChange, ...field } }) => {
               return (
                 <Autocomplete
+                  disabled={disabled}
                   options={ciudades || []}
                   isOptionEqualToValue={(option, value) =>
                     option._id === value._id
                   }
                   getOptionLabel={(option) => option.descripcion}
                   onChange={(_, data) => onChange(data?.descripcion)}
+                  value={ciudades?.find(
+                    (ciudad) => ciudad.descripcion === field.value
+                  )}
                   renderInput={(params) => (
                     <TextField
                       label={t('form.ciudad')}

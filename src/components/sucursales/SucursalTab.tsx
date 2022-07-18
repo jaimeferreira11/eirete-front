@@ -1,4 +1,12 @@
-import { ChangeEvent, FC, useCallback, useMemo, useState } from 'react';
+import {
+  ChangeEvent,
+  FC,
+  MutableRefObject,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 
 import { useTranslation } from 'next-i18next';
 
@@ -14,15 +22,17 @@ import {
 import { ISucursal, ListPaginationOptions } from '@core/interfaces';
 import { useSucursalPaginado } from '@lib/hooks';
 import { parseSucursalesToItemList } from 'src/utils';
+import { KeyedMutator } from 'swr';
 import { SucursalDetailPlaceHolder } from './SucursalDetailPlaceHolder';
 import { SucursalEditView } from './SucursalEditView';
 
 interface Props {
   tipo: 'activos' | 'inactivos';
+  mutateRef: MutableRefObject<any>;
   children?: React.ReactNode;
 }
 
-export const SucursalTab: FC<Props> = ({ tipo }) => {
+export const SucursalTab: FC<Props> = ({ tipo, mutateRef }) => {
   const { t } = useTranslation('sucursalesABM');
 
   const [search, setSearch] = useState('');
@@ -58,12 +68,21 @@ export const SucursalTab: FC<Props> = ({ tipo }) => {
     sucursales,
     isLoading,
     total,
-  }: { sucursales: ISucursal[]; isLoading: boolean; total: number } =
-    useSucursalPaginado({
-      active: tipo === 'activos' ? 'true' : 'false',
-      pagination,
-      search,
-    });
+    mutate,
+  }: {
+    sucursales: ISucursal[];
+    isLoading: boolean;
+    total: number;
+    mutate: KeyedMutator<any>;
+  } = useSucursalPaginado({
+    active: tipo === 'activos' ? 'true' : 'false',
+    pagination,
+    search,
+  });
+
+  useEffect(() => {
+    mutateRef.current = mutate;
+  }, [mutate]);
 
   const optionsPagination = useMemo<IListGenericaPagination>(() => {
     return {
@@ -97,7 +116,8 @@ export const SucursalTab: FC<Props> = ({ tipo }) => {
 
   const onCancel = useCallback(() => {
     setEditSucursal(undefined);
-  }, []);
+    mutate();
+  }, [mutate]);
 
   const onSearch = useCallback(
     ({ target }: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

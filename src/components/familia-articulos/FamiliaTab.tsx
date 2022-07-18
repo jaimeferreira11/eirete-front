@@ -1,4 +1,13 @@
 import {
+  ChangeEvent,
+  FC,
+  MutableRefObject,
+  useCallback,
+  useMemo,
+  useState,
+} from 'react';
+
+import {
   FullScreenLoading,
   IListGenericaPagination,
   ListGeneric,
@@ -9,17 +18,20 @@ import { SearchOutlined } from '@mui/icons-material';
 import { Box, InputAdornment, TextField, Typography } from '@mui/material';
 import debounce from 'debounce';
 import { useTranslation } from 'next-i18next';
-import { ChangeEvent, FC, useCallback, useMemo, useState } from 'react';
+
+import { useEffect } from 'react';
 import { parseFamiliasToItemList } from 'src/utils';
+import { KeyedMutator } from 'swr';
 import { FamiliaDetailPlaceHolder } from './FamiliaDetailPlaceHolder';
 import { FamiliaEditView } from './FamiliaEditView';
 
 interface Props {
   tipo: 'activos' | 'inactivos';
+  mutateRef: MutableRefObject<any>;
   children?: React.ReactNode;
 }
 
-export const FamiliaTab: FC<Props> = ({ tipo }) => {
+export const FamiliaTab: FC<Props> = ({ tipo, mutateRef }) => {
   const { t } = useTranslation('familiaArticulosABM');
 
   const [search, setSearch] = useState('');
@@ -55,12 +67,21 @@ export const FamiliaTab: FC<Props> = ({ tipo }) => {
     familias,
     isLoading,
     total,
-  }: { familias: IFamiliaArticulo[]; isLoading: boolean; total: number } =
-    useFamiliaPaginado({
-      active: tipo === 'activos' ? 'true' : 'false',
-      pagination,
-      search,
-    });
+    mutate,
+  }: {
+    familias: IFamiliaArticulo[];
+    isLoading: boolean;
+    total: number;
+    mutate: KeyedMutator<any>;
+  } = useFamiliaPaginado({
+    active: tipo === 'activos' ? 'true' : 'false',
+    pagination,
+    search,
+  });
+
+  useEffect(() => {
+    mutateRef.current = mutate;
+  }, [mutate]);
 
   const optionsPagination = useMemo<IListGenericaPagination>(() => {
     return {

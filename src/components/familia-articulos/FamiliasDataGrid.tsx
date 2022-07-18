@@ -1,16 +1,17 @@
-import { GenericTab } from '@components/ui';
-import { OptionsTab } from '@lib/interfaces';
+import { useRef, useState } from 'react';
+
 import { AddOutlined } from '@mui/icons-material';
 import { Box, Button, Tab, Tabs } from '@mui/material';
+
+import { GenericTab } from '@components/ui';
+import { OptionsTab } from '@lib/interfaces';
 import { useTranslation } from 'next-i18next';
-import { useState } from 'react';
 import { FamiliaDialog } from './FamiliaDialog';
 import { FamiliaTab } from './FamiliaTab';
 
-
 export const FamiliasDataGrid = () => {
   const { t } = useTranslation('familiaArticulosABM');
-
+  const mutateRef = useRef<null | Function>(null);
   const [actualTab, setActualTab] = useState<OptionsTab>('activos');
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
@@ -21,6 +22,7 @@ export const FamiliasDataGrid = () => {
 
   const handleCloseModal = () => {
     setShowModal(false);
+    if (mutateRef?.current) mutateRef?.current();
   };
 
   return (
@@ -65,10 +67,10 @@ export const FamiliasDataGrid = () => {
         <Box sx={{ height: '100%' }}>
           <>
             <GenericTab value={actualTab} index={'activos'}>
-              <FamiliaTab tipo="activos" />
+              <FamiliaTab tipo="activos" mutateRef={mutateRef} />
             </GenericTab>
             <GenericTab value={actualTab} index={'inactivos'}>
-              <FamiliaTab tipo="inactivos" />
+              <FamiliaTab tipo="inactivos" mutateRef={mutateRef} />
             </GenericTab>
           </>
         </Box>

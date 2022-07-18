@@ -3,13 +3,13 @@ import { OptionsTab } from '@lib/interfaces';
 import { AddOutlined } from '@mui/icons-material';
 import { Box, Button, Tab, Tabs } from '@mui/material';
 import { useTranslation } from 'next-i18next';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { LineaDialog } from './LineaDialog';
 import { LineaTab } from './LineaTab';
 
 export const LineasDataGrid = () => {
   const { t } = useTranslation('lineaArticulosABM');
-
+  const mutateRef = useRef<null | Function>(null);
   const [actualTab, setActualTab] = useState<OptionsTab>('activos');
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
@@ -20,6 +20,7 @@ export const LineasDataGrid = () => {
 
   const handleCloseModal = () => {
     setShowModal(false);
+    if (mutateRef?.current) mutateRef?.current();
   };
 
   return (
@@ -64,10 +65,10 @@ export const LineasDataGrid = () => {
         <Box sx={{ height: '100%' }}>
           <>
             <GenericTab value={actualTab} index={'activos'}>
-              <LineaTab tipo="activos" />
+              <LineaTab tipo="activos" mutateRef={mutateRef} />
             </GenericTab>
             <GenericTab value={actualTab} index={'inactivos'}>
-              <LineaTab tipo="inactivos" />
+              <LineaTab tipo="inactivos" mutateRef={mutateRef} />
             </GenericTab>
           </>
         </Box>

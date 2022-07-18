@@ -9,17 +9,27 @@ import { SearchOutlined } from '@mui/icons-material';
 import { Box, InputAdornment, TextField, Typography } from '@mui/material';
 import debounce from 'debounce';
 import { useTranslation } from 'next-i18next';
-import { ChangeEvent, FC, useCallback, useMemo, useState } from 'react';
+import {
+  ChangeEvent,
+  FC,
+  MutableRefObject,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { parseLineasToItemList } from 'src/utils';
+import { KeyedMutator } from 'swr';
 import { LineaDetailPlaceHolder } from './LineaDetailPlaceHolder';
 import { LineaEditView } from './LineaEditView';
 
 interface Props {
   tipo: 'activos' | 'inactivos';
+  mutateRef: MutableRefObject<any>;
   children?: React.ReactNode;
 }
 
-export const LineaTab: FC<Props> = ({ tipo }) => {
+export const LineaTab: FC<Props> = ({ tipo, mutateRef }) => {
   const { t } = useTranslation('lineaArticulosABM');
 
   const [search, setSearch] = useState('');
@@ -55,12 +65,22 @@ export const LineaTab: FC<Props> = ({ tipo }) => {
     lineas,
     isLoading,
     total,
-  }: { lineas: ILineaArticulo[]; isLoading: boolean; total: number } =
-    useLineaPaginado({
-      active: tipo === 'activos' ? 'true' : 'false',
-      pagination,
-      search,
-    });
+    mutate,
+  }: {
+    lineas: ILineaArticulo[];
+    isLoading: boolean;
+    total: number;
+    mutate: KeyedMutator<any>;
+  } = useLineaPaginado({
+    active: tipo === 'activos' ? 'true' : 'false',
+    pagination,
+    search,
+  });
+
+  useEffect(() => {
+    mutateRef.current = mutate;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mutate]);
 
   const optionsPagination = useMemo<IListGenericaPagination>(() => {
     return {

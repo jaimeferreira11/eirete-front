@@ -1,4 +1,11 @@
-import { ChangeEvent, FC, useCallback, useMemo, useState } from 'react';
+import {
+  ChangeEvent,
+  FC,
+  MutableRefObject,
+  useCallback,
+  useMemo,
+  useState,
+} from 'react';
 
 import { useTranslation } from 'next-i18next';
 
@@ -13,17 +20,20 @@ import {
 } from '@components/ui';
 import { ListPaginationOptions } from '@core/interfaces';
 import { useCajaPaginado } from '@lib/hooks';
+import { useEffect } from 'react';
 import { parseCajasToItemList } from 'src/utils';
+import { KeyedMutator } from 'swr';
 import { ICaja } from '../../core/interfaces/caja';
 import { CajaDetailPlaceHolder } from './CajaDetailPlaceHolder';
 import { CajaEditView } from './CajaEditView';
 
 interface Props {
   tipo: 'activos' | 'inactivos';
+  mutateRef: MutableRefObject<any>;
   children?: React.ReactNode;
 }
 
-export const CajaTab: FC<Props> = ({ tipo }) => {
+export const CajaTab: FC<Props> = ({ tipo, mutateRef }) => {
   const { t } = useTranslation('cajasABM');
 
   const [search, setSearch] = useState('');
@@ -57,11 +67,21 @@ export const CajaTab: FC<Props> = ({ tipo }) => {
     cajas,
     isLoading,
     total,
-  }: { cajas: ICaja[]; isLoading: boolean; total: number } = useCajaPaginado({
+    mutate,
+  }: {
+    cajas: ICaja[];
+    isLoading: boolean;
+    total: number;
+    mutate: KeyedMutator<any>;
+  } = useCajaPaginado({
     active: tipo === 'activos' ? 'true' : 'false',
     pagination,
     search,
   });
+
+  useEffect(() => {
+    mutateRef.current = mutate;
+  }, [mutate]);
 
   const optionsPagination = useMemo<IListGenericaPagination>(() => {
     return {

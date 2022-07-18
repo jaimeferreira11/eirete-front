@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { useTranslation } from 'next-i18next';
 
@@ -15,6 +15,8 @@ export const SucursalesDataGrid = () => {
 
   const [actualTab, setActualTab] = useState<OptionsTab>('activos');
 
+  const mutateRef = useRef<null | Function>(null);
+
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setActualTab(newValue as OptionsTab);
   };
@@ -23,6 +25,7 @@ export const SucursalesDataGrid = () => {
 
   const handleCloseModal = () => {
     setShowModal(false);
+    if (mutateRef?.current) mutateRef?.current();
   };
 
   return (
@@ -67,10 +70,10 @@ export const SucursalesDataGrid = () => {
         <Box sx={{ height: '100%' }}>
           <>
             <GenericTab value={actualTab} index={'activos'}>
-              <SucursalTab tipo="activos" />
+              <SucursalTab tipo="activos" mutateRef={mutateRef} />
             </GenericTab>
             <GenericTab value={actualTab} index={'inactivos'}>
-              <SucursalTab tipo="inactivos" />
+              <SucursalTab tipo="inactivos" mutateRef={mutateRef} />
             </GenericTab>
           </>
         </Box>
