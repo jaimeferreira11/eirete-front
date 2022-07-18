@@ -2,6 +2,7 @@ import { Box, Divider } from '@mui/material';
 import { Logo } from '..';
 import { MenuUser } from './MenuUser';
 import { SideBarListItems } from './SideBarListItems';
+
 export const SideBar = () => {
   return (
     <Box

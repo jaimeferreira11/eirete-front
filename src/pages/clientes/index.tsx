@@ -1,7 +1,6 @@
 import { ReactElement } from 'react';
 
-import { GetServerSideProps } from 'next';
-import { getSession } from 'next-auth/react';
+import { GetStaticProps } from 'next';
 
 import { NextPageWithLayout } from '../_app';
 
@@ -31,23 +30,7 @@ SucursalesPage.getLayout = function getLayout(page: ReactElement) {
 
 export default SucursalesPage;
 
-export const getServerSideProps: GetServerSideProps = async ({
-  req,
-  locale,
-}) => {
-  const session = await getSession({ req });
-
-  const p = req.url;
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: `/auth/login?p=${p}`,
-        permanent: false,
-      },
-    };
-  }
-
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
       ...(await serverSideTranslations(locale || 'es', [

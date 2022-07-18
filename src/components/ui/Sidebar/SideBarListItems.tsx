@@ -1,3 +1,7 @@
+import NextLink from 'next/link';
+import { useRouter } from 'next/router';
+import { FC } from 'react';
+
 import {
   Category as CategoryIcon,
   DeliveryDiningOutlined as DeliveryIcon,
@@ -20,11 +24,8 @@ import {
   Typography,
 } from '@mui/material';
 import { useTranslation } from 'next-i18next';
-import NextLink from 'next/link';
-import { useRouter } from 'next/router';
-import { FC } from 'react';
 
-const menuItems = [
+export const menuItems = [
   {
     id: 'caja',
     icon: <CajaIcon />,
