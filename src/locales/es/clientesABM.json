@@ -9,7 +9,7 @@
     "tipoDoc": "Tipo documento",
     "tipoPersona": "Tipo",
     "active": "Activo",
-    "deactive": "Desactivado",
+    "deactive": "Inactivo",
     "actions": "Acciones",
     "actionsDescription": "Acciones aplicables",
     "edit": "Editar",
@@ -23,7 +23,7 @@
       "femenino": "Femenino"
     },
     "tipoDocOptions": {
-      "ci": "Cédula",
+      "ci": "Cédula de Identidad",
       "ruc": "RUC"
     }
   },

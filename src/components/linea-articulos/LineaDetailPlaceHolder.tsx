@@ -1,4 +1,5 @@
-import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import Inventory2Icon from '@mui/icons-material/Inventory2';
+
 import { Grid, Typography } from '@mui/material';
 import { FC } from 'react';
 
@@ -18,7 +19,7 @@ export const LineaDetailPlaceHolder: FC<Props> = ({ message }) => {
       xs={11}
     >
       <Grid item>
-        <FormatListBulletedIcon sx={{ fontSize: 100, color: '#EAEAEA' }} />
+        <Inventory2Icon sx={{ fontSize: 100, color: '#EAEAEA' }} />
       </Grid>
       <Grid item>
         <Typography

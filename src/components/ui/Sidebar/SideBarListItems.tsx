@@ -5,7 +5,6 @@ import { FC } from 'react';
 import {
   Category as CategoryIcon,
   DeliveryDiningOutlined as DeliveryIcon,
-  FormatListBulleted as FormatListBulletedIcon,
   Inventory2Outlined as StockIcon,
   LockOutlined as CierreCajaIcon,
   ManageAccountsOutlined as UserIcon,
@@ -14,6 +13,8 @@ import {
   ShoppingCartOutlined as MovimientosIcon,
   StorefrontOutlined as SucursalIcon,
 } from '@mui/icons-material';
+
+import Inventory2Icon from '@mui/icons-material/Inventory2';
 
 import {
   Link,
@@ -92,7 +93,7 @@ export const menuItems = [
   },
   {
     id: 'linea-articulos',
-    icon: <FormatListBulletedIcon />,
+    icon: <Inventory2Icon />,
     text: 'links.lineaArticulos',
     roles: [''],
     path: '/linea-articulos',

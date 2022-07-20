@@ -379,7 +379,7 @@ export const UsuarioForm: FC<Props> = ({
           </Grid>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>
+          <Button onClick={handleClose} color="error" variant="outlined">
             <Typography>{t('form.cancel')}</Typography>
           </Button>
           <Button type="submit" disabled={isSaving || !isUniqueUsername}>

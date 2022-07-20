@@ -16,7 +16,7 @@ export interface ISucursal {
   fechaAlta: string;
 }
 
-export interface UsuarioAlta {
+interface UsuarioAlta {
   username: string;
   uid: string;
 }

@@ -151,7 +151,7 @@ export const CajaTab: FC<Props> = ({ tipo, mutateRef }) => {
           />
         </Box>
 
-        <Box flexGrow={1} sx={{ mx: 2 }}>
+        <Box flexGrow={1} sx={{ mx: 0 }}>
           {isLoading ? (
             <FullScreenLoading />
           ) : (

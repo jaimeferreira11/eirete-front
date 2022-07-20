@@ -1,6 +1,6 @@
 import { IListItemGeneric } from '@components/ui';
 import CategoryIcon from '@mui/icons-material/Category';
-import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import Inventory2Icon from '@mui/icons-material/Inventory2';
 import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
 
@@ -54,7 +54,7 @@ export const parseLineasToItemList = (
       _id: linea._id,
       title: `${linea.descripcion}`,
       subtitle: linea.familia.descripcion,
-      icon: <FormatListBulletedIcon />,
+      icon: <Inventory2Icon />,
     })
   );
 };

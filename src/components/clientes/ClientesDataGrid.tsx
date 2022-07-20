@@ -20,6 +20,7 @@ import {
   useClientes,
   useSnackbarProvider,
 } from '@lib/hooks';
+import { AddOutlined } from '@mui/icons-material';
 import { ClientesForm } from './ClientesForm';
 
 export const ClienteDataGrid = () => {
@@ -195,12 +196,12 @@ export const ClienteDataGrid = () => {
           </Grid>
           <Grid item>
             <Button
-              variant="outlined"
               sx={{
                 color: '#000',
                 p: 1,
               }}
               onClick={() => setShowModal(true)}
+              startIcon={<AddOutlined />}
             >
               {t('newCliente')}
             </Button>
