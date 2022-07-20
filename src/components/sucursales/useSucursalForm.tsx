@@ -37,8 +37,8 @@ export const useSucursalForm = ({ sucursal = undefined }: Props) => {
           ciudad: '',
           descripcion: '',
           direccion: '',
-          establecimiento: 0,
-          timbrado: 0,
+          // establecimiento: 0,
+          // timbrado: 0,
           rangoInicial: 1,
           rangoFinal: 9999999,
           puntoExpedicion: 1,
@@ -164,6 +164,7 @@ export const useSucursalForm = ({ sucursal = undefined }: Props) => {
               <TextField
                 label={t('form.timbrado')}
                 fullWidth
+                type="number"
                 {...field}
                 inputProps={{ maxLength: 8 }}
                 error={!!errors.timbrado}
@@ -183,6 +184,7 @@ export const useSucursalForm = ({ sucursal = undefined }: Props) => {
             }}
             render={({ field }) => (
               <TextField
+                type="number"
                 label={t('form.establecimiento')}
                 fullWidth
                 {...field}
@@ -204,6 +206,7 @@ export const useSucursalForm = ({ sucursal = undefined }: Props) => {
             }}
             render={({ field }) => (
               <TextField
+                type="number"
                 label={t('form.puntoExpedicion')}
                 fullWidth
                 {...field}
@@ -225,6 +228,7 @@ export const useSucursalForm = ({ sucursal = undefined }: Props) => {
             render={({ field }) => (
               <TextField
                 label={t('form.rangoInicial')}
+                type="number"
                 fullWidth
                 {...field}
                 inputProps={{}}
@@ -255,6 +259,7 @@ export const useSucursalForm = ({ sucursal = undefined }: Props) => {
                 label={t('form.rangoFinal')}
                 fullWidth
                 {...field}
+                type="number"
                 inputProps={{}}
                 error={!!errors.rangoFinal}
                 helperText={errors.rangoFinal?.message}

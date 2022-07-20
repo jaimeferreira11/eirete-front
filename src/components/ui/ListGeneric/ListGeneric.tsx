@@ -63,10 +63,6 @@ export const ListGeneric: FC<Props> = ({
       flex={1}
       flexDirection="column"
       justifyContent="space-between"
-      sx={{
-        overflow: 'scroll',
-        height: '100%',
-      }}
     >
       <Box
         sx={{
@@ -77,7 +73,7 @@ export const ListGeneric: FC<Props> = ({
         <List
           aria-label={title}
           sx={{
-            maxHeight: '550px',
+            maxHeight: '55vh',
             overflow: 'scroll',
           }}
         >

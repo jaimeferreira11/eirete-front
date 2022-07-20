@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 
 import {
+  AddOutlined,
   EditOutlined as EditIcon,
   PersonRemoveOutlined as DeleteIcon,
 } from '@mui/icons-material';
@@ -176,12 +177,12 @@ export const UsersDataGrid = () => {
           </Grid>
           <Grid item>
             <Button
-              variant="outlined"
               sx={{
                 color: '#000',
                 p: 1,
               }}
               onClick={() => setShowModal(true)}
+              startIcon={<AddOutlined />}
             >
               {t('newUser')}
             </Button>

@@ -5,7 +5,7 @@
   "form": {
     "descripcion": "Descripción",
     "active": "Activo",
-    "deactive": "Desactivado",
+    "deactive": "Inactivo",
     "actions": "Acciones",
     "actionsDescription": "Acciones aplicables",
     "edit": "Editar",

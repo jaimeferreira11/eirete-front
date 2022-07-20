@@ -123,6 +123,7 @@ export const ClientesForm: FC<Props> = ({
                       form: {
                         autoComplete: 'off',
                       },
+                      style: { textTransform: 'uppercase' },
                     }}
                     error={!!errors.nombreApellido}
                     helperText={errors.nombreApellido?.message}
@@ -211,7 +212,7 @@ export const ClientesForm: FC<Props> = ({
           </Grid>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>
+          <Button onClick={handleClose} color="error" variant="outlined">
             <Typography>{t('form.cancel')}</Typography>
           </Button>
           <Button type="submit" disabled={isSaving}>

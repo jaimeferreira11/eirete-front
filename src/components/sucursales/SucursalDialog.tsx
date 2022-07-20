@@ -80,7 +80,12 @@ export const SucursalDialog: FC<Props> = ({
         <DialogTitle>{title}</DialogTitle>
         <DialogContent style={{ maxHeight: '450px' }}>{form}</DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} disabled={isSaving}>
+          <Button
+            color="error"
+            variant={'outlined'}
+            onClick={handleClose}
+            disabled={isSaving}
+          >
             <Typography>{t('form.cancel')}</Typography>
           </Button>
           <Button type="submit" disabled={isSaving}>
