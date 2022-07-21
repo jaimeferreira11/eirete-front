@@ -81,7 +81,7 @@ export const FamiliaTab: FC<Props> = ({ tipo, mutateRef }) => {
 
   useEffect(() => {
     mutateRef.current = mutate;
-  }, [mutate]);
+  }, [mutate, mutateRef]);
 
   const optionsPagination = useMemo<IListGenericaPagination>(() => {
     return {
@@ -115,7 +115,8 @@ export const FamiliaTab: FC<Props> = ({ tipo, mutateRef }) => {
 
   const onCancel = useCallback(() => {
     setEditFamilia(undefined);
-  }, []);
+    if (mutateRef.current) mutateRef.current();
+  }, [mutateRef]);
 
   const onSearch = useCallback(
     ({ target }: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

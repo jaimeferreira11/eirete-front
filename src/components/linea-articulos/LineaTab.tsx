@@ -79,8 +79,7 @@ export const LineaTab: FC<Props> = ({ tipo, mutateRef }) => {
 
   useEffect(() => {
     mutateRef.current = mutate;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mutate]);
+  }, [mutate, mutateRef]);
 
   const optionsPagination = useMemo<IListGenericaPagination>(() => {
     return {
@@ -114,7 +113,8 @@ export const LineaTab: FC<Props> = ({ tipo, mutateRef }) => {
 
   const onCancel = useCallback(() => {
     setEditLinea(undefined);
-  }, []);
+    if (mutateRef.current) mutateRef.current();
+  }, [mutateRef]);
 
   const onSearch = useCallback(
     ({ target }: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

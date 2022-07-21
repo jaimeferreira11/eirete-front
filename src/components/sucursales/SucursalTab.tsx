@@ -82,7 +82,7 @@ export const SucursalTab: FC<Props> = ({ tipo, mutateRef }) => {
 
   useEffect(() => {
     mutateRef.current = mutate;
-  }, [mutate]);
+  }, [mutate, mutateRef]);
 
   const optionsPagination = useMemo<IListGenericaPagination>(() => {
     return {
@@ -116,8 +116,8 @@ export const SucursalTab: FC<Props> = ({ tipo, mutateRef }) => {
 
   const onCancel = useCallback(() => {
     setEditSucursal(undefined);
-    mutate();
-  }, [mutate]);
+    if (mutateRef.current) mutateRef.current();
+  }, [mutateRef]);
 
   const onSearch = useCallback(
     ({ target }: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
