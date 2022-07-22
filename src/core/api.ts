@@ -7,10 +7,15 @@ const eireteApi = axios.create({
 eireteApi.interceptors.response.use(
   (res) => res,
   (err) => {
+    console.log(err);
     if (err.response.data.errors && Array.isArray(err.response.data.errors))
-      throw new AxiosError(err.response.data.errors[0].msg);
+      throw new AxiosError(
+        err.response.data.errors
+          .map((e: any) => `${e.param}: ${e.msg}. `)
+          .join(' - ')
+      );
 
-    throw new AxiosError(err.response.data.message);
+    throw new AxiosError(err.response.data.msg);
   }
 );
 export default eireteApi;
