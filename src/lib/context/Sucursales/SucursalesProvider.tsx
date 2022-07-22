@@ -1,8 +1,8 @@
 import { FC, useReducer } from 'react';
 
 import eireteApi from '@core/api';
-import { IEnpointResult, IErrorMessage, ISucursal } from '@core/interfaces';
-import axios from 'axios';
+import { IEnpointResult, ISucursal } from '@core/interfaces';
+import axios, { AxiosError } from 'axios';
 import { INewSucursal } from '../../interfaces/NewSucursal';
 import { SucursalesContext, sucursalesReducer } from './';
 
@@ -64,22 +64,9 @@ export const SucursalesProvider: FC<Props> = ({ children }) => {
         hasError: false,
       };
     } catch (error) {
-      console.log('error', error);
-
-      if (axios.isAxiosError(error)) {
-        let errorMessage = '';
-        // FIXME: Como evitar que marque error?
-        error.response?.data.errors.map(
-          (e: IErrorMessage) => (errorMessage += e.msg)
-        );
-        return {
-          hasError: true,
-          message: errorMessage || error.message || '',
-        };
-      }
       return {
         hasError: true,
-        message: 'Something went wrong! 😵‍💫',
+        message: (error as AxiosError).message,
       };
     }
   };
