@@ -25,7 +25,8 @@
     "tipoDocOptions": {
       "ci": "Cédula de Identidad",
       "ruc": "RUC"
-    }
+    },
+    "activate": "Activar"
   },
   "newCliente": "Nuevo Cliente",
   "editCliente": "Editar Cliente",

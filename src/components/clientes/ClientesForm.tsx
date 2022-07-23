@@ -39,6 +39,7 @@ export const ClientesForm: FC<Props> = ({
   const { t } = useTranslation('clientesABM');
   const { t: tForm } = useTranslation('common', { keyPrefix: 'forms' });
 
+  console.log('cliente', cliente);
   const title = cliente ? t('editCliente') : t('newCliente');
 
   const persona: INewPersona = cliente
@@ -64,7 +65,7 @@ export const ClientesForm: FC<Props> = ({
 
   const onSubmit = async (newPersona: INewPersona) => {
     setIsSaving(true);
-    const result = await saveCliente({ persona: newPersona }, cliente);
+    const result = await saveCliente(newPersona, cliente);
 
     if (!result.hasError) {
       showSnackbar({

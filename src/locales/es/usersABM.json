@@ -19,7 +19,8 @@
     "remove": "Desactivar",
     "passwordConfirmation": "Confirmar contraseña",
     "confirmPasswordError": "La contraseñas ingresadas no coinciden",
-    "usernameInUse": "El username ya está en uso"
+    "usernameInUse": "El username ya está en uso",
+    "activate": "Activar"
   },
   "newUser": "Nuevo Usuario",
   "editUser": "Editar Usuario",

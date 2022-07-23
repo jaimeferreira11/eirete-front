@@ -3,6 +3,7 @@ import { useMemo, useState } from 'react';
 import {
   AddOutlined,
   EditOutlined as EditIcon,
+  PersonAddOutlined as ActiveIcon,
   PersonRemoveOutlined as DeleteIcon,
 } from '@mui/icons-material';
 import { Button, Chip, Grid, Typography } from '@mui/material';
@@ -136,8 +137,8 @@ export const UsersDataGrid = () => {
                 setOpenRemoveModal(true);
                 setEditUser(params.row);
               },
-              icon: <DeleteIcon />,
-              title: t('form.remove'),
+              icon: params.row.estado ? <DeleteIcon /> : <ActiveIcon />,
+              title: params.row.estado ? t('form.remove') : t('form.activate'),
             },
           ]}
         />

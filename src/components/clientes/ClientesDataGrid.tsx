@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 
 import {
   EditOutlined as EditIcon,
+  PersonAddOutlined as ActiveIcon,
   PersonRemoveOutlined as DeleteIcon,
 } from '@mui/icons-material';
 import { Button, Chip, Grid, Typography } from '@mui/material';
@@ -106,20 +107,21 @@ export const ClienteDataGrid = () => {
       field: 'persona.nombreApellido',
       headerName: t('form.nombreApellido'),
       flex: 1,
-      renderCell: (params: GridValueGetterParams) =>
+      valueGetter: (params: GridValueGetterParams) =>
         params.row.persona.nombreApellido,
     },
     {
       field: 'persona.nroDoc',
       headerName: t('form.nroDoc'),
       width: 200,
-      renderCell: (params: GridValueGetterParams) => params.row.persona.nroDoc,
+      valueGetter: (params: GridValueGetterParams) => params.row.persona.nroDoc,
     },
     {
       field: 'persona.tipoDoc',
       headerName: t('form.tipoDoc'),
       width: 200,
-      renderCell: (params: GridValueGetterParams) => params.row.persona.tipoDoc,
+      valueGetter: (params: GridValueGetterParams) =>
+        params.row.persona.tipoDoc,
     },
     {
       field: 'estado',
@@ -155,8 +157,8 @@ export const ClienteDataGrid = () => {
                 setOpenRemoveModal(true);
                 setEditCliente(params.row);
               },
-              icon: <DeleteIcon />,
-              title: t('form.remove'),
+              icon: params.row.estado ? <DeleteIcon /> : <ActiveIcon />,
+              title: params.row.estado ? t('form.remove') : t('form.activate'),
             },
           ]}
         />
