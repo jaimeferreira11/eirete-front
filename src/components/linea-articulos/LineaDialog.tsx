@@ -37,13 +37,8 @@ export const LineaDialog: FC<Props> = ({
   const [isSaving, setIsSaving] = useState(false);
 
   const onSubmit = async (newLinea: INewLineaArticulo) => {
-    const newLineaCrud = {
-      ...newLinea,
-      familia: { _id: newLinea.familia },
-    };
-
     setIsSaving(true);
-    const result = await save(newLineaCrud);
+    const result = await save(newLinea);
     if (!result.hasError) {
       showSnackbar({
         message: t('lineaPersist'),

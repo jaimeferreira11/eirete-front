@@ -23,12 +23,7 @@ export const LineaEditView: FC<Props> = ({ linea, onCancel }) => {
   });
 
   const onSubmit = async (newLinea: INewLineaArticulo) => {
-    const newLineaCrud = {
-      ...newLinea,
-      familia: { _id: newLinea.familia },
-    };
-
-    const result = await update(newLineaCrud, linea._id);
+    const result = await update(newLinea, linea._id);
     if (!result.hasError) {
       showSnackbar({
         message: t('lineaUpdated'),

@@ -1,4 +1,5 @@
 export interface INewLineaArticulo {
   descripcion: string;
-  familia?: string;
+  // TODO: Eliminar familia
+  //familia?: string;
 }
