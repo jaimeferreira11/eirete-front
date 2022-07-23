@@ -1,7 +1,6 @@
 import { ILineaArticulo } from '@core/interfaces';
-import { useFamilia } from '@lib/hooks';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import { Button, Grid, MenuItem, TextField } from '@mui/material';
+import { Button, Grid, TextField } from '@mui/material';
 import { useTranslation } from 'next-i18next';
 import { useEffect, useMemo, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -18,16 +17,13 @@ export const useLineaForm = ({ linea = undefined }: Props) => {
     return linea
       ? {
           descripcion: linea.descripcion,
-          familia: linea.familia._id,
         }
       : {
           descripcion: '',
-          familia: '',
         };
   }, [linea]);
 
   const [disabled, setDisabled] = useState(linea ? true : false);
-  const { familias } = useFamilia();
 
   const {
     control,
@@ -67,35 +63,6 @@ export const useLineaForm = ({ linea = undefined }: Props) => {
                 helperText={errors.descripcion?.message}
                 disabled={disabled}
               />
-            )}
-          />
-        </Grid>
-
-        <Grid xs={12} item>
-          <Controller
-            control={control}
-            name="familia"
-            defaultValue={initialData?.familia}
-            rules={{
-              required: tForm('required'),
-            }}
-            render={({ field }) => (
-              <TextField
-                select
-                size="small"
-                label={t('form.familia')}
-                fullWidth
-                {...field}
-                disabled={disabled}
-                error={!!errors.familia}
-                helperText={errors.familia?.message}
-              >
-                {familias?.map((familia) => (
-                  <MenuItem key={familia._id} value={familia._id}>
-                    {familia.descripcion}
-                  </MenuItem>
-                ))}
-              </TextField>
             )}
           />
         </Grid>

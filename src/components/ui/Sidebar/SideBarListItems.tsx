@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import { FC } from 'react';
 
 import {
-  Category as CategoryIcon,
   DeliveryDiningOutlined as DeliveryIcon,
   Inventory2Outlined as StockIcon,
   LockOutlined as CierreCajaIcon,
@@ -11,7 +10,7 @@ import {
   MonitorOutlined as CajaIcon,
   PersonOutlineOutlined as ClientesIcon,
   ShoppingCartOutlined as MovimientosIcon,
-  StorefrontOutlined as SucursalIcon,
+  StorefrontOutlined as SucursalIcon
 } from '@mui/icons-material';
 
 import Inventory2Icon from '@mui/icons-material/Inventory2';
@@ -22,7 +21,7 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Typography,
+  Typography
 } from '@mui/material';
 import { useTranslation } from 'next-i18next';
 
@@ -84,13 +83,13 @@ export const menuItems = [
     path: '/users',
   },
 
-  {
-    id: 'familia-articulos',
-    icon: <CategoryIcon />,
-    text: 'links.familiaArticulos',
-    roles: [''],
-    path: '/familia-articulos',
-  },
+  // {
+  //   id: 'familia-articulos',
+  //   icon: <CategoryIcon />,
+  //   text: 'links.familiaArticulos',
+  //   roles: [''],
+  //   path: '/familia-articulos',
+  // },
   {
     id: 'linea-articulos',
     icon: <Inventory2Icon />,

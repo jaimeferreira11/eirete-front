@@ -53,7 +53,7 @@ export const parseLineasToItemList = (
     (linea): IListItemGeneric => ({
       _id: linea._id,
       title: `${linea.descripcion}`,
-      subtitle: linea.familia.descripcion,
+      subtitle: '',
       icon: <Inventory2Icon />,
     })
   );
