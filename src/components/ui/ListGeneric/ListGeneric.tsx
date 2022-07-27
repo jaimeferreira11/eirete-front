@@ -74,7 +74,7 @@ export const ListGeneric: FC<Props> = ({
           aria-label={title}
           sx={{
             maxHeight: '55vh',
-            overflow: 'scroll',
+            overflow: 'auto',
           }}
         >
           {items.map((item) => (

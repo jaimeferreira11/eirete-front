@@ -26,7 +26,7 @@ export const DataGridEirete: FC<Props> = ({ config }) => {
 
   return (
     <>
-      <Box sx={{ height: 650, width: '100%' }}>
+      <Box sx={{ height: { xs: '60vh', sm: '75vh' }, width: '100%' }}>
         <FilterBox searchHandler={handleSearch} isLoading={isLoading} />
         <DataGrid
           getRowId={(row) => row._id}

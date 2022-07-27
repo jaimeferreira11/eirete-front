@@ -1,5 +1,5 @@
 import { ILineaArticulo } from '@core/interfaces';
-import { useLineasProvider, useSnackbarProvider } from '@lib/hooks';
+import { useLineasProvider, useUtilsProvider } from '@lib/hooks';
 import { INewLineaArticulo } from '@lib/interfaces';
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
@@ -17,7 +17,7 @@ interface Props {
 export const LineaEditView: FC<Props> = ({ linea, onCancel }) => {
   const { t } = useTranslation('lineaArticulosABM');
   const { update } = useLineasProvider();
-  const { showSnackbar } = useSnackbarProvider();
+  const { showSnackbar } = useUtilsProvider();
   const { form, handleSubmit, disabled } = useLineaForm({
     linea,
   });

@@ -20,11 +20,7 @@ import {
 
 import { ICliente } from '@core/interfaces';
 
-import {
-  useCiudades,
-  useClienteProvider,
-  useSnackbarProvider,
-} from '@lib/hooks';
+import { useCiudades, useClienteProvider, useUtilsProvider } from '@lib/hooks';
 import { INewPersona } from '@lib/interfaces/NewCliente';
 
 interface Props {
@@ -40,7 +36,7 @@ export const ClientesForm: FC<Props> = ({
   cliente = undefined,
 }) => {
   const { saveCliente } = useClienteProvider();
-  const { showSnackbar } = useSnackbarProvider();
+  const { showSnackbar } = useUtilsProvider();
   const { t } = useTranslation('clientesABM');
   const { t: tForm } = useTranslation('common', { keyPrefix: 'forms' });
 

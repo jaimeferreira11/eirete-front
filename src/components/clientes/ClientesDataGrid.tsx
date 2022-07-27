@@ -16,18 +16,14 @@ import {
   DataGridEirete,
 } from '@components/ui/DataGridComponents';
 import { ICliente, ListPaginationOptions } from '@core/interfaces';
-import {
-  useClienteProvider,
-  useClientes,
-  useSnackbarProvider,
-} from '@lib/hooks';
+import { useClienteProvider, useClientes, useUtilsProvider } from '@lib/hooks';
 import { AddOutlined } from '@mui/icons-material';
 import { ClientesForm } from './ClientesForm';
 
 export const ClienteDataGrid = () => {
   const { t } = useTranslation('clientesABM');
 
-  const { showSnackbar } = useSnackbarProvider();
+  const { showSnackbar } = useUtilsProvider();
   const { changeStatus } = useClienteProvider();
 
   const [clientes, setClientes] = useState<ICliente[]>([]);

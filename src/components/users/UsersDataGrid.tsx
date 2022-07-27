@@ -17,14 +17,14 @@ import {
   DataGridEirete,
 } from '@components/ui/DataGridComponents';
 import { IUser, ListPaginationOptions } from '@core/interfaces';
-import { useSnackbarProvider, useUserProvider, useUsers } from '@lib/hooks';
+import { useUserProvider, useUsers, useUtilsProvider } from '@lib/hooks';
 import { UsuarioForm } from './UsuarioForm';
 
 export const UsersDataGrid = () => {
   const { t } = useTranslation('usersABM');
 
   const { deactivateUser } = useUserProvider();
-  const { showSnackbar } = useSnackbarProvider();
+  const { showSnackbar } = useUtilsProvider();
 
   const [usuarios, setUsuarios] = useState<IUser[]>([]);
   const [search, setSearch] = useState({ search: '', active: 'true' });

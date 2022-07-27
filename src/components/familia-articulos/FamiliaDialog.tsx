@@ -1,5 +1,5 @@
 import { IFamiliaArticulo } from '@core/interfaces';
-import { useSnackbarProvider } from '@lib/hooks';
+import { useUtilsProvider } from '@lib/hooks';
 import { useFamiliasProvider } from '@lib/hooks/providers/useFamiliasProvider';
 import {
   Button,
@@ -29,7 +29,7 @@ export const FamiliaDialog: FC<Props> = ({
 }) => {
   const { t } = useTranslation('familiaArticulosABM');
   const { save } = useFamiliasProvider();
-  const { showSnackbar } = useSnackbarProvider();
+  const { showSnackbar } = useUtilsProvider();
 
   const title = familia ? t('editUser') : t('newFamilia');
 

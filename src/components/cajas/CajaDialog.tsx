@@ -14,7 +14,7 @@ import {
 
 import { ICaja } from '@core/interfaces';
 
-import { useCajasProvider, useSnackbarProvider } from '@lib/hooks';
+import { useCajasProvider, useUtilsProvider } from '@lib/hooks';
 import { INewCaja } from '@lib/interfaces';
 import { useCajaForm } from './useCajaForm';
 
@@ -32,7 +32,7 @@ export const CajaDialog: FC<Props> = ({
 }) => {
   const { t } = useTranslation('cajasABM');
   const { save } = useCajasProvider();
-  const { showSnackbar } = useSnackbarProvider();
+  const { showSnackbar } = useUtilsProvider();
 
   const title = caja ? t('editCaja') : t('newCaja');
 
