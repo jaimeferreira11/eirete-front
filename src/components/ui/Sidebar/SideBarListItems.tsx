@@ -15,6 +15,7 @@ import {
 
 import Inventory2Icon from '@mui/icons-material/Inventory2';
 
+import { useUtilsProvider } from '@lib/hooks';
 import {
   Link,
   List,
@@ -107,6 +108,7 @@ export const SideBarListItems: FC<Props> = () => {
   const { t } = useTranslation('sidebar');
   const { asPath } = useRouter();
 
+  const { closeDrawer } = useUtilsProvider();
   return (
     <List
       sx={{
@@ -122,6 +124,7 @@ export const SideBarListItems: FC<Props> = () => {
                 mb: 1,
               }}
               selected={asPath === menuItem.path ? true : false}
+              onClick={closeDrawer}
             >
               <ListItemIcon
                 sx={{
