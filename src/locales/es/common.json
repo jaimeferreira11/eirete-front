@@ -1,7 +1,8 @@
 {
   "forms": {
     "required": "Campo requerido",
-    "minLengthField": "Mínimo de {{cantidad}} caracteres"
+    "minLengthField": "Mínimo de {{cantidad}} caracteres",
+    "validEmail": "Ingrese un correo válido"
   },
   "modal": {
     "ok": "Aceptar",
