@@ -2,6 +2,7 @@
 
 export interface INewCliente {
   persona: INewPersona;
+  direcciones?: INewDireccion[];
 }
 
 export interface INewPersona {
@@ -10,4 +11,17 @@ export interface INewPersona {
   sexo: string;
   tipoDoc: string;
   tipoPersona: string;
+  correo?: string;
+  celular?: string;
+  direccion?: string;
+  ciudad?: string;
+  obs?: string;
+}
+
+export interface INewDireccion {
+  direccion: string;
+  ciudad?: string;
+  predeterminado?: boolean;
+  contacto?: string;
+  obs?: string;
 }
