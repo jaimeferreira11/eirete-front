@@ -14,7 +14,7 @@ import {
 
 import { ISucursal } from '@core/interfaces';
 
-import { useSnackbarProvider, useSucuralesProvider } from '@lib/hooks';
+import { useSucuralesProvider, useUtilsProvider } from '@lib/hooks';
 import { INewSucursal } from '@lib/interfaces';
 import { useSucursalForm } from './useSucursalForm';
 
@@ -32,7 +32,7 @@ export const SucursalDialog: FC<Props> = ({
 }) => {
   const { t } = useTranslation('sucursalesABM');
   const { save } = useSucuralesProvider();
-  const { showSnackbar } = useSnackbarProvider();
+  const { showSnackbar } = useUtilsProvider();
 
   const title = sucursal ? t('editUser') : t('newSucursal');
 

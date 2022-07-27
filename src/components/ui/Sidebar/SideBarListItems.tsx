@@ -10,7 +10,7 @@ import {
   MonitorOutlined as CajaIcon,
   PersonOutlineOutlined as ClientesIcon,
   ShoppingCartOutlined as MovimientosIcon,
-  StorefrontOutlined as SucursalIcon
+  StorefrontOutlined as SucursalIcon,
 } from '@mui/icons-material';
 
 import Inventory2Icon from '@mui/icons-material/Inventory2';
@@ -21,7 +21,7 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Typography
+  Typography,
 } from '@mui/material';
 import { useTranslation } from 'next-i18next';
 
@@ -108,7 +108,12 @@ export const SideBarListItems: FC<Props> = () => {
   const { asPath } = useRouter();
 
   return (
-    <List sx={{ maxHeight: 600, overflow: 'scroll' }}>
+    <List
+      sx={{
+        maxHeight: 600,
+        overflow: 'auto',
+      }}
+    >
       {menuItems.map((menuItem) => (
         <NextLink href={menuItem.path} passHref key={menuItem.id}>
           <Link sx={{ color: asPath === menuItem.path ? 'primary' : '#000' }}>
@@ -129,7 +134,6 @@ export const SideBarListItems: FC<Props> = () => {
               </ListItemIcon>
               <ListItemText
                 sx={{
-                  display: { xs: 'none', sm: 'block' },
                   overflow: 'clip',
                   fontWeight: asPath !== menuItem.path ? 300 : 800,
                 }}

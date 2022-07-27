@@ -47,7 +47,7 @@ export const MenuUser = () => {
 
   return (
     <Box
-      padding={4}
+      sx={{ padding: { xs: 0, sm: 2 } }}
       display="flex"
       justifyContent="space-between"
       alignItems="center"

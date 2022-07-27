@@ -1,9 +1,9 @@
 import { useContext } from 'react';
 
-import { SnackbarContext } from '@lib/context/Utils/Snackbar';
+import { UtilsContext } from '@lib/context/Utils';
 
-export const useSnackbarProvider = () => {
-  const providerState = useContext(SnackbarContext);
+export const useUtilsProvider = () => {
+  const providerState = useContext(UtilsContext);
 
   return { ...providerState };
 };

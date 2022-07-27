@@ -1,5 +1,5 @@
 import { ILineaArticulo } from '@core/interfaces';
-import { useLineasProvider, useSnackbarProvider } from '@lib/hooks';
+import { useLineasProvider, useUtilsProvider } from '@lib/hooks';
 import { INewLineaArticulo } from '@lib/interfaces';
 import {
   Button,
@@ -28,7 +28,7 @@ export const LineaDialog: FC<Props> = ({
 }) => {
   const { t } = useTranslation('lineaArticulosABM');
   const { save } = useLineasProvider();
-  const { showSnackbar } = useSnackbarProvider();
+  const { showSnackbar } = useUtilsProvider();
 
   const title = linea ? t('editUser') : t('newLinea');
 

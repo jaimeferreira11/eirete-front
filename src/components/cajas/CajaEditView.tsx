@@ -4,7 +4,7 @@ import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 
 import { ICaja } from '@core/interfaces';
-import { useSnackbarProvider } from '@lib/hooks';
+import { useUtilsProvider } from '@lib/hooks';
 import { useCajasProvider } from '@lib/hooks/providers/useCajasProvider';
 import { INewCaja } from '@lib/interfaces';
 import { Button, Grid, Typography } from '@mui/material';
@@ -20,7 +20,7 @@ interface Props {
 export const CajaEditView: FC<Props> = ({ caja, onCancel }) => {
   const { t } = useTranslation('cajasABM');
   const { update } = useCajasProvider();
-  const { showSnackbar } = useSnackbarProvider();
+  const { showSnackbar } = useUtilsProvider();
   const { form, handleSubmit, disabled } = useCajaForm({
     caja,
   });

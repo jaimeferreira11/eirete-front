@@ -1,4 +1,5 @@
 export * from './ConfirmationModal';
+export * from './Drawer';
 export * from './FullPageLoader';
 export * from './ListGeneric';
 export * from './Sidebar';

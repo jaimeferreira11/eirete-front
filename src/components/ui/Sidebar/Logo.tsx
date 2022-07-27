@@ -10,22 +10,23 @@ export const Logo = () => {
       flexDirection="column"
       justifyContent="space-around"
       alignItems="center"
-      sx={{ width: 'auto', textAlign: 'center', pb: 2, pt: 2 }}
+      sx={{
+        width: 'auto',
+        textAlign: 'center',
+        pb: 2,
+        pt: 2,
+      }}
     >
-      <GrainIcon color="primary" sx={{ fontSize: { xs: 60, sm: 100 } }} />
-      <Typography
-        sx={{ display: { xs: 'none', sm: 'block' } }}
-        variant="h5"
-        component="h5"
-        fontWeight={800}
-      >
+      <GrainIcon
+        color="primary"
+        sx={{
+          fontSize: { xs: 60, sm: 100 },
+        }}
+      />
+      <Typography variant="h5" component="h5" fontWeight={800}>
         {t('texto1')}
       </Typography>
-      <Typography
-        sx={{ display: { xs: 'none', sm: 'block' } }}
-        variant="h6"
-        fontWeight={400}
-      >
+      <Typography variant="h6" fontWeight={400}>
         {t('texto2')}
       </Typography>
     </Box>
