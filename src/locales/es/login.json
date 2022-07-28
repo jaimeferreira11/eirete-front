@@ -5,5 +5,6 @@
     "texto1": "Sandoichi",
     "texto2": "Multiplaza"
   },
-  "iniciarSesion": "Iniciar Sesión"
+  "iniciarSesion": "Iniciar Sesión",
+  "errorLogin": "Credenciales inválidas"
 }
