@@ -33,7 +33,7 @@ export const FamiliaDialog: FC<Props> = ({
 
   const title = familia ? t('editUser') : t('newFamilia');
 
-  const { form, handleSubmit } = useFamiliaForm({ familia });
+  const { form, handleSubmit, reset } = useFamiliaForm({ familia });
 
   const [isSaving, setIsSaving] = useState(false);
 
@@ -58,6 +58,11 @@ export const FamiliaDialog: FC<Props> = ({
     }
   };
 
+  const handleCancelButton = () => {
+    reset();
+    handleClose();
+  };
+
   return (
     <Dialog
       sx={{
@@ -77,7 +82,7 @@ export const FamiliaDialog: FC<Props> = ({
         <DialogTitle>{title}</DialogTitle>
         <DialogContent style={{ maxHeight: '450px' }}>{form}</DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} disabled={isSaving}>
+          <Button onClick={handleCancelButton} disabled={isSaving}>
             <Typography>{t('form.cancel')}</Typography>
           </Button>
           <Button type="submit" disabled={isSaving}>

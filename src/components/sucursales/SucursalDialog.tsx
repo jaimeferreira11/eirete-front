@@ -36,7 +36,7 @@ export const SucursalDialog: FC<Props> = ({
 
   const title = sucursal ? t('editUser') : t('newSucursal');
 
-  const { form, handleSubmit } = useSucursalForm({ sucursal });
+  const { form, handleSubmit, reset } = useSucursalForm({ sucursal });
 
   const [isSaving, setIsSaving] = useState(false);
 
@@ -61,6 +61,11 @@ export const SucursalDialog: FC<Props> = ({
     }
   };
 
+  const handleCancelButton = () => {
+    reset();
+    handleClose();
+  };
+
   return (
     <Dialog
       sx={{
@@ -83,7 +88,7 @@ export const SucursalDialog: FC<Props> = ({
           <Button
             color="error"
             variant={'outlined'}
-            onClick={handleClose}
+            onClick={handleCancelButton}
             disabled={isSaving}
           >
             <Typography>{t('form.cancel')}</Typography>

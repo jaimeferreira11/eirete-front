@@ -32,7 +32,7 @@ export const LineaDialog: FC<Props> = ({
 
   const title = linea ? t('editUser') : t('newLinea');
 
-  const { form, handleSubmit } = useLineaForm({ linea });
+  const { form, handleSubmit, reset } = useLineaForm({ linea });
 
   const [isSaving, setIsSaving] = useState(false);
 
@@ -57,6 +57,11 @@ export const LineaDialog: FC<Props> = ({
     }
   };
 
+  const handleCancelButton = () => {
+    reset();
+    handleClose();
+  };
+
   return (
     <Dialog
       sx={{
@@ -76,7 +81,7 @@ export const LineaDialog: FC<Props> = ({
         <DialogTitle>{title}</DialogTitle>
         <DialogContent style={{ maxHeight: '450px' }}>{form}</DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} disabled={isSaving}>
+          <Button onClick={handleCancelButton} disabled={isSaving}>
             <Typography>{t('form.cancel')}</Typography>
           </Button>
           <Button type="submit" disabled={isSaving}>

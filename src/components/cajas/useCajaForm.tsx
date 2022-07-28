@@ -57,6 +57,10 @@ export const useCajaForm = ({ caja = undefined }: Props) => {
 
   useEffect(() => {
     reset(initialData);
+  }, []);
+
+  useEffect(() => {
+    reset(initialData);
   }, [initialData, reset]);
 
   return {
