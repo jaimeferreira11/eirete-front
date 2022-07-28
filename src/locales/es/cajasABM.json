@@ -13,7 +13,8 @@
     "edit": "Editar",
     "remove": "Desactivar",
     "cancel": "Cancelar",
-    "save": "Guardar"
+    "save": "Guardar",
+    "estado": "Estado"
   },
   "newCaja": "Nueva Caja",
   "editCaja": "Editar Caja",

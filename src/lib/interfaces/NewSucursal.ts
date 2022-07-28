@@ -7,4 +7,5 @@ export interface INewSucursal {
   puntoExpedicion: number;
   rangoInicial: number;
   rangoFinal: number;
+  estado: boolean;
 }

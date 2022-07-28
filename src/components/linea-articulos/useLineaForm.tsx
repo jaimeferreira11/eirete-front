@@ -1,6 +1,12 @@
 import { ILineaArticulo } from '@core/interfaces';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import { Button, Grid, TextField } from '@mui/material';
+import {
+  Button,
+  FormControlLabel,
+  Grid,
+  Switch,
+  TextField,
+} from '@mui/material';
 import { useTranslation } from 'next-i18next';
 import { useEffect, useMemo, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -17,9 +23,11 @@ export const useLineaForm = ({ linea = undefined }: Props) => {
     return linea
       ? {
           descripcion: linea.descripcion,
+          estado: linea.estado,
         }
       : {
           descripcion: '',
+          estado: true,
         };
   }, [linea]);
 
@@ -78,6 +86,29 @@ export const useLineaForm = ({ linea = undefined }: Props) => {
             </Button>
           </Grid>
         )}
+
+        <Grid xs={6} item>
+          <FormControlLabel
+            value={initialData?.estado || false}
+            control={
+              <Controller
+                name={'estado'}
+                control={control}
+                render={({ field: { ref, onChange, ...field } }) => (
+                  <Switch
+                    {...field}
+                    ref={ref}
+                    checked={field.value}
+                    onChange={(e, value) => onChange(value)}
+                    disabled={disabled}
+                  />
+                )}
+              />
+            }
+            disabled={disabled}
+            label={t('form.estado')}
+          />
+        </Grid>
       </Grid>
     ),
   };
