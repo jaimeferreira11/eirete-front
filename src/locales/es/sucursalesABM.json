@@ -18,7 +18,8 @@
     "edit": "Editar",
     "remove": "Desactivar",
     "cancel": "Cancelar",
-    "save": "Guardar"
+    "save": "Guardar",
+    "estado": "Estado"
   },
   "newSucursal": "Nueva Sucursal",
   "editSucursal": "Editar Sucursal",

@@ -4,7 +4,14 @@ import { Controller, useForm } from 'react-hook-form';
 
 import { useTranslation } from 'next-i18next';
 
-import { Button, Grid, MenuItem, TextField } from '@mui/material';
+import {
+  Button,
+  FormControlLabel,
+  Grid,
+  MenuItem,
+  Switch,
+  TextField,
+} from '@mui/material';
 
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
@@ -25,11 +32,13 @@ export const useCajaForm = ({ caja = undefined }: Props) => {
           descripcion: caja.descripcion,
           nro: caja.nro,
           sucursal: caja.sucursal._id,
+          estado: caja.estado,
         }
       : {
           descripcion: '',
           sucursal: '',
           nro: 0,
+          estado: true,
         };
   }, [caja]);
 
@@ -134,6 +143,28 @@ export const useCajaForm = ({ caja = undefined }: Props) => {
             </Button>
           </Grid>
         )}
+        <Grid xs={6} item>
+          <FormControlLabel
+            value={initialData?.estado || false}
+            control={
+              <Controller
+                name={'estado'}
+                control={control}
+                render={({ field: { ref, onChange, ...field } }) => (
+                  <Switch
+                    {...field}
+                    ref={ref}
+                    checked={field.value}
+                    onChange={(e, value) => onChange(value)}
+                    disabled={disabled}
+                  />
+                )}
+              />
+            }
+            disabled={disabled}
+            label={t('form.estado')}
+          />
+        </Grid>
       </Grid>
     ),
   };
