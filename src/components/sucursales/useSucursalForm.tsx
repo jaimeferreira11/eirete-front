@@ -66,6 +66,7 @@ export const useSucursalForm = ({ sucursal = undefined }: Props) => {
           ? ciudades?.find((ciudad) => ciudad.descripcion === sucursal.ciudad)
           : null
       );
+    else setCiudadAux(null);
   }, [ciudades, sucursal]);
 
   const {

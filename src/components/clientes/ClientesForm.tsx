@@ -18,7 +18,7 @@ import {
   Typography,
 } from '@mui/material';
 
-import { ICliente } from '@core/interfaces';
+import { ICiudad, ICliente } from '@core/interfaces';
 
 import { useCiudades, useClienteProvider, useUtilsProvider } from '@lib/hooks';
 import { INewPersona } from '@lib/interfaces/NewCliente';
@@ -61,6 +61,19 @@ export const ClientesForm: FC<Props> = ({
 
   const [isSaving, setIsSaving] = useState(false);
   const { ciudades } = useCiudades();
+  const [ciudadAux, setCiudadAux] = useState<ICiudad | null | undefined>(null);
+
+  useEffect(() => {
+    if (cliente)
+      setCiudadAux(
+        ciudades
+          ? ciudades?.find(
+              (ciudad) => ciudad.descripcion === cliente.persona.ciudad
+            )
+          : null
+      );
+    else setCiudadAux(null);
+  }, [ciudades, cliente]);
 
   const {
     control,
@@ -299,14 +312,16 @@ export const ClientesForm: FC<Props> = ({
                   return (
                     <Autocomplete
                       options={ciudades || []}
-                      isOptionEqualToValue={(option, value) =>
-                        option._id === value._id
-                      }
+                      isOptionEqualToValue={(option, value) => {
+                        if (!value) return true;
+                        return option._id === value?._id;
+                      }}
                       getOptionLabel={(option) => option.descripcion}
-                      onChange={(_, data) => onChange(data?.descripcion)}
-                      value={ciudades?.find(
-                        (ciudad) => ciudad.descripcion === field.value
-                      )}
+                      onChange={(_, data) => {
+                        setCiudadAux(data);
+                        onChange(data?.descripcion);
+                      }}
+                      value={ciudadAux || null}
                       renderInput={(params) => (
                         <TextField
                           label={t('form.ciudad')}
