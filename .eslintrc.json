@@ -1,3 +1,36 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": ["next", "next/core-web-vitals", "eslint:recommended"],
+  "globals": {
+    "React": "readonly"
+  },
+  "rules": {
+    "no-unused-vars": [1, { "args": "after-used", "argsIgnorePattern": "^_" }],
+    "import/no-restricted-paths": [
+      "error",
+      {
+        "zones": [
+          {
+            "target": "./src/core",
+            "from": "./src/components"
+          },
+          {
+            "target": "./src/core",
+            "from": "./src/lib"
+          },
+          {
+            "target": "./src/core",
+            "from": "./src/pages"
+          },
+          {
+            "target": "./src/lib",
+            "from": "./src/pages"
+          },
+          {
+            "target": "./src/components",
+            "from": "./src/pages"
+          }
+        ]
+      }
+    ]
+  }
 }

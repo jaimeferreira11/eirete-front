@@ -1,0 +1,28 @@
+{
+  "title": "Familia de articulos",
+  "noRowsLabel": "Sin familias que mostrar",
+  "labelRowsPerPage": "Nro. familias por página",
+  "form": {
+    "descripcion": "Descripción",
+    "active": "Activo",
+    "deactive": "Inactivo",
+    "actions": "Acciones",
+    "actionsDescription": "Acciones aplicables",
+    "edit": "Editar",
+    "remove": "Desactivar",
+    "cancel": "Cancelar",
+    "save": "Guardar"
+  },
+  "newFamilia": "Nueva Familia",
+  "editFamilia": "Editar Familia",
+  "familiaPersist": "Familia creada exitosamente",
+  "familiaUpdated": "Familia modificada exitosamente",
+  "familiaPersistError": "Ocurrió un error al guardar la familia",
+  "confirmDeactivation": "¿Está seguro de cambiar el estado?",
+  "familiaDeactivation": "Desactivar familia",
+  "familiaSeleccionHelp": "Seleccione una familia para ver los detalles",
+  "details": "Detalles",
+  "emptyList": "Sin familias que mostrar",
+  "editData": "Editar datos",
+  "search": "Buscar"
+}

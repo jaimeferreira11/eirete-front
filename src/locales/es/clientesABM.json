@@ -1,0 +1,47 @@
+{
+  "title": "Clientes",
+  "noRowsLabel": "Sin clientes que mostrar",
+  "labelRowsPerPage": "Nro. clientes por página",
+  "form": {
+    "nroDoc": "Nro. Documento",
+    "nombreApellido": "Nombre y apellido",
+    "direccion": "Dirección",
+    "tipoDoc": "Tipo documento",
+    "tipoPersona": "Tipo",
+    "correo": "Correo electrónico",
+    "celular": "Celular",
+    "ciudad": "Ciudad",
+    "obs": "Observación",
+    "active": "Activo",
+    "deactive": "Inactivo",
+    "actions": "Acciones",
+    "actionsDescription": "Acciones aplicables",
+    "edit": "Editar",
+    "remove": "Desactivar",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "estado": "Estado",
+    "sexo": "Sexo",
+    "sexOptions": {
+      "masculino": "Masculino",
+      "femenino": "Femenino"
+    },
+    "tipoDocOptions": {
+      "ci": "Cédula de Identidad",
+      "ruc": "RUC"
+    },
+    "activate": "Activar"
+  },
+  "newCliente": "Nuevo Cliente",
+  "editCliente": "Editar Cliente",
+  "clientePersist": "Cliente creado exitosamente",
+  "clienteUpdated": "Cliente modificado exitosamente",
+  "clientePersistError": "Ocurrió un error al guardar el cliente",
+  "confirmDeactivation": "¿Está seguro de cambiar el estado?",
+  "clienteDeactivation": "Desactivar cliente",
+  "clienteSeleccionHelp": "Seleccione un cliente para ver los detalles",
+  "details": "Detalles",
+  "emptyList": "Sin clientes que mostrar",
+  "editData": "Editar datos",
+  "search": "Buscar"
+}
