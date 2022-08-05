@@ -8,7 +8,7 @@ interface ContextProps {
   articuloSelected: IArticulo | undefined;
   setArticuloSelected: (
     articuloSelected: IArticulo,
-    mutate: KeyedMutator<IArticulo[]>
+    mutate: KeyedMutator<IArticulo[]> | undefined
   ) => void;
   clearArticuloSelected: () => void;
   update: (

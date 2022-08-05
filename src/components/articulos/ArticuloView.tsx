@@ -8,7 +8,7 @@ import { KeyedMutator } from 'swr';
 
 interface Props {
   articulo: IArticulo;
-  refMutate: KeyedMutator<IArticulo[]>;
+  refMutate?: KeyedMutator<IArticulo[]> | undefined;
 }
 
 export const ArticuloView: FC<Props> = ({ articulo, refMutate }) => {
