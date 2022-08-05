@@ -27,7 +27,7 @@ export const ArticulosProvider: FC<PropsWithChildren<any>> = ({ children }) => {
 
   const setArticuloSelected = (
     articuloSelected: IArticulo,
-    mutate: KeyedMutator<IArticulo[]>
+    mutate: KeyedMutator<IArticulo[]> | undefined
   ) =>
     dispatch({
       type: 'SetArticuloSelected',

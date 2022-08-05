@@ -18,7 +18,3 @@ export interface IArticulo {
 export interface LineaArticulo {
   _id: string;
 }
-
-export interface UsuarioAlta {
-  _id: string;
-}

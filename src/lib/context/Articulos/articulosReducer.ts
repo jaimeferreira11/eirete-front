@@ -7,7 +7,7 @@ type ArticulosType =
       type: 'SetArticuloSelected';
       payload: {
         articuloSelected: IArticulo;
-        mutate: KeyedMutator<IArticulo[]>;
+        mutate: KeyedMutator<IArticulo[]> | undefined;
       };
     }
   | { type: 'ClearArticuloSelected' };
