@@ -40,7 +40,6 @@ export const ClientesForm: FC<Props> = ({
   const { t } = useTranslation('clientesABM');
   const { t: tForm } = useTranslation('common', { keyPrefix: 'forms' });
 
-  console.log('cliente', cliente);
   const title = cliente ? t('editCliente') : t('newCliente');
 
   const persona: INewPersona = cliente
