@@ -6,7 +6,7 @@ import eireteApi from '@core/api';
 import { INewArticulo } from '@lib/interfaces';
 import { AxiosError } from 'axios';
 
-import { KeyedMutator } from 'swr';
+import { KeyedMutator, mutate } from 'swr';
 import { ArticulosContext, articulosReducer } from './';
 
 export interface ArticulosState {
@@ -49,6 +49,7 @@ export const ArticulosProvider: FC<PropsWithChildren<any>> = ({ children }) => {
       });
 
       if (state.mutate) state.mutate();
+
       return {
         hasError: false,
       };
@@ -70,6 +71,7 @@ export const ArticulosProvider: FC<PropsWithChildren<any>> = ({ children }) => {
       });
 
       if (state.mutate) state.mutate();
+      mutate(`/articulos?estado=true&linea=${newArticulo.lineaArticulo}`);
       return {
         hasError: false,
       };
