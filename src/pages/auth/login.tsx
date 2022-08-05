@@ -31,8 +31,6 @@ const LoginPage: NextPageWithLayout = () => {
 
   const router = useRouter();
 
-  console.log('router', { router });
-
   const [isLogging, setIsLogging] = useState(false);
 
   const {
