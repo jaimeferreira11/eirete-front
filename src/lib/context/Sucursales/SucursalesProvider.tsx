@@ -37,7 +37,6 @@ export const SucursalesProvider: FC<Props> = ({ children }) => {
         hasError: false,
       };
     } catch (error) {
-      console.log('error', error);
       if (axios.isAxiosError(error)) {
         return {
           hasError: true,
@@ -56,8 +55,6 @@ export const SucursalesProvider: FC<Props> = ({ children }) => {
     _id: string
   ): Promise<IEnpointResult> => {
     try {
-      console.log('_id', _id);
-      console.log('newSucursal', newSucursal);
       await eireteApi.put(`/sucursales/${_id}`, newSucursal);
 
       return {

@@ -1,4 +1,6 @@
 export * from './DataGridConfig';
+export * from './LineasArticulosSearch';
+export * from './NewArticulo';
 export * from './NewCaja';
 export * from './NewCliente';
 export * from './NewFamiliaArticulo';

@@ -76,7 +76,6 @@ export const ClienteDataGrid = () => {
   };
 
   const handleDeactivation = async () => {
-    console.log('editCliente', editCliente);
     const result = await changeStatus(editCliente?._id!, !editCliente?.estado);
 
     if (!result.hasError) {
