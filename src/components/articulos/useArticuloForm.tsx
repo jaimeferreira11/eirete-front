@@ -26,6 +26,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
 import { useLinea } from '@lib/hooks';
 import { INewArticulo } from '@lib/interfaces';
+import NumberFormat from 'react-number-format';
 
 interface Props {
   articulo?: IArticulo | undefined;
@@ -72,7 +73,7 @@ export const useArticuloForm = ({ articulo = undefined }: Props) => {
           unidadMedida: 'UNIDAD',
           precioVenta: 0,
           lineaArticulo: '',
-          tipoImpuesto: 0,
+          tipoImpuesto: 10,
           estado: true,
         };
   }, [articulo]);
@@ -106,6 +107,44 @@ export const useArticuloForm = ({ articulo = undefined }: Props) => {
     disabled,
     form: (
       <Grid spacing={3} container sx={{ px: 1, mt: 0.2 }}>
+        <Grid xs={6} item>
+          <Controller
+            control={control}
+            name="codigo"
+            rules={{ required: tForm('required') }}
+            render={({ field }) => (
+              <TextField
+                label={t('form.codigo')}
+                fullWidth
+                {...field}
+                inputProps={{ style: { textTransform: 'uppercase' } }}
+                error={!!errors.codigo}
+                helperText={errors.codigo?.message}
+                disabled={true}
+              />
+            )}
+          />
+        </Grid>
+
+        <Grid xs={6} item>
+          <Controller
+            control={control}
+            name="codigoBarra"
+            rules={{ required: tForm('required') }}
+            render={({ field }) => (
+              <TextField
+                label={t('form.codigoBarra')}
+                fullWidth
+                {...field}
+                inputProps={{ style: { textTransform: 'uppercase' } }}
+                error={!!errors.codigoBarra}
+                helperText={errors.codigoBarra?.message}
+                disabled={disabled}
+              />
+            )}
+          />
+        </Grid>
+
         <Grid xs={6} item>
           <Controller
             control={control}
@@ -168,13 +207,25 @@ export const useArticuloForm = ({ articulo = undefined }: Props) => {
               required: tForm('required'),
             }}
             render={({ field }) => (
-              <TextField
+              // <TextField
+              //   label={t('form.precioVenta')}
+              //   fullWidth
+              //   {...field}
+              //   error={!!errors.precioVenta}
+              //   helperText={errors.precioVenta?.message}
+              //   disabled={disabled}
+              // />
+              <NumberFormat
                 label={t('form.precioVenta')}
                 fullWidth
                 {...field}
                 error={!!errors.precioVenta}
                 helperText={errors.precioVenta?.message}
                 disabled={disabled}
+                displayType={'input'}
+                customInput={TextField}
+                thousandSeparator={'.'}
+                decimalSeparator={','}
               />
             )}
           />
@@ -230,49 +281,11 @@ export const useArticuloForm = ({ articulo = undefined }: Props) => {
                 disabled={disabled}
               >
                 {TipoImpuestoArray.map((tipoImpuesto) => (
-                  <MenuItem key={tipoImpuesto} value={tipoImpuesto}>
-                    {tipoImpuesto}
+                  <MenuItem key={tipoImpuesto.valor} value={tipoImpuesto.valor}>
+                    {tipoImpuesto.descripcion}
                   </MenuItem>
                 ))}
               </TextField>
-            )}
-          />
-        </Grid>
-
-        <Grid xs={6} item>
-          <Controller
-            control={control}
-            name="codigo"
-            rules={{ required: tForm('required') }}
-            render={({ field }) => (
-              <TextField
-                label={t('form.codigo')}
-                fullWidth
-                {...field}
-                inputProps={{ style: { textTransform: 'uppercase' } }}
-                error={!!errors.codigo}
-                helperText={errors.codigo?.message}
-                disabled={disabled}
-              />
-            )}
-          />
-        </Grid>
-
-        <Grid xs={6} item>
-          <Controller
-            control={control}
-            name="codigoBarra"
-            rules={{ required: tForm('required') }}
-            render={({ field }) => (
-              <TextField
-                label={t('form.codigoBarra')}
-                fullWidth
-                {...field}
-                inputProps={{ style: { textTransform: 'uppercase' } }}
-                error={!!errors.codigoBarra}
-                helperText={errors.codigoBarra?.message}
-                disabled={disabled}
-              />
             )}
           />
         </Grid>

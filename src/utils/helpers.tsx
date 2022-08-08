@@ -58,3 +58,9 @@ export const parseLineasToItemList = (
     })
   );
 };
+
+export const clearNumberFormat = (value: number): number => {
+  if (!value) return 0;
+  const num = value.toString().replace(/\D/g, '');
+  return num ? Number(num) : 0;
+};

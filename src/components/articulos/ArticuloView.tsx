@@ -29,7 +29,7 @@ export const ArticuloView: FC<Props> = ({ articulo, refMutate }) => {
       onClick={onSelect}
     >
       <Typography variant="subtitle1" sx={{ color: '#2C2C2C' }}>
-        {articulo.descripcion}
+        {articulo.codigo} - {articulo.descripcion}
       </Typography>
     </Box>
   );
