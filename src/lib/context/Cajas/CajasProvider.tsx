@@ -33,7 +33,6 @@ export const CajasProvider: FC<Props> = ({ children }) => {
         hasError: false,
       };
     } catch (error) {
-      console.log('error', error);
       if (axios.isAxiosError(error)) {
         return {
           hasError: true,
@@ -49,15 +48,12 @@ export const CajasProvider: FC<Props> = ({ children }) => {
 
   const update = async (newCaja: any, _id: string): Promise<IEnpointResult> => {
     try {
-      console.log('_id', _id);
-      console.log('updatedCaja', newCaja);
       await eireteApi.put(`/cajas/${_id}`, newCaja);
 
       return {
         hasError: false,
       };
     } catch (error) {
-      console.log('error', error);
       if (axios.isAxiosError(error)) {
         return {
           hasError: true,

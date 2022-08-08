@@ -1,3 +1,4 @@
+export * from './useArticulos';
 export * from './useCajas';
 export * from './useCiudades';
 export * from './useClientes';

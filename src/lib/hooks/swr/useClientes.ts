@@ -12,7 +12,6 @@ export const useClientes = (
 
   urlProccess = `${urlProccess}&estado=${active}`;
 
-  console.log('urlProcess', urlProccess);
   const { data, error, mutate } = useSWR<ListPaginatedResponse<ICliente>>(
     `${urlProccess}`,
     config

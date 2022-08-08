@@ -34,7 +34,6 @@ export const LineasProvider: FC<Props> = ({ children }) => {
         hasError: false,
       };
     } catch (error) {
-      console.log('error', error);
       if (axios.isAxiosError(error)) {
         return {
           hasError: true,
@@ -53,15 +52,12 @@ export const LineasProvider: FC<Props> = ({ children }) => {
     _id: string
   ): Promise<IEnpointResult> => {
     try {
-      console.log('_id', _id);
-      console.log('newLinea', newLinea);
       await eireteApi.put(`/linea-articulos/${_id}`, newLinea);
 
       return {
         hasError: false,
       };
     } catch (error) {
-      console.log('error', error);
       if (axios.isAxiosError(error)) {
         return {
           hasError: true,

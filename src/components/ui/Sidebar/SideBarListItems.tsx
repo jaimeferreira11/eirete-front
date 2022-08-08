@@ -4,6 +4,7 @@ import { FC } from 'react';
 
 import {
   DeliveryDiningOutlined as DeliveryIcon,
+  Inventory as LineaArticuloIcon,
   Inventory2Outlined as StockIcon,
   LockOutlined as CierreCajaIcon,
   ManageAccountsOutlined as UserIcon,
@@ -11,9 +12,8 @@ import {
   PersonOutlineOutlined as ClientesIcon,
   ShoppingCartOutlined as MovimientosIcon,
   StorefrontOutlined as SucursalIcon,
+  TakeoutDiningOutlined as ArticuloIcon,
 } from '@mui/icons-material';
-
-import Inventory2Icon from '@mui/icons-material/Inventory2';
 
 import { useUtilsProvider } from '@lib/hooks';
 import {
@@ -93,10 +93,17 @@ export const menuItems = [
   // },
   {
     id: 'linea-articulos',
-    icon: <Inventory2Icon />,
+    icon: <LineaArticuloIcon />,
     text: 'links.lineaArticulos',
     roles: [''],
     path: '/linea-articulos',
+  },
+  {
+    id: 'articulos',
+    icon: <ArticuloIcon />,
+    text: 'links.articulos',
+    roles: [''],
+    path: '/articulos',
   },
 ];
 
