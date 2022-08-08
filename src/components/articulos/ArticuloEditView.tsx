@@ -8,6 +8,7 @@ import { useArticulosProvider, useUtilsProvider } from '@lib/hooks';
 import { INewArticulo } from '@lib/interfaces';
 import { Button, Grid, Typography } from '@mui/material';
 import { useTranslation } from 'next-i18next';
+import { clearNumberFormat } from 'src/utils';
 import { useArticuloForm } from './useArticuloForm';
 
 interface Props {
@@ -24,6 +25,8 @@ export const ArticuloEditView: FC<Props> = ({ articulo, onCancel }) => {
   });
 
   const onSubmit = async (newArticulo: INewArticulo) => {
+    newArticulo.precioVenta = clearNumberFormat(newArticulo.precioVenta);
+
     const result = await update(newArticulo, articulo._id);
     if (!result.hasError) {
       showSnackbar({

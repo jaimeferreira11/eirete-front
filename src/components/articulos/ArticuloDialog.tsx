@@ -14,6 +14,7 @@ import {
 
 import { useArticulosProvider, useUtilsProvider } from '@lib/hooks';
 import { INewArticulo } from '@lib/interfaces';
+import { clearNumberFormat } from 'src/utils';
 import { useArticuloForm } from './useArticuloForm';
 
 interface Props {
@@ -38,6 +39,7 @@ export const ArticuloDialog: FC<Props> = ({ open, handleClose }) => {
   const onSubmit = async (newArticulo: INewArticulo) => {
     setIsSaving(true);
 
+    newArticulo.precioVenta = clearNumberFormat(newArticulo.precioVenta);
     const result = await save(newArticulo);
     if (!result.hasError) {
       showSnackbar({
