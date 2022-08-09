@@ -32,44 +32,6 @@ export const menuItems = [
     icon: <CajaIcon sx={{ mr: 1 }} />,
     text: 'links.caja',
     roles: [''],
-<<<<<<< HEAD
-    path: '/cajas',
-  },
-  {
-    id: 'cierre-caja',
-    icon: <CierreCajaIcon />,
-    text: 'links.cierreDeCaja',
-    roles: [''],
-    path: '/',
-  },
-  {
-    id: 'delivery',
-    icon: <DeliveryIcon />,
-    text: 'links.delivery',
-    roles: [''],
-    path: '/',
-  },
-  {
-    id: 'stock',
-    icon: <StockIcon />,
-    text: 'links.stock',
-    roles: [''],
-    path: '/stock-sucursal',
-  },
-  {
-    id: 'movimientos',
-    icon: <MovimientosIcon />,
-    text: 'links.movimientos',
-    roles: [''],
-    path: '/',
-  },
-  {
-    id: 'clientes',
-    icon: <ClientesIcon />,
-    text: 'links.clientes',
-    roles: [''],
-    path: '/clientes',
-=======
     path: '',
     items: [
       {
@@ -101,7 +63,6 @@ export const menuItems = [
         path: '/',
       },
     ],
->>>>>>> d0dc5252045e04be972ae57a54bc4fa81e0cfc5d
   },
   {
     id: 'mantenimiento',
