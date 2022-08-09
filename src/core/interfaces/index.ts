@@ -1,4 +1,5 @@
 export * from './ApiResponses';
+export * from './articulos';
 export * from './caja';
 export * from './ciudad';
 export * from './cliente';
@@ -8,5 +9,7 @@ export * from './lineaArticulo';
 export * from './ListPaginationOptions';
 export * from './perfil';
 export * from './sucursal';
+export * from './tipoImpuesto';
+export * from './unidadMedida';
 export * from './user';
 export * from './userAuth';

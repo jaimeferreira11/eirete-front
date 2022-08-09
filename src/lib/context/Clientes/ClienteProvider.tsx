@@ -20,7 +20,6 @@ export const ClienteProvider: FC<Props> = ({ children }) => {
     cliente: ICliente | undefined
   ): Promise<{ hasError: boolean; message?: string }> => {
     try {
-      console.log('cliente', cliente);
       if (!cliente) await eireteApi.post('/clientes', { persona: newCliente });
       else
         await eireteApi.put(`/clientes/${cliente._id}`, {
@@ -31,7 +30,6 @@ export const ClienteProvider: FC<Props> = ({ children }) => {
         hasError: false,
       };
     } catch (error) {
-      console.log('error', error);
       if (axios.isAxiosError(error)) {
         return {
           hasError: true,
@@ -56,7 +54,6 @@ export const ClienteProvider: FC<Props> = ({ children }) => {
         hasError: false,
       };
     } catch (error) {
-      console.log('error', error);
       if (axios.isAxiosError(error)) {
         return {
           hasError: true,

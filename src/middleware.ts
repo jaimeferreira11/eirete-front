@@ -34,5 +34,9 @@ export const config = {
     '/users',
     '/familia-articulos',
     '/linea-articulos',
+    '/articulos',
+  ],
+  unstable_includeFiles: [
+    'node_modules/next/dist/compiled/@edge-runtime/primitives/**/*.+(js|json)',
   ],
 };

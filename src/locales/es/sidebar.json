@@ -13,7 +13,9 @@
     "usuarios": "Usuarios",
     "sucursales": "Sucursales",
     "familiaArticulos": "Familia de artículos",
-    "lineaArticulos": "Línea de artículos"
+    "lineaArticulos": "Línea de artículos",
+    "articulos": "Artículos",
+    "maintenance": "Mantenimiento"
   },
   "imprimirArqueo": "Imprimir último arqueo",
   "contactarSoporte": "Contactar soporte",

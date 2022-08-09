@@ -9,7 +9,7 @@ import {
   Typography,
 } from '@mui/material';
 import { GetServerSideProps } from 'next';
-import { getSession, signIn } from 'next-auth/react';
+import { getSession, signIn, SignInResponse } from 'next-auth/react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
@@ -31,8 +31,6 @@ const LoginPage: NextPageWithLayout = () => {
 
   const router = useRouter();
 
-  console.log('router', { router });
-
   const [isLogging, setIsLogging] = useState(false);
 
   const {
@@ -48,8 +46,8 @@ const LoginPage: NextPageWithLayout = () => {
         username,
         password,
         redirect: false,
-      }).then(({ ok, error }) => {
-        if (ok) {
+      }).then((response: SignInResponse | undefined) => {
+        if (response && response.ok) {
           const { p = '/' } = router.query;
           router.replace({ pathname: p as string });
         } else {
@@ -59,8 +57,8 @@ const LoginPage: NextPageWithLayout = () => {
             show: true,
           });
         }
+        setIsLogging(false);
       });
-      setIsLogging(false);
     } catch (error) {
       setIsLogging(false);
     }
