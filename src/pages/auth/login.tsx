@@ -57,8 +57,8 @@ const LoginPage: NextPageWithLayout = () => {
             show: true,
           });
         }
+        setIsLogging(false);
       });
-      setIsLogging(false);
     } catch (error) {
       setIsLogging(false);
     }
