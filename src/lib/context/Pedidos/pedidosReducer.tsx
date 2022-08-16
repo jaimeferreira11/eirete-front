@@ -7,6 +7,7 @@ type PedidosType =
   | { type: 'SetCliente'; payload: Cliente }
   | { type: 'SetTipoPedido'; payload: TipoPedido }
   | { type: 'ResetPedido'; payload: INewPedido }
+  | { type: 'UpdateMontoRecibido'; payload: number }
   | {
       type: 'UpdateDetalleAndTotals';
       payload: {
@@ -61,6 +62,11 @@ export const pedidosReducer = (
           importeTotal: state.newPedido.importeTotal + action.payload.addAmount,
           impuesto: state.newPedido.impuesto + action.payload.impuestoAmount,
         },
+      };
+    case 'UpdateMontoRecibido':
+      return {
+        ...state,
+        newPedido: { ...state.newPedido, montoRecibido: action.payload },
       };
     default:
       return state;

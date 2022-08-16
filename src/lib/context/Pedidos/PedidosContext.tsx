@@ -19,6 +19,7 @@ interface ContextProps {
   isPedidoComplete: () => boolean;
   getImpuesto10: () => number;
   getImpuesto5: () => number;
+  setMontoRecibido: (value: string) => void;
 }
 
 export const PedidosContext = createContext({} as ContextProps);

@@ -192,10 +192,10 @@ export const PedidosProvider: FC<Props> = ({ children }) => {
     });
   };
 
-  const isPedidoComplete = (): boolean => false;
-  // !!state.newPedido.cliente &&
-  // !!(state.newPedido.detalles.length > 0) &&
-  // !!(state.newPedido.montoRecibido > 0);
+  const isPedidoComplete = (): boolean =>
+    state.newPedido.cliente !== undefined &&
+    state.newPedido.detalles.length > 0 &&
+    state.newPedido.montoRecibido > 0;
 
   const getImpuesto10 = () => {
     let impuesto = 0;
@@ -234,6 +234,15 @@ export const PedidosProvider: FC<Props> = ({ children }) => {
     }
   };
 
+  const setMontoRecibido = (value: string) => {
+    if (value) {
+      dispatch({ type: 'UpdateMontoRecibido', payload: Number(value) });
+      return;
+    }
+
+    dispatch({ type: 'UpdateMontoRecibido', payload: 0 });
+  };
+
   return (
     <PedidosContext.Provider
       value={{
@@ -248,6 +257,7 @@ export const PedidosProvider: FC<Props> = ({ children }) => {
         isPedidoComplete,
         getImpuesto10,
         getImpuesto5,
+        setMontoRecibido,
       }}
     >
       {children}

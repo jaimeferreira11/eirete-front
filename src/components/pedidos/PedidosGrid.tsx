@@ -49,7 +49,7 @@ export const PedidosGrid = () => {
             <PedidoTab />
           </GenericTab>
           <GenericTab value={actualTab} index={'listado-pedidos'}>
-            text 2
+            En construcción
           </GenericTab>
         </>
       </Box>

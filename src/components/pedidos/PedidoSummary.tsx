@@ -1,3 +1,5 @@
+import { ChangeEvent } from 'react';
+
 import {
   Box,
   Button,
@@ -25,9 +27,16 @@ export const PedidoSummary = () => {
     isPedidoComplete,
     getImpuesto10,
     getImpuesto5,
+    setMontoRecibido,
   } = usePedidosProvider();
 
-  const { tipoPedido, importeTotal } = newPedido;
+  const { tipoPedido, importeTotal, montoRecibido } = newPedido;
+
+  const handleChangeMonto = ({
+    target,
+  }: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setMontoRecibido(target.value);
+  };
 
   return (
     <Box flex="50%" display="flex" flexDirection="column">
@@ -83,12 +92,19 @@ export const PedidoSummary = () => {
             {t('efectivo')}
           </InputLabel>
           <OutlinedInput
+            disabled={importeTotal === 0}
+            type="number"
+            inputProps={{
+              min: 0,
+            }}
             size="small"
             id="efectivo-adornment"
             startAdornment={
               <InputAdornment position="start">GS.</InputAdornment>
             }
             label={t('cantidad')}
+            value={montoRecibido}
+            onChange={handleChangeMonto}
           />
         </FormControl>
         <FormControl fullWidth>
@@ -96,6 +112,11 @@ export const PedidoSummary = () => {
             {t('tarjeta')}
           </InputLabel>
           <OutlinedInput
+            disabled={importeTotal === 0}
+            type="number"
+            inputProps={{
+              min: 0,
+            }}
             size="small"
             id="tarjeta-adornment"
             startAdornment={
@@ -109,6 +130,11 @@ export const PedidoSummary = () => {
             {t('cheque')}
           </InputLabel>
           <OutlinedInput
+            disabled={importeTotal === 0}
+            type="number"
+            inputProps={{
+              min: 0,
+            }}
             id="cheque-adornment-amount"
             size="small"
             startAdornment={
@@ -131,14 +157,14 @@ export const PedidoSummary = () => {
         }}
       >
         <Typography sx={{ flex: 1, fontSize: 18, fontWeight: 800 }}>
-          {`${t('montoRecibido')}: Gs. 0`}
+          {`${t('montoRecibido')}: Gs. ${montoRecibido}`}
         </Typography>
         <Typography sx={{ flex: 1, fontSize: 18, ml: 2, fontWeight: 800 }}>
-          {`${t('total')}: Gs. 0`}
+          {`${t('total')}: Gs. ${importeTotal}`}
         </Typography>
 
         <Typography sx={{ flex: 1, fontSize: 18, fontWeight: 800 }}>
-          {`${t('vuelto')}: Gs. 0`}
+          {`${t('vuelto')}: Gs. ${montoRecibido - importeTotal}`}
         </Typography>
       </Box>
       <Box
@@ -158,7 +184,7 @@ export const PedidoSummary = () => {
         </Button>
         <Button
           color="success"
-          disabled={isPedidoComplete}
+          disabled={!isPedidoComplete()}
           fullWidth
           sx={{ color: '#fff' }}
         >
