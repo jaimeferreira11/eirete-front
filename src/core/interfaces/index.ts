@@ -8,6 +8,7 @@ export * from './familiaArticulo';
 export * from './lineaArticulo';
 export * from './ListPaginationOptions';
 export * from './perfil';
+export * from './stock';
 export * from './sucursal';
 export * from './tipoImpuesto';
 export * from './unidadMedida';
