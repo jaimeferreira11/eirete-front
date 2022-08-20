@@ -1,4 +1,4 @@
-import { IArticuloStock } from '@core/interfaces/articuloSucursal';
+import { IStockArticuloSucursal } from '@core/interfaces';
 import { KeyedMutator } from 'swr';
 import { StockState } from '.';
 
@@ -6,11 +6,17 @@ type StockType =
   | {
       type: 'SetStockSelected';
       payload: {
-        stockSelected: IArticuloStock;
-        mutate: KeyedMutator<IArticuloStock[]> | undefined;
+        stockSelected: IStockArticuloSucursal;
+        mutate: KeyedMutator<IStockArticuloSucursal[]> | undefined;
       };
     }
-  | { type: 'ClearStockSelected' };
+  | { type: 'ClearStockSelected' }
+  | {
+      type: 'SetSucursalIdSelected';
+      payload: {
+        sucursalIdSelected: string;
+      };
+    };
 
 export const stockSucursalReducer = (
   state: StockState,
@@ -28,6 +34,11 @@ export const stockSucursalReducer = (
         ...state,
         stockSelected: undefined,
         mutate: undefined,
+      };
+    case 'SetSucursalIdSelected':
+      return {
+        ...state,
+        sucursalIdSelected: action.payload.sucursalIdSelected,
       };
     default:
       return state;

@@ -42,7 +42,7 @@ export const ArticulosDataGrid = () => {
       <ArticuloDialog open={showModal} handleClose={handleCloseModal} />
       <Box display="flex" height="100%" width="100%" sx={{}}>
         <Box
-          flex={1}
+          flex="40%"
           sx={{
             overflow: 'auto',
             borderRight: '0.1em solid #EAEAEA',
@@ -83,7 +83,7 @@ export const ArticulosDataGrid = () => {
           />
           <ArticulosAccordionList searchQuery={searchQuery} />
         </Box>
-        <Box flex={1} sx={{ height: '100%', px: 2, py: 4 }}>
+        <Box flex="60%" sx={{ height: '100%', px: 2, py: 4 }}>
           <Typography variant="h1" component="h2">
             {t('details')}
           </Typography>

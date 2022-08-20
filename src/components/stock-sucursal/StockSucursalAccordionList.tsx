@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 
 import { useArticulosPorLineaSearch, useLinea } from '@lib/hooks';
+import { useStockSucursalProvider } from '@lib/hooks/providers/useStockSucursalProvider';
 import { StockSucursalLinea } from './StockSucursalLinea';
 import { StockSucursalPlaceHolder } from './StockSucursalPlaceHolder';
 import { StockSucursalView } from './StockSucursalView';
@@ -24,6 +25,8 @@ export const StockSucursalAccordionList: FC<Props> = ({ searchQuery }) => {
 
   const { lineasArticulos, isLoading: isLoadingSearch } =
     useArticulosPorLineaSearch(searchQuery);
+
+  const { sucursalIdSelected } = useStockSucursalProvider();
 
   const [loadingArticulos, setLoadingArticulos] = useState<{
     // eslint-disable-next-line no-unused-vars

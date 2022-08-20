@@ -9,6 +9,7 @@ import {
   ManageAccountsOutlined as UserIcon,
   MonitorOutlined as CajaIcon,
   PersonOutlineOutlined as ClientesIcon,
+  ShoppingCartCheckoutOutlined as PedidoIcon,
   ShoppingCartOutlined as MovimientosIcon,
   StorefrontOutlined as SucursalIcon,
   TakeoutDiningOutlined as ArticuloIcon,
@@ -39,7 +40,7 @@ export const menuItems = [
         icon: <StockIcon />,
         text: 'links.stock',
         roles: [''],
-        path: '/',
+        path: '/stock-sucursal',
       },
       {
         id: 'movimientos',
@@ -115,14 +116,13 @@ export const menuItems = [
       },
     ],
   },
-
-  // {
-  //   id: 'familia-articulos',
-  //   icon: <CategoryIcon />,
-  //   text: 'links.familiaArticulos',
-  //   roles: [''],
-  //   path: '/familia-articulos',
-  // },
+  {
+    id: 'pedidos',
+    icon: <PedidoIcon />,
+    text: 'links.pedidos',
+    roles: [''],
+    path: '/pedidos',
+  },
 ];
 
 interface Props {

@@ -123,9 +123,9 @@ export const CajaTab: FC<Props> = ({ tipo, mutateRef }) => {
   );
 
   return (
-    <Box display="flex" sx={{ height: '100%' }}>
+    <Box display="flex" flex="100%" sx={{ height: '100%' }}>
       <Box
-        flex={1}
+        flex="40%"
         display="flex"
         flexDirection="column"
         alignItems="stretch"
@@ -168,7 +168,7 @@ export const CajaTab: FC<Props> = ({ tipo, mutateRef }) => {
         </Box>
       </Box>
       <Box
-        flex={1}
+        flex="60%"
         sx={{ pl: 2, pt: 2 }}
         display="flex"
         flexDirection="column"

@@ -3,7 +3,7 @@ import { FC } from 'react';
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 
-import { IArticuloStock } from '@core/interfaces/articuloStock';
+import { IStockArticuloSucursal } from '@core/interfaces';
 import { useArticulosProvider, useUtilsProvider } from '@lib/hooks';
 import { INewArticulo } from '@lib/interfaces';
 import { Button, Grid, Typography } from '@mui/material';
@@ -12,19 +12,22 @@ import { clearNumberFormat } from 'src/utils';
 import { useStockSucursalForm } from './useStockSucursalForm';
 
 interface Props {
-  articuloStock: IArticuloStock;
+  articuloStock: IStockArticuloSucursal;
   onCancel: () => void;
+  sucursalId: string;
 }
 
 export const StockSucursalEditView: FC<Props> = ({
   articuloStock,
   onCancel,
+  sucursalId,
 }) => {
   const { t } = useTranslation('stockSucursalABM');
   const { update } = useArticulosProvider();
   const { showSnackbar } = useUtilsProvider();
   const { form, handleSubmit, disabled } = useStockSucursalForm({
     articuloStock,
+    sucursalId,
   });
 
   const onSubmit = async (newArticulo: INewArticulo) => {

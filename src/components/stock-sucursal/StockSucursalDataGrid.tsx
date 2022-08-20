@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 
 import { useAuthProvider, useSucursal } from '@lib/hooks';
 import { SearchOutlined } from '@mui/icons-material';
@@ -22,8 +22,12 @@ export const StockSucursalDataGrid = () => {
 
   const [searchQuery, setSearchQuery] = useState('');
 
-  const { stockSelected, clearStockSucursalSelected } =
-    useStockSucursalProvider();
+  const {
+    stockSelected,
+    clearStockSucursalSelected,
+    sucursalIdSelected,
+    setSucursalIdSelected,
+  } = useStockSucursalProvider();
 
   const onSearch = ({
     target,
@@ -33,6 +37,11 @@ export const StockSucursalDataGrid = () => {
 
   const { sucursales } = useSucursal();
   const { user } = useAuthProvider();
+
+  useEffect(() => {
+    console.log('Seteando la sucursal del usuario', user!.sucursal);
+    setSucursalIdSelected(user!.sucursal);
+  }, []);
 
   return (
     <>
@@ -55,19 +64,24 @@ export const StockSucursalDataGrid = () => {
               </Typography>
             </Grid>
             <Grid xs={8} item>
-              <TextField
-                select
-                size="small"
-                label={t('form.sucursal')}
-                defaultValue={user?.sucursal}
-                fullWidth
-              >
-                {sucursales?.map((sucursal) => (
-                  <MenuItem key={sucursal._id} value={sucursal._id}>
-                    {sucursal.descripcion}
-                  </MenuItem>
-                ))}
-              </TextField>
+              {sucursales && (
+                <TextField
+                  select
+                  size="small"
+                  label={t('form.sucursal')}
+                  defaultValue={sucursalIdSelected}
+                  fullWidth
+                  onChange={(event) =>
+                    setSucursalIdSelected(event.target.value)
+                  }
+                >
+                  {sucursales?.map((sucursal) => (
+                    <MenuItem key={sucursal._id} value={sucursal._id}>
+                      {sucursal.descripcion}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              )}
             </Grid>
           </Grid>
 
@@ -98,6 +112,7 @@ export const StockSucursalDataGrid = () => {
               <StockSucursalEditView
                 articuloStock={stockSelected}
                 onCancel={clearStockSucursalSelected}
+                sucursalId={sucursalIdSelected!}
               />
             )}
           </Box>

@@ -5,6 +5,7 @@ export * from './NewCaja';
 export * from './NewCliente';
 export * from './NewFamiliaArticulo';
 export * from './NewLineaArticulo';
+export * from './NewPedido';
 export * from './NewSucursal';
 export * from './NewUser';
 export * from './ResultRequest';

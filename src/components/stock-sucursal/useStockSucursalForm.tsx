@@ -16,6 +16,7 @@ import {
 
 import {
   ILineaArticulo,
+  IStockArticuloSucursal,
   TipoImpuestoArray,
   UnidadMedida,
   UnidadMedidaArray,
@@ -23,20 +24,23 @@ import {
 
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
-import { IArticuloStock } from '@core/interfaces/articuloStock';
-import { useLinea } from '@lib/hooks';
+import { useLineasBySucursal } from '@lib/hooks';
 import { INewArticulo } from '@lib/interfaces';
 import NumberFormat from 'react-number-format';
 
 interface Props {
-  articuloStock?: IArticuloStock | undefined;
+  articuloStock?: IStockArticuloSucursal | undefined;
+  sucursalId: string;
 }
 
-export const useStockSucursalForm = ({ articuloStock = undefined }: Props) => {
+export const useStockSucursalForm = ({
+  articuloStock = undefined,
+  sucursalId = '',
+}: Props) => {
   const { t } = useTranslation('articulosABM');
   const { t: tForm } = useTranslation('common', { keyPrefix: 'forms' });
 
-  const { lineas } = useLinea();
+  const { lineas } = useLineasBySucursal({ sucursalId, active: true });
   const [lineaValue, setLineaValue] = useState<
     ILineaArticulo | null | undefined
   >(null);

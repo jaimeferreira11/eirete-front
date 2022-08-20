@@ -1,22 +1,23 @@
 import { FC, PropsWithChildren, useCallback, useReducer } from 'react';
 
-import { IEnpointResult } from '@core/interfaces';
+import { IEnpointResult, IStockArticuloSucursal } from '@core/interfaces';
 
 import eireteApi from '@core/api';
 import { AxiosError } from 'axios';
 
-import { IArticuloStock } from '@core/interfaces/articuloSucursal';
 import { INewArticuloStock } from '@lib/interfaces/NewArticuloStock';
 import { KeyedMutator } from 'swr';
 import { StockSucursalContext, stockSucursalReducer } from '.';
 
 export interface StockState {
-  stockSelected: IArticuloStock | undefined;
-  mutate: KeyedMutator<IArticuloStock[]> | undefined;
+  stockSelected: IStockArticuloSucursal | undefined;
+  sucursalIdSelected: string | undefined;
+  mutate: KeyedMutator<IStockArticuloSucursal[]> | undefined;
 }
 
 const ARTICULOS_INITIAL_STATE: StockState = {
   stockSelected: undefined,
+  sucursalIdSelected: undefined,
   mutate: undefined,
 };
 
@@ -29,8 +30,8 @@ export const StockSucursalProvider: FC<PropsWithChildren<any>> = ({
   );
 
   const setStockSucursalSelected = (
-    stockSelected: IArticuloStock,
-    mutate: KeyedMutator<IArticuloStock[]> | undefined
+    stockSelected: IStockArticuloSucursal,
+    mutate: KeyedMutator<IStockArticuloSucursal[]> | undefined
   ) =>
     dispatch({
       type: 'SetStockSelected',
@@ -64,6 +65,12 @@ export const StockSucursalProvider: FC<PropsWithChildren<any>> = ({
     }
   };
 
+  const setSucursalIdSelected = (sucursalIdSelected: string) =>
+    dispatch({
+      type: 'SetSucursalIdSelected',
+      payload: { sucursalIdSelected },
+    });
+
   return (
     <StockSucursalContext.Provider
       value={{
@@ -71,6 +78,7 @@ export const StockSucursalProvider: FC<PropsWithChildren<any>> = ({
         setStockSucursalSelected,
         clearStockSucursalSelected,
         update,
+        setSucursalIdSelected,
       }}
     >
       {children}
