@@ -15,8 +15,6 @@ interface ContextProps {
     articuloStockUpdated: INewArticuloStock,
     sucursalId: string
   ) => Promise<IEnpointResult>;
-  sucursalIdSelected: string | undefined;
-  setSucursalIdSelected: (sucursalIdSelected: string) => void;
 }
 
 export const StockSucursalContext = createContext({} as ContextProps);

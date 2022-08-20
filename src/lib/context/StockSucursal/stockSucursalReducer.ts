@@ -10,13 +10,7 @@ type StockType =
         mutate: KeyedMutator<IStockArticuloSucursal[]> | undefined;
       };
     }
-  | { type: 'ClearStockSelected' }
-  | {
-      type: 'SetSucursalIdSelected';
-      payload: {
-        sucursalIdSelected: string;
-      };
-    };
+  | { type: 'ClearStockSelected' };
 
 export const stockSucursalReducer = (
   state: StockState,
@@ -34,11 +28,6 @@ export const stockSucursalReducer = (
         ...state,
         stockSelected: undefined,
         mutate: undefined,
-      };
-    case 'SetSucursalIdSelected':
-      return {
-        ...state,
-        sucursalIdSelected: action.payload.sucursalIdSelected,
       };
     default:
       return state;
