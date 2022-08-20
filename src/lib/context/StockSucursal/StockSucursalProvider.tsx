@@ -44,12 +44,11 @@ export const StockSucursalProvider: FC<PropsWithChildren<any>> = ({
 
   const update = async (
     articuloUpdated: INewArticuloStock,
-    _id: string
+    sucursalId: string
   ): Promise<IEnpointResult> => {
     try {
-      await eireteApi.put(`/articulos/${_id}`, {
+      await eireteApi.put(`/stock/${sucursalId}`, {
         ...articuloUpdated,
-        lineaArticulo: { _id: articuloUpdated.lineaArticulo },
       });
 
       if (state.mutate) state.mutate();

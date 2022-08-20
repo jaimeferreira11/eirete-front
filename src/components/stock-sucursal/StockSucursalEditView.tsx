@@ -4,8 +4,9 @@ import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 
 import { IStockArticuloSucursal } from '@core/interfaces';
-import { useArticulosProvider, useUtilsProvider } from '@lib/hooks';
-import { INewArticulo } from '@lib/interfaces';
+import { useUtilsProvider } from '@lib/hooks';
+import { useStockSucursalProvider } from '@lib/hooks/providers/useStockSucursalProvider';
+import { INewArticuloStock } from '@lib/interfaces/NewArticuloStock';
 import { Button, Grid, Typography } from '@mui/material';
 import { useTranslation } from 'next-i18next';
 import { clearNumberFormat } from 'src/utils';
@@ -23,27 +24,33 @@ export const StockSucursalEditView: FC<Props> = ({
   sucursalId,
 }) => {
   const { t } = useTranslation('stockSucursalABM');
-  const { update } = useArticulosProvider();
+  const { update } = useStockSucursalProvider();
   const { showSnackbar } = useUtilsProvider();
   const { form, handleSubmit, disabled } = useStockSucursalForm({
     articuloStock,
     sucursalId,
   });
 
-  const onSubmit = async (newArticulo: INewArticulo) => {
-    newArticulo.precioVenta = clearNumberFormat(newArticulo.precioVenta);
+  const onSubmit = async (newArticuloStock: INewArticuloStock) => {
+    newArticuloStock.stock = clearNumberFormat(newArticuloStock.stock);
+    newArticuloStock.stockMinimo = clearNumberFormat(
+      newArticuloStock.stockMinimo
+    );
+    newArticuloStock.stockBloqueado = clearNumberFormat(
+      newArticuloStock.stockBloqueado
+    );
 
-    const result = await update(newArticulo, articuloStock._id);
+    const result = await update(newArticuloStock, sucursalId);
     if (!result.hasError) {
       showSnackbar({
-        message: t('articuloUpdated'),
+        message: t('stockUpdated'),
         type: 'success',
         show: true,
       });
       onCancel();
     } else {
       showSnackbar({
-        message: result.message || t('articuloPersistError'),
+        message: result.message || t('stockPersistError'),
         type: 'error',
         show: true,
       });

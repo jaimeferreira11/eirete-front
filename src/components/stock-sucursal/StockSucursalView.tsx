@@ -1,20 +1,20 @@
 import { FC } from 'react';
 
-import { IArticulo } from '@core/interfaces';
-import { useArticulosProvider } from '@lib/hooks';
+import { IStockArticuloSucursal } from '@core/interfaces';
 
+import { useStockSucursalProvider } from '@lib/hooks/providers/useStockSucursalProvider';
 import { Box, IconButton, Typography } from '@mui/material';
 import { KeyedMutator } from 'swr';
 
 interface Props {
-  articulo: IArticulo;
-  refMutate?: KeyedMutator<IArticulo[]> | undefined;
+  articulo: IStockArticuloSucursal;
+  refMutate?: KeyedMutator<IStockArticuloSucursal[]> | undefined;
 }
 
 export const StockSucursalView: FC<Props> = ({ articulo, refMutate }) => {
-  const { setArticuloSelected } = useArticulosProvider();
+  const { setStockSucursalSelected } = useStockSucursalProvider();
 
-  const onSelect = () => setArticuloSelected(articulo, refMutate);
+  const onSelect = () => setStockSucursalSelected(articulo, refMutate);
 
   return (
     <Box
@@ -29,7 +29,7 @@ export const StockSucursalView: FC<Props> = ({ articulo, refMutate }) => {
       onClick={onSelect}
     >
       <Typography variant="subtitle1" sx={{ color: '#2C2C2C' }}>
-        {articulo.codigo} - {articulo.descripcion}
+        {articulo.articulo.codigo} - {articulo.articulo.descripcion}
       </Typography>
     </Box>
   );

@@ -10,23 +10,30 @@ import {
   Typography,
 } from '@mui/material';
 
-import { useArticulosPorLineaSearch, useLinea } from '@lib/hooks';
-import { useStockSucursalProvider } from '@lib/hooks/providers/useStockSucursalProvider';
+import {
+  useArticulosStockPorLineaSearch,
+  useLineasBySucursal,
+} from '@lib/hooks';
 import { StockSucursalLinea } from './StockSucursalLinea';
 import { StockSucursalPlaceHolder } from './StockSucursalPlaceHolder';
 import { StockSucursalView } from './StockSucursalView';
 
 interface Props {
+  sucursalId: string;
   searchQuery?: string;
 }
 
-export const StockSucursalAccordionList: FC<Props> = ({ searchQuery }) => {
-  const { lineas, isLoading } = useLinea();
+export const StockSucursalAccordionList: FC<Props> = ({
+  searchQuery,
+  sucursalId,
+}) => {
+  const { lineas, isLoading } = useLineasBySucursal({
+    sucursalId,
+    active: true,
+  });
 
   const { lineasArticulos, isLoading: isLoadingSearch } =
-    useArticulosPorLineaSearch(searchQuery);
-
-  const { sucursalIdSelected } = useStockSucursalProvider();
+    useArticulosStockPorLineaSearch(sucursalId, searchQuery);
 
   const [loadingArticulos, setLoadingArticulos] = useState<{
     // eslint-disable-next-line no-unused-vars
@@ -114,7 +121,10 @@ export const StockSucursalAccordionList: FC<Props> = ({ searchQuery }) => {
               </AccordionSummary>
               <AccordionDetails>
                 {loadingArticulos[linea._id] ? (
-                  <StockSucursalLinea lineaId={linea._id} />
+                  <StockSucursalLinea
+                    lineaId={linea._id}
+                    sucursalId={sucursalId}
+                  />
                 ) : null}
               </AccordionDetails>
             </Accordion>

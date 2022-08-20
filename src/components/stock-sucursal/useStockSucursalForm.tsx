@@ -4,28 +4,13 @@ import { Controller, useForm } from 'react-hook-form';
 
 import { useTranslation } from 'next-i18next';
 
-import {
-  Autocomplete,
-  Button,
-  FormControlLabel,
-  Grid,
-  MenuItem,
-  Switch,
-  TextField,
-} from '@mui/material';
+import { Button, Grid, TextField } from '@mui/material';
 
-import {
-  ILineaArticulo,
-  IStockArticuloSucursal,
-  TipoImpuestoArray,
-  UnidadMedida,
-  UnidadMedidaArray,
-} from '@core/interfaces';
+import { IStockArticuloSucursal } from '@core/interfaces';
 
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
-import { useLineasBySucursal } from '@lib/hooks';
-import { INewArticulo } from '@lib/interfaces';
+import { INewArticuloStock } from '@lib/interfaces/NewArticuloStock';
 import NumberFormat from 'react-number-format';
 
 interface Props {
@@ -37,53 +22,34 @@ export const useStockSucursalForm = ({
   articuloStock = undefined,
   sucursalId = '',
 }: Props) => {
-  const { t } = useTranslation('articulosABM');
+  const { t } = useTranslation('stockSucursalABM');
   const { t: tForm } = useTranslation('common', { keyPrefix: 'forms' });
 
-  const { lineas } = useLineasBySucursal({ sucursalId, active: true });
-  const [lineaValue, setLineaValue] = useState<
-    ILineaArticulo | null | undefined
-  >(null);
-
-  useEffect(() => {
-    if (articuloStock)
-      setLineaValue(
-        lineas
-          ? lineas?.find(
-              (linea: ILineaArticulo) =>
-                linea._id === articuloStock.articulo.lineaArticulo._id
-            )
-          : null
-      );
-    else setLineaValue(null);
-  }, [articuloStock, lineas]);
-
-  const initialData: INewArticulo = useMemo(() => {
+  const initialData: INewArticuloStock = useMemo(() => {
     return articuloStock
       ? {
           codigo: articuloStock.articulo.codigo,
           codigoBarra: articuloStock.articulo.codigoBarra,
           descripcion: articuloStock.articulo.descripcion,
-          estado: articuloStock.articulo.estado,
-          tipoImpuesto: articuloStock.articulo.tipoImpuesto,
-          unidadMedida: articuloStock.articulo.unidadMedida,
-          lineaArticulo: articuloStock.articulo.lineaArticulo._id,
           precioVenta: articuloStock.articulo.precioVenta,
+          estado: articuloStock.estado,
+          stock: articuloStock.stock,
+          articulo: articuloStock.articulo._id,
+          stockBloqueado: articuloStock.stockBloqueado,
+          stockMinimo: articuloStock.stockMinimo,
         }
       : {
           descripcion: '',
           codigoBarra: '',
           codigo: 0,
-          unidadMedida: 'UNIDAD',
+          stock: 0,
           precioVenta: 0,
-          lineaArticulo: '',
-          tipoImpuesto: 10,
           estado: true,
+          articulo: '',
+          stockBloqueado: 0,
+          stockMinimo: 0,
         };
   }, [articuloStock]);
-
-  const [unidadMedidaValue, setUnidadMedidaValue] =
-    useState<UnidadMedida>('UNIDAD');
 
   const [disabled, setDisabled] = useState(articuloStock ? true : false);
 
@@ -93,7 +59,7 @@ export const useStockSucursalForm = ({
     reset,
     getValues,
     formState: { errors },
-  } = useForm<INewArticulo>({
+  } = useForm<INewArticuloStock>({
     defaultValues: {
       ...initialData,
     },
@@ -143,26 +109,26 @@ export const useStockSucursalForm = ({
                 inputProps={{ style: { textTransform: 'uppercase' } }}
                 error={!!errors.codigoBarra}
                 helperText={errors.codigoBarra?.message}
-                disabled={disabled}
+                disabled={true}
               />
             )}
           />
         </Grid>
 
-        <Grid xs={6} item>
+        <Grid xs={12} item>
           <Controller
             control={control}
             name="descripcion"
             rules={{ required: tForm('required') }}
             render={({ field }) => (
               <TextField
-                label={t('form.descripcion')}
+                label={t('form.articulo')}
                 fullWidth
                 {...field}
                 inputProps={{ style: { textTransform: 'uppercase' } }}
                 error={!!errors.descripcion}
                 helperText={errors.descripcion?.message}
-                disabled={disabled}
+                disabled={true}
               />
             )}
           />
@@ -170,61 +136,17 @@ export const useStockSucursalForm = ({
         <Grid xs={6} item>
           <Controller
             control={control}
-            name="lineaArticulo"
-            rules={{ required: tForm('required') }}
-            render={({ field: { ref, onChange, ...field } }) => {
-              return (
-                <Autocomplete
-                  disabled={disabled}
-                  options={lineas || []}
-                  isOptionEqualToValue={(option, value) =>
-                    option._id === value?._id
-                  }
-                  getOptionLabel={(option) => option.descripcion}
-                  onChange={(_, data) => {
-                    setLineaValue(data);
-                    onChange(data?._id);
-                  }}
-                  value={lineaValue}
-                  renderInput={(params) => (
-                    <TextField
-                      label={t('form.lineaArticulo')}
-                      {...params}
-                      {...field}
-                      inputRef={ref}
-                      fullWidth
-                      error={!!errors.lineaArticulo}
-                      helperText={errors.lineaArticulo?.message}
-                      disabled={disabled}
-                    />
-                  )}
-                />
-              );
-            }}
-          />
-        </Grid>
-        <Grid xs={6} item>
-          <Controller
-            control={control}
-            name="precioVenta"
+            name="stock"
             rules={{
               required: tForm('required'),
             }}
             render={({ field }) => (
-              // <TextField
-              //   label={t('form.precioVenta')}
-              //   fullWidth
-              //   {...field}
-              //   error={!!errors.precioVenta}
-              //   helperText={errors.precioVenta?.message}
-              //   disabled={disabled}
-              // />
               <NumberFormat
-                label={t('form.precioVenta')}
+                label={t('form.stock')}
                 fullWidth
                 {...field}
-                error={!!errors.precioVenta}
-                helperText={errors.precioVenta?.message}
+                error={!!errors.stock}
+                helperText={errors.stock?.message}
                 disabled={disabled}
                 displayType={'input'}
                 customInput={TextField}
@@ -237,59 +159,23 @@ export const useStockSucursalForm = ({
         <Grid xs={6} item>
           <Controller
             control={control}
-            name="unidadMedida"
-            rules={{ required: tForm('required') }}
-            render={({ field: { ref, onChange, ...field } }) => {
-              return (
-                <Autocomplete
-                  disabled={disabled}
-                  options={UnidadMedidaArray}
-                  onChange={(_, data) => {
-                    setUnidadMedidaValue(data as UnidadMedida);
-                    onChange(data);
-                  }}
-                  value={field.value}
-                  renderInput={(params) => (
-                    <TextField
-                      label={t('form.unidadMedida')}
-                      {...params}
-                      {...field}
-                      inputRef={ref}
-                      fullWidth
-                      error={!!errors.unidadMedida}
-                      helperText={errors.unidadMedida?.message}
-                      disabled={disabled}
-                    />
-                  )}
-                />
-              );
-            }}
-          />
-        </Grid>
-        <Grid xs={6} item>
-          <Controller
-            control={control}
-            name="tipoImpuesto"
-            defaultValue={initialData?.tipoImpuesto || 0}
+            name="precioVenta"
             rules={{
               required: tForm('required'),
             }}
             render={({ field }) => (
-              <TextField
-                select
-                label={t('form.tipoImpuesto')}
+              <NumberFormat
+                label={t('form.precioVenta')}
                 fullWidth
                 {...field}
-                error={!!errors.tipoImpuesto}
-                helperText={errors.tipoImpuesto?.message}
-                disabled={disabled}
-              >
-                {TipoImpuestoArray.map((tipoImpuesto) => (
-                  <MenuItem key={tipoImpuesto.valor} value={tipoImpuesto.valor}>
-                    {tipoImpuesto.descripcion}
-                  </MenuItem>
-                ))}
-              </TextField>
+                error={!!errors.precioVenta}
+                helperText={errors.precioVenta?.message}
+                disabled={true}
+                displayType={'input'}
+                customInput={TextField}
+                thousandSeparator={'.'}
+                decimalSeparator={','}
+              />
             )}
           />
         </Grid>
@@ -305,28 +191,6 @@ export const useStockSucursalForm = ({
             </Button>
           </Grid>
         )}
-        <Grid xs={6} item>
-          <FormControlLabel
-            value={initialData?.estado || false}
-            control={
-              <Controller
-                name={'estado'}
-                control={control}
-                render={({ field: { ref, onChange, ...field } }) => (
-                  <Switch
-                    {...field}
-                    ref={ref}
-                    checked={field.value}
-                    onChange={(e, value) => onChange(value)}
-                    disabled={disabled}
-                  />
-                )}
-              />
-            }
-            disabled={disabled}
-            label={t('form.estado')}
-          />
-        </Grid>
       </Grid>
     ),
   };

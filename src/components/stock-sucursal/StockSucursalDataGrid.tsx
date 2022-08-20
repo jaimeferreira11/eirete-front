@@ -22,12 +22,8 @@ export const StockSucursalDataGrid = () => {
 
   const [searchQuery, setSearchQuery] = useState('');
 
-  const {
-    stockSelected,
-    clearStockSucursalSelected,
-    sucursalIdSelected,
-    setSucursalIdSelected,
-  } = useStockSucursalProvider();
+  const { stockSelected, clearStockSucursalSelected } =
+    useStockSucursalProvider();
 
   const onSearch = ({
     target,
@@ -38,10 +34,15 @@ export const StockSucursalDataGrid = () => {
   const { sucursales } = useSucursal();
   const { user } = useAuthProvider();
 
+  const [sucursalIdSelected, setSucursalIdSelected] = useState(user!.sucursal);
+
   useEffect(() => {
-    console.log('Seteando la sucursal del usuario', user!.sucursal);
     setSucursalIdSelected(user!.sucursal);
   }, []);
+
+  const handleChangeSucursal = (event: any) => {
+    setSucursalIdSelected(event.target.value);
+  };
 
   return (
     <>
@@ -71,9 +72,7 @@ export const StockSucursalDataGrid = () => {
                   label={t('form.sucursal')}
                   defaultValue={sucursalIdSelected}
                   fullWidth
-                  onChange={(event) =>
-                    setSucursalIdSelected(event.target.value)
-                  }
+                  onChange={handleChangeSucursal}
                 >
                   {sucursales?.map((sucursal) => (
                     <MenuItem key={sucursal._id} value={sucursal._id}>
@@ -98,7 +97,10 @@ export const StockSucursalDataGrid = () => {
             }}
             fullWidth
           />
-          <StockSucursalAccordionList searchQuery={searchQuery} />
+          <StockSucursalAccordionList
+            searchQuery={searchQuery}
+            sucursalId={sucursalIdSelected}
+          />
         </Box>
         <Box flex={1} sx={{ height: '100%', px: 2, py: 4 }}>
           <Typography variant="h1" component="h2">
@@ -112,7 +114,7 @@ export const StockSucursalDataGrid = () => {
               <StockSucursalEditView
                 articuloStock={stockSelected}
                 onCancel={clearStockSucursalSelected}
-                sucursalId={sucursalIdSelected!}
+                sucursalId={sucursalIdSelected}
               />
             )}
           </Box>

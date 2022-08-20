@@ -13,7 +13,7 @@ interface ContextProps {
   clearStockSucursalSelected: () => void;
   update: (
     articuloStockUpdated: INewArticuloStock,
-    _id: string
+    sucursalId: string
   ) => Promise<IEnpointResult>;
   sucursalIdSelected: string | undefined;
   setSucursalIdSelected: (sucursalIdSelected: string) => void;

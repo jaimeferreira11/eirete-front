@@ -3,16 +3,20 @@ import React, { FC } from 'react';
 import RemoveShoppingCartOutlinedIcon from '@mui/icons-material/RemoveShoppingCartOutlined';
 import { Box, CircularProgress, Typography } from '@mui/material';
 
-import { useArticulosPorLinea } from '@lib/hooks';
+import { useStockArticulosLineasSucursal } from '@lib/hooks';
 import { StockSucursalView } from './StockSucursalView';
 
 interface Props {
   lineaId: string;
+  sucursalId: string;
   children?: React.ReactNode;
 }
 
-export const StockSucursalLinea: FC<Props> = ({ lineaId }) => {
-  const { isLoading, articulos, mutate } = useArticulosPorLinea(lineaId);
+export const StockSucursalLinea: FC<Props> = ({ lineaId, sucursalId }) => {
+  const { isLoading, articulos, mutate } = useStockArticulosLineasSucursal(
+    sucursalId,
+    lineaId
+  );
 
   if (isLoading)
     return (
@@ -40,7 +44,7 @@ export const StockSucursalLinea: FC<Props> = ({ lineaId }) => {
     <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2}>
       {articulos?.map((articulo) => (
         <StockSucursalView
-          key={articulo._id}
+          key={articulo.articulo._id}
           articulo={articulo}
           refMutate={mutate}
         />
