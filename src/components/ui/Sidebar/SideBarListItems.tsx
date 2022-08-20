@@ -40,7 +40,7 @@ export const menuItems = [
         icon: <StockIcon />,
         text: 'links.stock',
         roles: [''],
-        path: '/',
+        path: '/stock-sucursal',
       },
       {
         id: 'movimientos',
