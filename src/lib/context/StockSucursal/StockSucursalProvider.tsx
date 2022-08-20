@@ -11,13 +11,11 @@ import { StockSucursalContext, stockSucursalReducer } from '.';
 
 export interface StockState {
   stockSelected: IStockArticuloSucursal | undefined;
-  sucursalIdSelected: string | undefined;
   mutate: KeyedMutator<IStockArticuloSucursal[]> | undefined;
 }
 
 const ARTICULOS_INITIAL_STATE: StockState = {
   stockSelected: undefined,
-  sucursalIdSelected: undefined,
   mutate: undefined,
 };
 
@@ -64,12 +62,6 @@ export const StockSucursalProvider: FC<PropsWithChildren<any>> = ({
     }
   };
 
-  const setSucursalIdSelected = (sucursalIdSelected: string) =>
-    dispatch({
-      type: 'SetSucursalIdSelected',
-      payload: { sucursalIdSelected },
-    });
-
   return (
     <StockSucursalContext.Provider
       value={{
@@ -77,7 +69,6 @@ export const StockSucursalProvider: FC<PropsWithChildren<any>> = ({
         setStockSucursalSelected,
         clearStockSucursalSelected,
         update,
-        setSucursalIdSelected,
       }}
     >
       {children}
