@@ -96,11 +96,23 @@ export const ArticulosAccordionList: FC<Props> = ({
             <Accordion
               key={linea._id}
               onChange={(_, value) => getArticulosLinea(linea._id, value)}
+              sx={{ border: '1px solid #fff' }}
+              elevation={0}
             >
               <AccordionSummary
                 expandIcon={<ExpandMore />}
                 aria-controls="panel1a-content"
                 id="panel1a-header"
+                sx={{
+                  bgcolor: '#F3F3F3',
+                  borderRadius: 2,
+                  mb: 1,
+                  height: '48px',
+                  '&.Mui-expanded': {
+                    maxHeight: '48px',
+                    minHeight: '48px',
+                  },
+                }}
               >
                 <Typography>{linea.descripcion}</Typography>
               </AccordionSummary>

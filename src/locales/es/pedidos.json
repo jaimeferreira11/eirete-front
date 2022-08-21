@@ -22,7 +22,8 @@
     "vuelto": "Vuelto",
     "cancelar": "Cancelar",
     "confirmar": "Confirmar Pedido",
-    "precioUnitario": "Precio unitario"
+    "precioUnitario": "Precio unitario",
+    "exentoIva": "Exento de IVA"
   },
   "newPedido": "Nuevo Pedido",
   "editPedido": "Editar Pedido",

@@ -10,6 +10,7 @@ export interface INewPedido {
   vuelto: number;
   detalles: Detalle[];
   tipoPedido: TipoPedido;
+  exentoIVA: boolean;
 }
 
 export interface Cliente {

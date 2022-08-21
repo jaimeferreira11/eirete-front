@@ -3,6 +3,7 @@ import { ChangeEvent } from 'react';
 import {
   Box,
   Button,
+  Checkbox,
   FormControl,
   InputAdornment,
   InputLabel,
@@ -30,7 +31,7 @@ export const PedidoSummary = () => {
     setMontoRecibido,
   } = usePedidosProvider();
 
-  const { tipoPedido, importeTotal, montoRecibido } = newPedido;
+  const { tipoPedido, importeTotal, montoRecibido, exentoIVA } = newPedido;
 
   const handleChangeMonto = ({
     target,
@@ -51,13 +52,19 @@ export const PedidoSummary = () => {
           my: 2,
         }}
       >
-        <Box display="flex">
-          <Typography sx={{ fontWeight: 500 }}>
-            Iva 5%: Gs. {getImpuesto5()}
-          </Typography>
-          <Typography sx={{ ml: 2, fontWeight: 500 }}>
-            Iva 10%: Gs {getImpuesto10()}
-          </Typography>
+        <Box display="flex" gap={2} alignItems="center">
+          <Box display="flex" alignItems="center">
+            <Checkbox sx={{ padding: 0.5 }} value={exentoIVA} />
+            <Typography sx={{ fontWeight: 500 }}>{t('exentoIva')}</Typography>
+          </Box>
+          <Box display="flex">
+            <Typography sx={{ fontWeight: 500 }}>
+              Iva 5%: Gs. {getImpuesto5()}
+            </Typography>
+            <Typography sx={{ ml: 2, fontWeight: 500 }}>
+              Iva 10%: Gs {getImpuesto10()}
+            </Typography>
+          </Box>
         </Box>
         <Typography sx={{ fontSize: 16, fontWeight: 800 }}>
           {`${t('total')} : ${importeTotal} Gs.`}

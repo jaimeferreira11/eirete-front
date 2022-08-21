@@ -20,6 +20,7 @@ const PEDIDOS_INITIAL_STATE: PedidosState = {
     sucursal: undefined,
     vuelto: 0,
     tipoPedido: 'REGULAR',
+    exentoIVA: false,
   },
 };
 interface Props {
