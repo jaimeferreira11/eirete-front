@@ -1,13 +1,19 @@
+import { IMetodoPago } from '@core/interfaces';
 import { Cliente, Detalle, INewPedido } from '@lib/interfaces';
 import { TipoPedido } from '../../../core/interfaces/TipoPedidos';
 import { PedidosState } from './';
 
 type PedidosType =
   | { type: 'SetSucursalID'; payload: string }
-  | { type: 'SetCliente'; payload: Cliente }
+  | { type: 'SetCliente'; payload: Cliente | undefined }
   | { type: 'SetTipoPedido'; payload: TipoPedido }
   | { type: 'ResetPedido'; payload: INewPedido }
   | { type: 'UpdateMontoRecibido'; payload: number }
+  | { type: 'UpdateExentoIVA' }
+  | {
+      type: 'UpdateMetodosPago';
+      payload: { nuevosMetodosPago: IMetodoPago[]; nuevoMontoRecibido: number };
+    }
   | {
       type: 'UpdateDetalleAndTotals';
       payload: {
@@ -67,6 +73,23 @@ export const pedidosReducer = (
       return {
         ...state,
         newPedido: { ...state.newPedido, montoRecibido: action.payload },
+      };
+    case 'UpdateExentoIVA':
+      return {
+        ...state,
+        newPedido: {
+          ...state.newPedido,
+          exentoIVA: !state.newPedido.exentoIVA,
+        },
+      };
+    case 'UpdateMetodosPago':
+      return {
+        ...state,
+        newPedido: {
+          ...state.newPedido,
+          metodosPago: action.payload.nuevosMetodosPago,
+          montoRecibido: action.payload.nuevoMontoRecibido,
+        },
       };
     default:
       return state;

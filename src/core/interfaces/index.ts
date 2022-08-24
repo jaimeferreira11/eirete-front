@@ -8,6 +8,7 @@ export * from './endpointResult';
 export * from './familiaArticulo';
 export * from './lineaArticulo';
 export * from './ListPaginationOptions';
+export * from './MetodoPago';
 export * from './perfil';
 export * from './stock';
 export * from './sucursal';

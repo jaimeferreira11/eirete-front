@@ -10,6 +10,7 @@ import { Box, IconButton, Stack, Typography } from '@mui/material';
 import { useTranslation } from 'next-i18next';
 
 import { usePedidosProvider } from '@lib/hooks';
+import { formatCurrency } from 'src/utils';
 
 export const PedidoDetalleList = () => {
   const { t } = useTranslation('pedidos', { keyPrefix: 'detallePedido' });
@@ -54,11 +55,13 @@ export const PedidoDetalleList = () => {
             <Stack flex={1}>
               <Typography variant="body2">{`${detalle.codigo} - ${detalle.descripcion}`}</Typography>
               <Typography variant="subtitle1">
-                {`${t('precioUnitario')} : ${detalle.precioUnitario}`}
+                {`${t('precioUnitario')} : ${formatCurrency(
+                  detalle.precioUnitario
+                )}`}
               </Typography>
             </Stack>
             <Typography variant="body2" fontWeight={800}>
-              {`${detalle.cantidad * detalle.precioUnitario} Gs.`}
+              {`${formatCurrency(detalle.cantidad * detalle.precioUnitario)}`}
             </Typography>
             <IconButton
               aria-label="delete"

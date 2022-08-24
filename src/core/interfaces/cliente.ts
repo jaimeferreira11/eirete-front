@@ -22,6 +22,7 @@ export interface Persona {
   celular?: string;
   ciudad?: string;
   obs?: string;
+  ruc?: string;
 }
 
 export interface UsuarioAlta {

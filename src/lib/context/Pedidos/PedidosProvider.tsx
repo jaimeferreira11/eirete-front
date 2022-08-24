@@ -1,8 +1,11 @@
-import { IArticuloStock, TipoImpuesto } from '@core/interfaces';
+import eireteApi from '@core/api';
+import { IArticuloStock, IEnpointResult, TipoImpuesto } from '@core/interfaces';
 import { useAuthProvider, useUtilsProvider } from '@lib/hooks';
 import { Detalle, INewPedido } from '@lib/interfaces';
+import { AxiosError } from 'axios';
 import { FC, useEffect, useReducer } from 'react';
 import { ICliente } from '../../../core/interfaces/cliente';
+import { TiposPago } from '../../../core/interfaces/MetodoPago';
 import { TipoPedido } from '../../../core/interfaces/TipoPedidos';
 import { PedidosContext, pedidosReducer } from './';
 
@@ -21,6 +24,7 @@ const PEDIDOS_INITIAL_STATE: PedidosState = {
     vuelto: 0,
     tipoPedido: 'REGULAR',
     exentoIVA: false,
+    metodosPago: [],
   },
 };
 interface Props {
@@ -49,6 +53,40 @@ export const PedidosProvider: FC<Props> = ({ children }) => {
         },
       },
     });
+  };
+
+  const searchCliente = async (
+    nroDocumento: string
+  ): Promise<{ errorMessage?: string; ruc?: string }> => {
+    try {
+      const { data: cliente } = await eireteApi.get<ICliente>(
+        `/clientes/search/persona/nrodoc/${nroDocumento}`
+      );
+
+      console.log('cliente', cliente);
+
+      dispatch({
+        type: 'SetCliente',
+        payload: {
+          _id: cliente._id,
+          persona: {
+            nroDoc: cliente.persona.nroDoc,
+            ruc: cliente.persona.ruc,
+            nombreApellido: cliente.persona.nombreApellido,
+          },
+        },
+      });
+      return { ruc: cliente.persona.ruc };
+    } catch (error) {
+      // Si no existe se registrará
+      dispatch({
+        type: 'SetCliente',
+        payload: undefined,
+      });
+      return {
+        errorMessage: (error as AxiosError).message || 'Usuario no existe',
+      };
+    }
   };
 
   const setTipoPedido = (tipoPedido: TipoPedido) => {
@@ -196,7 +234,8 @@ export const PedidosProvider: FC<Props> = ({ children }) => {
   const isPedidoComplete = (): boolean =>
     state.newPedido.cliente !== undefined &&
     state.newPedido.detalles.length > 0 &&
-    state.newPedido.montoRecibido > 0;
+    getTotal() > 0 &&
+    getVuelto() >= 0;
 
   const getImpuesto10 = () => {
     let impuesto = 0;
@@ -235,30 +274,96 @@ export const PedidosProvider: FC<Props> = ({ children }) => {
     }
   };
 
-  const setMontoRecibido = (value: string) => {
-    if (value) {
-      dispatch({ type: 'UpdateMontoRecibido', payload: Number(value) });
-      return;
-    }
+  const toogleExtentoIVA = () => dispatch({ type: 'UpdateExentoIVA' });
 
-    dispatch({ type: 'UpdateMontoRecibido', payload: 0 });
+  const updateMetodosPago = ({
+    descripcion,
+    importe,
+    referencia = '',
+  }: {
+    descripcion: TiposPago;
+    importe: number;
+    referencia?: string;
+  }) => {
+    const filterPagos = state.newPedido.metodosPago.filter(
+      (metodo) => metodo.descripcion !== descripcion
+    );
+
+    const nuevosMetodosPago = [
+      ...filterPagos,
+      { descripcion, importe, referencia },
+    ];
+    let nuevoMontoRecibido = 0;
+    nuevosMetodosPago.forEach(
+      (metodo) => (nuevoMontoRecibido += metodo.importe)
+    );
+
+    dispatch({
+      type: 'UpdateMetodosPago',
+      payload: { nuevosMetodosPago, nuevoMontoRecibido },
+    });
+  };
+
+  const getMontoMetodoPago = (tipo: TiposPago) => {
+    const filterPagos = state.newPedido.metodosPago.find(
+      (metodo) => metodo.descripcion === tipo
+    );
+
+    if (filterPagos) return filterPagos.importe;
+
+    return 0;
+  };
+
+  const getTotal = () => {
+    let total = 0;
+    state.newPedido.metodosPago.forEach((metodo) => (total += metodo.importe));
+
+    return total;
+  };
+
+  const submitPedido = async (): Promise<IEnpointResult> => {
+    try {
+      await eireteApi.post('/pedidos', {
+        ...state.newPedido,
+        vuelto: getVuelto(),
+      });
+
+      return {
+        hasError: false,
+      };
+    } catch (error) {
+      return {
+        hasError: true,
+        message: (error as AxiosError).message,
+      };
+    }
+  };
+
+  const getVuelto = () => {
+    return getTotal() - state.newPedido.importeTotal;
   };
 
   return (
     <PedidosContext.Provider
       value={{
         ...state,
-        setCliente,
-        setTipoPedido,
-        resetPedido,
-        setArticuloDetalle,
         getDetalle,
-        updateCantidad,
-        removeArticuloFromDetalle,
-        isPedidoComplete,
         getImpuesto10,
         getImpuesto5,
-        setMontoRecibido,
+        getTotal,
+        getMontoMetodoPago,
+        getVuelto,
+        isPedidoComplete,
+        removeArticuloFromDetalle,
+        resetPedido,
+        searchCliente,
+        setArticuloDetalle,
+        setCliente,
+        setTipoPedido,
+        submitPedido,
+        toogleExtentoIVA,
+        updateCantidad,
+        updateMetodosPago,
       }}
     >
       {children}
