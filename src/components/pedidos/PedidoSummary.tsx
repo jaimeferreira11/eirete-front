@@ -41,6 +41,7 @@ export const PedidoSummary = () => {
     updateMetodosPago,
     getTotal,
     submitPedido,
+    updateRazonSocial,
   } = usePedidosProvider();
 
   const { tipoPedido, importeTotal, exentoIVA } = newPedido;
@@ -61,6 +62,12 @@ export const PedidoSummary = () => {
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setRucValue(e.target.value);
+  };
+
+  const onChangeRazonSocial = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    updateRazonSocial(e.target.value);
   };
 
   const rucSearch = async (e: KeyboardEvent<HTMLDivElement>) => {
@@ -175,6 +182,7 @@ export const PedidoSummary = () => {
             label={t('razonSocial')}
             value={newPedido.cliente?.persona.nombreApellido || ''}
             disabled={newPedido.cliente?.persona.nombreApellido !== undefined}
+            onChange={onChangeRazonSocial}
           />
         </Grid>
       </Grid>

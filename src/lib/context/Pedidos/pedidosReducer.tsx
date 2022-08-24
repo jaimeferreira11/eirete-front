@@ -10,6 +10,7 @@ type PedidosType =
   | { type: 'ResetPedido'; payload: INewPedido }
   | { type: 'UpdateMontoRecibido'; payload: number }
   | { type: 'UpdateExentoIVA' }
+  | { type: 'UpdateRazonSocial'; payload: string }
   | {
       type: 'UpdateMetodosPago';
       payload: { nuevosMetodosPago: IMetodoPago[]; nuevoMontoRecibido: number };

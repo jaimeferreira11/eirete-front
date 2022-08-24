@@ -343,6 +343,19 @@ export const PedidosProvider: FC<Props> = ({ children }) => {
     return getTotal() - state.newPedido.importeTotal;
   };
 
+  const updateRazonSocial = (razonSocial: string) => {
+    const cliente = state.newPedido.cliente;
+
+    if (cliente?.persona.nombreApellido === '')
+      dispatch({
+        type: 'SetCliente',
+        payload: {
+          ...cliente,
+          persona: { ...cliente.persona, nombreApellido: razonSocial },
+        },
+      });
+  };
+
   return (
     <PedidosContext.Provider
       value={{
@@ -364,6 +377,7 @@ export const PedidosProvider: FC<Props> = ({ children }) => {
         toogleExtentoIVA,
         updateCantidad,
         updateMetodosPago,
+        updateRazonSocial,
       }}
     >
       {children}

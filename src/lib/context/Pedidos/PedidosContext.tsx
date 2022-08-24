@@ -43,6 +43,7 @@ interface ContextProps {
     importe: number;
     referencia?: string;
   }) => void;
+  updateRazonSocial: (razonSocial: string) => void;
 }
 
 export const PedidosContext = createContext({} as ContextProps);
