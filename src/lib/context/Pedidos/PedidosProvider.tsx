@@ -63,8 +63,6 @@ export const PedidosProvider: FC<Props> = ({ children }) => {
         `/clientes/search/persona/nrodoc/${nroDocumento}`
       );
 
-      console.log('cliente', cliente);
-
       dispatch({
         type: 'SetCliente',
         payload: {
