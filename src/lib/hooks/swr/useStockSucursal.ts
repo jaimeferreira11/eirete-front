@@ -1,6 +1,6 @@
 import useSWR from 'swr';
 
-import { IStockArticuloSucursal } from '@core/interfaces';
+import { ILineaArticulo, IStockArticuloSucursal } from '@core/interfaces';
 import { ILineasStockArticulosSearch } from '@lib/interfaces/LineasStockArticulosSearch';
 import { IArticuloSucursal } from '../../../core/interfaces/articuloSucursal';
 
@@ -11,6 +11,20 @@ export const useStockPorSucursal = (sucursalId: string) => {
 
   return {
     articulosSucursal: data || null,
+    isLoading: !error && !data,
+    isError: error,
+    mutate,
+  };
+};
+
+export const useStockLineasSucursal = (sucursalId?: string) => {
+  const { data, error, mutate } = useSWR<ILineaArticulo[]>(
+    `/stock/sucursal/${sucursalId}/lineas?estado=true`,
+    { revalidateIfStale: false }
+  );
+
+  return {
+    lineas: data || null,
     isLoading: !error && !data,
     isError: error,
     mutate,

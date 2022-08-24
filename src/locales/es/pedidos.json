@@ -22,7 +22,12 @@
     "vuelto": "Vuelto",
     "cancelar": "Cancelar",
     "confirmar": "Confirmar Pedido",
-    "precioUnitario": "Precio unitario"
+    "precioUnitario": "Precio unitario",
+    "exentoIva": "Exento de IVA",
+    "razonSocial": "Razón social",
+    "errorClienteSearch": "Error al buscar el cliente",
+    "pedidoSubmit": "Pedido registrado exitosamente",
+    "pedidoSubmitError": "Ocurrió un error al registrar el pedido"
   },
   "newPedido": "Nuevo Pedido",
   "editPedido": "Editar Pedido",

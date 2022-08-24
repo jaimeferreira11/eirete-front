@@ -5,6 +5,7 @@ import { IStockArticuloSucursal } from '@core/interfaces';
 import { usePedidosProvider } from '@lib/hooks';
 import { Box, Chip, IconButton, Typography } from '@mui/material';
 import { useTranslation } from 'next-i18next';
+import { formatCurrency } from 'src/utils';
 
 interface Props {
   item: IStockArticuloSucursal;
@@ -18,8 +19,9 @@ export const ArticuloPedidoView: FC<Props> = ({ item }) => {
 
   return (
     <Box
-      gridColumn="span 6"
+      gridColumn="span 12"
       display="flex"
+      justifyContent="space-between"
       gap={2}
       key={item._id}
       sx={{
@@ -35,9 +37,14 @@ export const ArticuloPedidoView: FC<Props> = ({ item }) => {
       <Typography variant="subtitle1" sx={{ color: '#2C2C2C' }}>
         {item.articulo.codigo} - {item.articulo.descripcion}
       </Typography>
-      {!hasStock && (
-        <Chip color="error" label={t('sinStock')} variant="outlined" />
-      )}
+      <Box display={'flex'} alignItems="center" gap={2}>
+        <Typography variant="subtitle1" sx={{ color: '#2C2C2C' }}>
+          {formatCurrency(item.articulo.precioVenta)}
+        </Typography>
+        {!hasStock && (
+          <Chip color="error" label={t('sinStock')} variant="outlined" />
+        )}
+      </Box>
     </Box>
   );
 };
