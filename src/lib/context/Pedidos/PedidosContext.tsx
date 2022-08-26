@@ -11,7 +11,10 @@ import { Detalle, INewPedido } from '@lib/interfaces';
 
 interface ContextProps {
   newPedido: INewPedido;
-  cancelarPedido: (pedidoId: string) => Promise<IEnpointResult>;
+  cancelarPedido: (
+    pedidoId: string,
+    motivoCancelacion: string
+  ) => Promise<IEnpointResult>;
   getDetalle: () => Detalle[];
   getMontoMetodoPago: (tipo: TiposPago) => number;
   getTotal: () => number;
