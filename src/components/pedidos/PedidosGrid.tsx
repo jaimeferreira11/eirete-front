@@ -2,6 +2,7 @@ import { GenericTab } from '@components/ui';
 import { Box, Tab, Tabs } from '@mui/material';
 import { useTranslation } from 'next-i18next';
 import { useState } from 'react';
+import { ListadoPedidos } from './ListadoPedidos';
 import { PedidoTab } from './PedidoTab';
 
 type OptionsPedidoTab = 'pedidos' | 'listado-pedidos';
@@ -49,7 +50,7 @@ export const PedidosGrid = () => {
             <PedidoTab />
           </GenericTab>
           <GenericTab value={actualTab} index={'listado-pedidos'}>
-            En construcción
+            <ListadoPedidos />
           </GenericTab>
         </>
       </Box>

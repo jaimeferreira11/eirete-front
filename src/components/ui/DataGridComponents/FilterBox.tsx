@@ -7,9 +7,14 @@ interface Props {
   searchHandler: (query: string, activate: string) => void;
   isLoading: boolean;
   children?: React.ReactNode;
+  showActive: boolean;
 }
 
-export const FilterBox: FC<Props> = ({ searchHandler, isLoading }) => {
+export const FilterBox: FC<Props> = ({
+  searchHandler,
+  isLoading,
+  showActive,
+}) => {
   const { t } = useTranslation('common');
 
   const [activeValue, setActiveValue] = useState('true');
@@ -32,26 +37,28 @@ export const FilterBox: FC<Props> = ({ searchHandler, isLoading }) => {
         />
       </Grid>
 
-      <Grid item xs={2}>
-        <TextField
-          size="small"
-          select
-          label={t('searchForm.estado')}
-          fullWidth
-          value={activeValue}
-          onChange={(e) => setActiveValue(e.target.value)}
-        >
-          <MenuItem key={'activos'} value={'true'}>
-            {t('searchForm.activos')}
-          </MenuItem>
-          <MenuItem key={'inactivos'} value={'false'}>
-            {t('searchForm.inactivos')}
-          </MenuItem>
-          <MenuItem key={'all'} value={'all'}>
-            {t('searchForm.all')}
-          </MenuItem>
-        </TextField>
-      </Grid>
+      {showActive && (
+        <Grid item xs={2}>
+          <TextField
+            size="small"
+            select
+            label={t('searchForm.estado')}
+            fullWidth
+            value={activeValue}
+            onChange={(e) => setActiveValue(e.target.value)}
+          >
+            <MenuItem key={'activos'} value={'true'}>
+              {t('searchForm.activos')}
+            </MenuItem>
+            <MenuItem key={'inactivos'} value={'false'}>
+              {t('searchForm.inactivos')}
+            </MenuItem>
+            <MenuItem key={'all'} value={'all'}>
+              {t('searchForm.all')}
+            </MenuItem>
+          </TextField>
+        </Grid>
+      )}
       <Grid item xs={2}>
         <Button disabled={isLoading} onClick={onFilter}>
           {t('searchForm.fitrar')}

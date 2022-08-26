@@ -1,6 +1,5 @@
 {
   "title": "Pedidos",
-  "noRowsLabel": "Sin pedidos que mostrar",
   "labelRowsPerPage": "Nro. pedidos por página",
   "articulos": {
     "title": "Artículos",
@@ -27,7 +26,22 @@
     "razonSocial": "Razón social",
     "errorClienteSearch": "Error al buscar el cliente",
     "pedidoSubmit": "Pedido registrado exitosamente",
-    "pedidoSubmitError": "Ocurrió un error al registrar el pedido"
+    "pedidoSubmitError": "Ocurrió un error al registrar el pedido",
+    "ok": "Ok"
+  },
+  "listado": {
+    "nroOrden": "Nro. Orden",
+    "hora": "Hora",
+    "cliente": "Cliente",
+    "tipo": "Tipo",
+    "total": "Total",
+    "pedido": "Pedido",
+    "verDetalles": "Ver detalles",
+    "cancelar": "Cancelar",
+    "actions": "Acciones",
+    "actionsDescription": "Acciones aplicables",
+    "noRowsLabel": "Sin pedidos que mostrar",
+    "estado": "Estado"
   },
   "newPedido": "Nuevo Pedido",
   "editPedido": "Editar Pedido",
@@ -35,10 +49,17 @@
   "pedidoUpdated": "Pedido modificado exitosamente",
   "pedidoPersistError": "Ocurrió un error al guardar el Pedido",
   "confirmDeactivation": "¿Está seguro de cambiar el estado?",
-  "pedidoDeactivation": "Desactivar Pedido",
-  "pedidoSeleccionHelp": "Seleccione un Pedido para ver los detalles",
+  "cancelarPedido": "Cancelar pedido {{nroPedido}}",
+  "motivoCancelacion": "Motivo de cancelación",
+  "motivoCancelacionEjemplo": "Ej: se introdujo mal un artículo",
   "details": "Detalles",
   "emptyList": "Sin pedidos que mostrar",
   "editData": "Editar datos",
-  "search": "Buscar"
+  "search": "Buscar",
+  "confirmCancelacion": "¿Está seguro de querer cancelar el pedido?",
+  "confirmar": "Cancelar pedido",
+  "cancelar": "Volver",
+  "pedidoCancelacion": "Confirmar acción",
+  "pedidoCancelacionExitosa": "Se cancelado el pedido exitosamente",
+  "pedidoCancelacionError": "Ha ocurrido un error al cancelar el pedido"
 }

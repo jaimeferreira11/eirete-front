@@ -354,10 +354,31 @@ export const PedidosProvider: FC<Props> = ({ children }) => {
       });
   };
 
+  const cancelarPedido = async (
+    pedidoId: string,
+    motivo: string
+  ): Promise<IEnpointResult> => {
+    try {
+      await eireteApi.put(`/pedidos/change-status/${pedidoId}/CANCELADO`, {
+        motivo,
+      });
+
+      return {
+        hasError: false,
+      };
+    } catch (error) {
+      return {
+        hasError: true,
+        message: (error as AxiosError).message,
+      };
+    }
+  };
+
   return (
     <PedidosContext.Provider
       value={{
         ...state,
+        cancelarPedido,
         getDetalle,
         getImpuesto10,
         getImpuesto5,

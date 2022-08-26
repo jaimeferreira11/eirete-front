@@ -4,6 +4,7 @@ export * from './useCiudades';
 export * from './useClientes';
 export * from './useFamilias';
 export * from './useLineas';
+export * from './usePedidos';
 export * from './usePerfiles';
 export * from './useStockSucursal';
 export * from './useSucursales';

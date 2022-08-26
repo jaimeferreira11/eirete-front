@@ -9,6 +9,7 @@ export * from './familiaArticulo';
 export * from './lineaArticulo';
 export * from './ListPaginationOptions';
 export * from './MetodoPago';
+export * from './pedidos';
 export * from './perfil';
 export * from './stock';
 export * from './sucursal';

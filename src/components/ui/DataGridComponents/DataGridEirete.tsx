@@ -8,9 +8,10 @@ import { FilterBox } from './FilterBox';
 interface Props {
   config: IDataGridEireteConfig;
   children?: React.ReactNode;
+  showActive?: boolean;
 }
 
-export const DataGridEirete: FC<Props> = ({ config }) => {
+export const DataGridEirete: FC<Props> = ({ config, showActive = true }) => {
   const {
     columns,
     isLoading,
@@ -27,7 +28,11 @@ export const DataGridEirete: FC<Props> = ({ config }) => {
   return (
     <>
       <Box sx={{ height: { xs: '60vh', sm: '75vh' }, width: '100%' }}>
-        <FilterBox searchHandler={handleSearch} isLoading={isLoading} />
+        <FilterBox
+          searchHandler={handleSearch}
+          isLoading={isLoading}
+          showActive={showActive}
+        />
         <DataGrid
           getRowId={(row) => row._id}
           rows={rows}
