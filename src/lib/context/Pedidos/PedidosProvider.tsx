@@ -356,11 +356,11 @@ export const PedidosProvider: FC<Props> = ({ children }) => {
 
   const cancelarPedido = async (
     pedidoId: string,
-    motivo: string
+    motivoCancelacion: string
   ): Promise<IEnpointResult> => {
     try {
       await eireteApi.put(`/pedidos/change-status/${pedidoId}/CANCELADO`, {
-        motivo,
+        motivoCancelacion,
       });
 
       return {
