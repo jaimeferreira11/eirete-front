@@ -7,7 +7,7 @@
     "caja": "Caja",
     "cierreDeCaja": "Cierre de caja",
     "delivery": "Delivery",
-    "stock": "Stock en sucursal",
+    "stock": "Stock",
     "movimientos": "Movimientos",
     "clientes": "Clientes",
     "usuarios": "Usuarios",
@@ -15,8 +15,13 @@
     "familiaArticulos": "Familia de artículos",
     "lineaArticulos": "Línea de artículos",
     "articulos": "Artículos",
+    "articulosEnSucursal": "Articulos en sucursal",
     "maintenance": "Mantenimiento",
-    "pedidos": "Pedidos"
+    "pedidos": "Pedidos",
+    "tesoreria": "Tesoreria",
+    "categoriaGastos": "Categoría de gastos",
+    "reportes": "Reportes",
+    "arqueos": "Arqueos"
   },
   "imprimirArqueo": "Imprimir último arqueo",
   "contactarSoporte": "Contactar soporte",
