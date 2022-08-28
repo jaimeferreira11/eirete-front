@@ -14,6 +14,9 @@ import {
   StorefrontOutlined as SucursalIcon,
   TakeoutDiningOutlined as ArticuloIcon,
 } from '@mui/icons-material';
+
+import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
+
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import {
@@ -108,11 +111,11 @@ export const menuItems = [
         path: '/sucursales',
       },
       {
-        id: 'caja',
-        icon: <CajaIcon />,
-        text: 'links.caja',
+        id: 'categoria-movimientos',
+        icon: <CompareArrowsIcon />,
+        text: 'links.categoriaMovimientos',
         roles: [''],
-        path: '/cajas',
+        path: '/categoria-movimientos',
       },
     ],
   },

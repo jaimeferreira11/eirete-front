@@ -1,12 +1,13 @@
 import { IListItemGeneric } from '@components/ui';
 import CategoryIcon from '@mui/icons-material/Category';
+import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import Inventory2Icon from '@mui/icons-material/Inventory2';
 import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
 
 import { IFamiliaArticulo } from '../core/interfaces/familiaArticulo';
 
-import { ICaja, ILineaArticulo } from '@core/interfaces';
+import { ICaja, ICategoriaMovimiento, ILineaArticulo } from '@core/interfaces';
 import { ISucursal } from '../core/interfaces/sucursal';
 
 export const parseSucursalesToItemList = (
@@ -55,6 +56,21 @@ export const parseLineasToItemList = (
       title: `${linea.descripcion}`,
       subtitle: '',
       icon: <Inventory2Icon />,
+    })
+  );
+};
+
+export const parseCategoriaMovimientosToItemList = (
+  categorias: ICategoriaMovimiento[]
+): IListItemGeneric[] => {
+  return categorias.map(
+    (categoria): IListItemGeneric => ({
+      _id: categoria._id,
+      title: `${categoria.descripcion}`,
+      subtitle: ` ${categoria.esGasto ? 'Egreso' : ''} ${
+        categoria.esGasto && categoria.esIngreso ? '-' : ''
+      } ${categoria.esIngreso ? 'Ingreso' : ''}`,
+      icon: <CompareArrowsIcon />,
     })
   );
 };

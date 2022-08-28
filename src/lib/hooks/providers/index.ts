@@ -1,6 +1,7 @@
 export * from './useArticulosProvider';
 export * from './useAuthProvider';
 export * from './useCajasProvider';
+export * from './useCategoriaMovimientosProvider';
 export * from './useClienteProvider';
 export * from './useFamiliasProvider';
 export * from './useLineasProvider';
