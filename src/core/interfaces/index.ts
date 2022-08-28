@@ -2,6 +2,7 @@ export * from './ApiResponses';
 export * from './articulos';
 export * from './articuloSucursal';
 export * from './caja';
+export * from './categoriaMovimiento';
 export * from './ciudad';
 export * from './cliente';
 export * from './endpointResult';
