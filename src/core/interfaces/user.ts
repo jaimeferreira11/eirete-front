@@ -11,6 +11,18 @@ export interface IUser {
   correo?: string;
   celular?: string;
   sucursal: string;
+  turno: string;
 }
 
 export type IUserRol = 'ROOT_ROLE' | 'ADMIN_ROLE' | 'USER_ROLE';
+
+export interface ITurno {
+  _id: string;
+  nro: number;
+  fechaCierre: Date;
+  sucursal: string;
+  estado: boolean;
+  usuarioAlta: string;
+  fechaApertura: Date;
+  fechaAlta: Date;
+}

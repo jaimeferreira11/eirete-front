@@ -12,9 +12,11 @@ export const userLogin = async ({ username, password }: CredentialsProps) => {
       username,
       password,
     });
+
     if (data)
       return {
         ...data.usuario,
+        turno: data.turno._id,
         token: data.token,
       };
 

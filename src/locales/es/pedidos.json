@@ -27,7 +27,28 @@
     "errorClienteSearch": "Error al buscar el cliente",
     "pedidoSubmit": "Pedido registrado exitosamente",
     "pedidoSubmitError": "Ocurrió un error al registrar el pedido",
-    "ok": "Ok"
+    "ok": "Ok",
+    "setDirEnvio": "Especifique una dirección de envío",
+    "editDirEnvio": "Click para editar"
+  },
+  "direccionPedido": {
+    "titleModal": "Dirección de entrega pedido",
+
+    "form": {
+      "direccion": "Dirección",
+      "notas": "Notas",
+      "direccionesRegistradas": "Direcciones registradas",
+      "ciudad": "Ciudad",
+      "required": "Este campo es requerido",
+      "nroContacto": "Nro. Contacto",
+      "predeterminado": "Predeterminado",
+      "notasPedido": "Notas",
+      "notasPedidoPlaceholder": "Ej: casa con murallas",
+      "editData": "Editar datos",
+      "cancelar": "Cancelar",
+      "guardar": "Guardar",
+      "volver": "Volver"
+    }
   },
   "listado": {
     "nroOrden": "Nro. Orden",

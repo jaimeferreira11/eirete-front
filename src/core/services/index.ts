@@ -1,1 +1,2 @@
-export * as UserService from './UserService';
+export * as ClienteService from './ClienteService';
+export * from './UserService';

@@ -54,7 +54,6 @@ export const CategoriaMovimientosProvider: FC<Props> = ({ children }) => {
     _id: string
   ): Promise<IEnpointResult> => {
     try {
-      console.log(newCategoria);
       await eireteApi.put(`/categorias-movimientos/${_id}`, newCategoria);
 
       return {

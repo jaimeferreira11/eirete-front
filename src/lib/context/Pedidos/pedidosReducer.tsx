@@ -1,12 +1,28 @@
-import { IMetodoPago } from '@core/interfaces';
+import { Direccion, IMetodoPago } from '@core/interfaces';
 import { Cliente, Detalle, INewPedido } from '@lib/interfaces';
 import { TipoPedido } from '../../../core/interfaces/TipoPedidos';
 import { PedidosState } from './';
 
 type PedidosType =
   | { type: 'SetSucursalID'; payload: string }
-  | { type: 'SetCliente'; payload: Cliente | undefined }
+  | {
+      type: 'SetCliente';
+      payload: {
+        cliente: Cliente | undefined;
+        direcciones: Direccion[];
+        defaultDireccion: Direccion | undefined;
+      };
+    }
+  | { type: 'SetClienteRazonSocial'; payload: string }
+  | {
+      type: 'UpdateDireccionesCliente';
+      payload: {
+        direcciones: Direccion[];
+        nuevaDireccionDelivery: Direccion;
+      };
+    }
   | { type: 'SetTipoPedido'; payload: TipoPedido }
+  | { type: 'UpdateDireccionEnvio'; payload: Direccion }
   | { type: 'ResetPedido'; payload: INewPedido }
   | { type: 'UpdateMontoRecibido'; payload: number }
   | { type: 'UpdateExentoIVA' }
@@ -44,8 +60,10 @@ export const pedidosReducer = (
         ...state,
         newPedido: {
           ...state.newPedido,
-          cliente: action.payload,
+          cliente: action.payload.cliente,
         },
+        direccionesCliente: action.payload.direcciones,
+        direccionDelivery: action.payload.defaultDireccion,
       };
     case 'SetTipoPedido':
       return {
@@ -91,6 +109,32 @@ export const pedidosReducer = (
           metodosPago: action.payload.nuevosMetodosPago,
           montoRecibido: action.payload.nuevoMontoRecibido,
         },
+      };
+
+    case 'SetClienteRazonSocial':
+      return {
+        ...state,
+        newPedido: {
+          ...state.newPedido,
+          cliente: {
+            ...state.newPedido.cliente!,
+            persona: {
+              ...state.newPedido.cliente?.persona!,
+              nombreApellido: action.payload,
+            },
+          },
+        },
+      };
+    case 'UpdateDireccionesCliente':
+      return {
+        ...state,
+        direccionesCliente: action.payload.direcciones,
+        direccionDelivery: action.payload.nuevaDireccionDelivery,
+      };
+    case 'UpdateDireccionEnvio':
+      return {
+        ...state,
+        direccionDelivery: action.payload,
       };
     default:
       return state;
