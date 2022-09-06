@@ -1,16 +1,24 @@
 import eireteApi from '@core/api';
-import { IArticuloStock, IEnpointResult, TipoImpuesto } from '@core/interfaces';
+import {
+  Direccion,
+  IArticuloStock,
+  IEnpointResult,
+  TipoImpuesto,
+} from '@core/interfaces';
+import { useClienteService } from '@core/services/ClienteService';
+import { usePedidoService } from '@core/services/PedidoService';
 import { useAuthProvider, useUtilsProvider } from '@lib/hooks';
 import { Detalle, INewPedido } from '@lib/interfaces';
 import { AxiosError } from 'axios';
 import { FC, useEffect, useReducer } from 'react';
-import { ICliente } from '../../../core/interfaces/cliente';
 import { TiposPago } from '../../../core/interfaces/MetodoPago';
 import { TipoPedido } from '../../../core/interfaces/TipoPedidos';
 import { PedidosContext, pedidosReducer } from './';
 
 export interface PedidosState {
   newPedido: INewPedido;
+  direccionesCliente: Direccion[];
+  direccionDelivery: Direccion | undefined;
 }
 
 const PEDIDOS_INITIAL_STATE: PedidosState = {
@@ -26,15 +34,22 @@ const PEDIDOS_INITIAL_STATE: PedidosState = {
     exentoIVA: false,
     metodosPago: [],
   },
+  direccionesCliente: [],
+  direccionDelivery: undefined,
 };
 interface Props {
   children?: React.ReactNode;
 }
 
 export const PedidosProvider: FC<Props> = ({ children }) => {
+  const { user } = useAuthProvider();
+  const { addPedido } = usePedidoService();
+
+  const { searchClienteByNroDocumento, addDireccionEntrega } =
+    useClienteService();
+
   const { showSnackbar } = useUtilsProvider();
 
-  const { user } = useAuthProvider();
   const [state, dispatch] = useReducer(pedidosReducer, PEDIDOS_INITIAL_STATE);
 
   useEffect(() => {
@@ -42,36 +57,29 @@ export const PedidosProvider: FC<Props> = ({ children }) => {
       dispatch({ type: 'SetSucursalID', payload: user?.sucursal! });
   }, [state.newPedido.sucursal, user?.sucursal]);
 
-  const setCliente = (cliente: ICliente) => {
-    dispatch({
-      type: 'SetCliente',
-      payload: {
-        _id: cliente._id,
-        persona: {
-          nroDoc: cliente.persona.nroDoc,
-          ruc: cliente.persona.tipoDoc === 'RUC' ? cliente.persona.nroDoc : '',
-        },
-      },
-    });
-  };
-
   const searchCliente = async (
     nroDocumento: string
   ): Promise<{ errorMessage?: string; ruc?: string }> => {
     try {
-      const { data: cliente } = await eireteApi.get<ICliente>(
-        `/clientes/search/persona/nrodoc/${nroDocumento}`
+      const cliente = await searchClienteByNroDocumento(nroDocumento);
+
+      const defaultDireccion = cliente.direcciones?.find(
+        (direccion) => direccion.predeterminado
       );
 
       dispatch({
         type: 'SetCliente',
         payload: {
-          _id: cliente._id,
-          persona: {
-            nroDoc: cliente.persona.nroDoc,
-            ruc: cliente.persona.ruc,
-            nombreApellido: cliente.persona.nombreApellido,
+          cliente: {
+            _id: cliente._id,
+            persona: {
+              nroDoc: cliente.persona.nroDoc,
+              ruc: cliente.persona.ruc,
+              nombreApellido: cliente.persona.nombreApellido,
+            },
           },
+          direcciones: cliente.direcciones || [],
+          defaultDireccion,
         },
       });
       return { ruc: cliente.persona.ruc };
@@ -79,7 +87,11 @@ export const PedidosProvider: FC<Props> = ({ children }) => {
       // Si no existe se registrará
       dispatch({
         type: 'SetCliente',
-        payload: undefined,
+        payload: {
+          cliente: undefined,
+          direcciones: [],
+          defaultDireccion: undefined,
+        },
       });
       return {
         errorMessage: (error as AxiosError).message || 'Usuario no existe',
@@ -321,9 +333,11 @@ export const PedidosProvider: FC<Props> = ({ children }) => {
 
   const submitPedido = async (): Promise<IEnpointResult> => {
     try {
-      await eireteApi.post('/pedidos', {
+      await addPedido({
         ...state.newPedido,
         vuelto: getVuelto(),
+        direccionEnvio: state.direccionDelivery,
+        turno: user?.turno!,
       });
 
       return {
@@ -346,11 +360,8 @@ export const PedidosProvider: FC<Props> = ({ children }) => {
 
     if (cliente?.persona.nombreApellido === '')
       dispatch({
-        type: 'SetCliente',
-        payload: {
-          ...cliente,
-          persona: { ...cliente.persona, nombreApellido: razonSocial },
-        },
+        type: 'SetClienteRazonSocial',
+        payload: razonSocial,
       });
   };
 
@@ -374,6 +385,50 @@ export const PedidosProvider: FC<Props> = ({ children }) => {
     }
   };
 
+  const updateClienteDirecciones = async (
+    newDireccion: Direccion
+  ): Promise<IEnpointResult> => {
+    let newDirecciones = [];
+    if (newDireccion._id) {
+      const filtrado = state.direccionesCliente.filter(
+        (dir) => dir._id !== newDireccion._id
+      );
+      newDirecciones = [...filtrado, newDireccion];
+    } else {
+      newDirecciones = [...state.direccionesCliente, newDireccion];
+    }
+
+    try {
+      const result = await addDireccionEntrega(
+        newDirecciones,
+        state.newPedido.cliente?._id!
+      );
+
+      dispatch({
+        type: 'UpdateDireccionesCliente',
+        payload: {
+          direcciones: result.direcciones,
+          nuevaDireccionDelivery: newDireccion,
+        },
+      });
+      return {
+        hasError: false,
+      };
+    } catch (error) {
+      return {
+        hasError: true,
+        message: (error as AxiosError).message,
+      };
+    }
+  };
+
+  const updateClienteDireccionEnvio = (newDireccion: Direccion) => {
+    dispatch({
+      type: 'UpdateDireccionEnvio',
+      payload: newDireccion,
+    });
+  };
+
   return (
     <PedidosContext.Provider
       value={{
@@ -390,13 +445,14 @@ export const PedidosProvider: FC<Props> = ({ children }) => {
         resetPedido,
         searchCliente,
         setArticuloDetalle,
-        setCliente,
         setTipoPedido,
         submitPedido,
         toogleExtentoIVA,
         updateCantidad,
         updateMetodosPago,
         updateRazonSocial,
+        updateClienteDirecciones,
+        updateClienteDireccionEnvio,
       }}
     >
       {children}

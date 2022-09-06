@@ -43,14 +43,14 @@ export const menuItems = [
     icon: <CierreCajaIcon />,
     text: 'links.cierreDeCaja',
     roles: [''],
-    path: '/',
+    path: '/cierre-caja',
   },
   {
     id: 'delivery',
     icon: <DeliveryIcon />,
     text: 'links.delivery',
     roles: [''],
-    path: '/',
+    path: '/delivery',
   },
   {
     id: 'caja-agrupador',
@@ -127,6 +127,13 @@ export const menuItems = [
     path: '',
     items: [
       {
+        id: 'categoriaGastos',
+        icon: <MovimientosIcon />,
+        text: 'links.categoriaGastos',
+        roles: [''],
+        path: '/gastos',
+      },
+      {
         id: 'movimientos',
         icon: <MovimientosIcon />,
         text: 'links.movimientos',
@@ -138,7 +145,7 @@ export const menuItems = [
         icon: <MovimientosIcon />,
         text: 'links.arqueos',
         roles: [''],
-        path: '/',
+        path: '/arqueos',
       },
     ],
   },
@@ -147,7 +154,7 @@ export const menuItems = [
     icon: <DeliveryIcon />,
     text: 'links.reportes',
     roles: [''],
-    path: '/',
+    path: '/reportes',
   },
 ];
 

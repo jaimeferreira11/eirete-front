@@ -21,7 +21,12 @@ import { useTranslation } from 'next-i18next';
 import { formatCurrency } from 'src/utils';
 import { TiposPago } from '../../core/interfaces/MetodoPago';
 
-export const PedidoSummary = () => {
+interface Props {
+  handleEditDireccion: () => void;
+  children?: React.ReactNode;
+}
+
+export const PedidoSummary = ({ handleEditDireccion }) => {
   const { t } = useTranslation('pedidos', { keyPrefix: 'detallePedido' });
   const { showSnackbar } = useUtilsProvider();
 
@@ -42,6 +47,7 @@ export const PedidoSummary = () => {
     getTotal,
     submitPedido,
     updateRazonSocial,
+    direccionDelivery,
   } = usePedidosProvider();
 
   const { tipoPedido, importeTotal, exentoIVA } = newPedido;
@@ -138,23 +144,25 @@ export const PedidoSummary = () => {
         </Typography>
       </Box>
       <Grid container justifyContent="space-between">
-        <Grid item xs={6} sx={{ pr: 1 }}>
-          <TextField
-            id="tipo-pedido-select"
-            select
-            label={t('tipoPedido')}
-            fullWidth
-            value={tipoPedido}
-            onChange={(event) =>
-              setTipoPedido(event.target.value as TipoPedido)
-            }
-          >
-            {TipoPedidoArray.map((option) => (
-              <MenuItem key={option} value={option}>
-                {option}
-              </MenuItem>
-            ))}
-          </TextField>
+        <Grid container direction="column" item xs={6} sx={{ pr: 1 }}>
+          <Grid item>
+            <TextField
+              id="tipo-pedido-select"
+              select
+              label={t('tipoPedido')}
+              fullWidth
+              value={tipoPedido}
+              onChange={(event) =>
+                setTipoPedido(event.target.value as TipoPedido)
+              }
+            >
+              {TipoPedidoArray.map((option) => (
+                <MenuItem key={option} value={option}>
+                  {option}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Grid>
         </Grid>
         <Grid item xs={6} sx={{ pl: 1 }}>
           <TextField
@@ -175,6 +183,36 @@ export const PedidoSummary = () => {
             helperText={rucError}
           />
         </Grid>
+        {tipoPedido === 'DELIVERY' && newPedido.cliente && (
+          <Grid container item xs={12} alignItems="center">
+            <Grid item xs={6} sx={{ mt: 2 }}>
+              <Typography variant="subtitle2" sx={{ fontSize: 15 }}>
+                Direccion de envio
+              </Typography>
+              <Typography variant="subtitle2" sx={{ fontSize: 13 }}>
+                {direccionDelivery?.direccion}
+              </Typography>
+              <Typography variant="subtitle2" sx={{ fontSize: 10 }}>
+                {direccionDelivery?.ciudad}
+              </Typography>
+            </Grid>
+            <Grid
+              container
+              item
+              xs={6}
+              sx={{ mt: 2 }}
+              justifyContent="flex-end"
+            >
+              <Button
+                variant="outlined"
+                color={direccionDelivery ? 'info' : 'error'}
+                onClick={handleEditDireccion}
+              >
+                {direccionDelivery ? t('editDirEnvio') : t('setDirEnvio')}
+              </Button>
+            </Grid>
+          </Grid>
+        )}
         <Grid item xs={12} sx={{ mt: 4 }}>
           <TextField
             fullWidth

@@ -2,7 +2,6 @@ export * from './ArticuloPedidoView';
 export * from './ArticulosLineaPedidos';
 export * from './ArticulosPedidoAccordion';
 export * from './ArticulosPedidoView';
-export * from './ClienteAutocomplete';
 export * from './PedidoDetalleList';
 export * from './PedidoDetalleView';
 export * from './PedidosGrid';

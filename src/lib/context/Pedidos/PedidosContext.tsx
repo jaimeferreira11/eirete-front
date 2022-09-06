@@ -1,8 +1,8 @@
 import { createContext } from 'react';
 
 import {
+  Direccion,
   IArticuloStock,
-  ICliente,
   IEnpointResult,
   TiposPago,
 } from '@core/interfaces';
@@ -11,6 +11,8 @@ import { Detalle, INewPedido } from '@lib/interfaces';
 
 interface ContextProps {
   newPedido: INewPedido;
+  direccionesCliente: Direccion[];
+  direccionDelivery: Direccion | undefined;
   cancelarPedido: (
     pedidoId: string,
     motivoCancelacion: string
@@ -31,11 +33,13 @@ interface ContextProps {
     articulo: IArticuloStock,
     stockDisponible: number
   ) => void;
-  setCliente: (cliente: ICliente) => void;
   setTipoPedido: (tipoPedido: TipoPedido) => void;
   toogleExtentoIVA: () => void;
 
   submitPedido: () => Promise<IEnpointResult>;
+  updateClienteDirecciones: (
+    newDireccion: Direccion
+  ) => Promise<IEnpointResult>;
   updateCantidad: (detalle: Detalle, cantidad: number) => void;
   updateMetodosPago: ({
     descripcion,
@@ -47,6 +51,7 @@ interface ContextProps {
     referencia?: string;
   }) => void;
   updateRazonSocial: (razonSocial: string) => void;
+  updateClienteDireccionEnvio: (newDireccion: Direccion) => void;
 }
 
 export const PedidosContext = createContext({} as ContextProps);

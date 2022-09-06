@@ -61,7 +61,6 @@ export const ListadoPedidos = () => {
   useMemo(() => {
     setPedidos(pedidosDB?.data || []);
   }, [pedidosDB?.data]);
-  console.log('pedidos', pedidos);
 
   formateDate('2022-08-24T19:44:39.394Z');
   // /pedidos?limite=20&desde=0&paginado=true

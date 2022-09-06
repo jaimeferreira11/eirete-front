@@ -60,7 +60,7 @@ export const PedicoCancelacionModal: FC<Props> = ({
   const handleSecondCancelacion = useCallback(async () => {
     setShowModalConfirmation(false);
     setCanceling(true);
-    const result = await cancelarPedido(pedidoId);
+    const result = await cancelarPedido(pedidoId, motivo);
 
     if (!result.hasError) {
       showSnackbar({
@@ -82,7 +82,7 @@ export const PedicoCancelacionModal: FC<Props> = ({
       type: 'error',
       show: true,
     });
-  }, [cancelarPedido, close, mutate, pedidoId, showSnackbar, t]);
+  }, [cancelarPedido, close, motivo, mutate, pedidoId, showSnackbar, t]);
 
   const handleFirstConfirmationCancelacion = useCallback(() => {
     setShowModalConfirmation(true);
