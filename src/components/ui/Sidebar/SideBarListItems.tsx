@@ -127,18 +127,11 @@ export const menuItems = [
     path: '',
     items: [
       {
-        id: 'categoriaGastos',
-        icon: <MovimientosIcon />,
-        text: 'links.categoriaGastos',
-        roles: [''],
-        path: '/',
-      },
-      {
         id: 'movimientos',
         icon: <MovimientosIcon />,
         text: 'links.movimientos',
         roles: [''],
-        path: '/',
+        path: '/movimientos',
       },
       {
         id: 'arqueos',

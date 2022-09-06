@@ -1,10 +1,18 @@
 import { ICategoriaMovimiento, ListPaginationOptions } from '@core/interfaces';
 import useSWR from 'swr';
 
-export const useCategoriaMovimientos = () => {
-  const { data, error, mutate } = useSWR<ICategoriaMovimiento[]>(
+interface Props1 {
+  tipo?: 'ingresos' | 'egresos';
+}
+export const useCategoriaMovimientos = ({ tipo }: Props1) => {
+  let { data, error, mutate } = useSWR<ICategoriaMovimiento[]>(
     '/categorias-movimientos'
   );
+
+  if (tipo && data) {
+    if (tipo === 'ingresos') data = data.filter((c) => c.esIngreso);
+    if (tipo === 'egresos') data = data.filter((c) => c.esGasto);
+  }
 
   return {
     categorias: data || null,

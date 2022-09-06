@@ -1,13 +1,20 @@
 import { IListItemGeneric } from '@components/ui';
+import CallMadeIcon from '@mui/icons-material/CallMade';
+import CallReceivedIcon from '@mui/icons-material/CallReceived';
 import CategoryIcon from '@mui/icons-material/Category';
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import Inventory2Icon from '@mui/icons-material/Inventory2';
 import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
-
+import moment from 'moment';
 import { IFamiliaArticulo } from '../core/interfaces/familiaArticulo';
 
-import { ICaja, ICategoriaMovimiento, ILineaArticulo } from '@core/interfaces';
+import {
+  ICaja,
+  ICategoriaMovimiento,
+  ILineaArticulo,
+  IMovimiento,
+} from '@core/interfaces';
 import { ISucursal } from '../core/interfaces/sucursal';
 
 export const parseSucursalesToItemList = (
@@ -71,6 +78,21 @@ export const parseCategoriaMovimientosToItemList = (
         categoria.esGasto && categoria.esIngreso ? '-' : ''
       } ${categoria.esIngreso ? 'Ingreso' : ''}`,
       icon: <CompareArrowsIcon />,
+    })
+  );
+};
+
+export const parseMovimientosToItemList = (
+  categorias: IMovimiento[]
+): IListItemGeneric[] => {
+  return categorias.map(
+    (categoria): IListItemGeneric => ({
+      _id: categoria._id,
+      title: `${categoria.descripcion}`,
+      subtitle: `${moment(categoria.fechaAlta).format(
+        'DD/MM/YYYY'
+      )} - Monto: Gs. ${categoria.monto}`,
+      icon: categoria.esIngreso ? <CallMadeIcon /> : <CallReceivedIcon />,
     })
   );
 };
