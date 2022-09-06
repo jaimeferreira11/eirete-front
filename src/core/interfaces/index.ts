@@ -10,6 +10,7 @@ export * from './familiaArticulo';
 export * from './lineaArticulo';
 export * from './ListPaginationOptions';
 export * from './MetodoPago';
+export * from './movimiento';
 export * from './pedidos';
 export * from './perfil';
 export * from './stock';
