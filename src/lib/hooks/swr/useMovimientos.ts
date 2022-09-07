@@ -26,7 +26,7 @@ export const useMovimientoPaginado = ({
   search,
 }: Props) => {
   const { data, error, mutate } = useSWR(
-    `/movimientos?paginado=true&esEgreso=${egreso}&esIngreso=${ingreso}&limite=${pagination.limite}&desde=${pagination.desde}&search=${search}`
+    `/movimientos?paginado=true&esGasto=${egreso}&esIngreso=${ingreso}&limite=${pagination.limite}&desde=${pagination.desde}&search=${search}`
   );
 
   return {

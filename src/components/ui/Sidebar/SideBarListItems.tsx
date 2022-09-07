@@ -36,7 +36,7 @@ export const menuItems = [
     icon: <PedidoIcon />,
     text: 'links.caja',
     roles: [''],
-    path: '/pedidos',
+    path: '/',
   },
   {
     id: 'cierre-caja',
@@ -126,13 +126,6 @@ export const menuItems = [
     roles: [''],
     path: '',
     items: [
-      {
-        id: 'categoriaGastos',
-        icon: <MovimientosIcon />,
-        text: 'links.categoriaGastos',
-        roles: [''],
-        path: '/gastos',
-      },
       {
         id: 'movimientos',
         icon: <MovimientosIcon />,

@@ -18,14 +18,14 @@
   },
   "new": "Nuevo Movimiento",
   "edit": "Editar Movimiento",
-  "persist": "Movimiento creada exitosamente",
-  "updated": "Movimiento modificada exitosamente",
+  "persist": "Movimiento creado exitosamente",
+  "updated": "Movimiento modificado exitosamente",
   "persistError": "Ocurrió un error al guardar la movimiento",
   "confirmDeactivation": "¿Está seguro de cambiar el estado?",
   "deactivation": "Desactivar movimiento",
-  "seleccionHelp": "Seleccione una movimiento para ver los detalles",
+  "seleccionHelp": "Seleccione un movimiento para ver los detalles",
   "details": "Detalles",
-  "emptyList": "Sin movimeintos que mostrar",
+  "emptyList": "Sin movimientos que mostrar",
   "editData": "Editar datos",
   "search": "Buscar"
 }
