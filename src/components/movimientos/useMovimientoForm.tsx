@@ -1,8 +1,7 @@
 import { ICategoriaMovimiento, IMovimiento } from '@core/interfaces';
 import { useCategoriaMovimientos } from '@lib/hooks';
 import { INewMovimiento } from '@lib/interfaces';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import { Autocomplete, Button, Grid, TextField } from '@mui/material';
+import { Grid, MenuItem, TextField } from '@mui/material';
 import { useTranslation } from 'next-i18next';
 import { useEffect, useMemo, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -102,36 +101,26 @@ export const useMovimientoForm = ({ movimiento = undefined, tipo }: Props) => {
           <Controller
             control={control}
             name="categoria"
+            defaultValue={initialData?.categoria}
             rules={{ required: tForm('required') }}
-            render={({ field: { ref, onChange, ...field } }) => {
-              return (
-                <Autocomplete
-                  disabled={disabled}
-                  options={categorias || []}
-                  isOptionEqualToValue={(option, value) =>
-                    option._id === value?._id
-                  }
-                  getOptionLabel={(option) => option.descripcion}
-                  onChange={(_, data) => {
-                    setCategoriaValue(data);
-                    onChange(data?._id);
-                  }}
-                  value={categoriaValue}
-                  renderInput={(params) => (
-                    <TextField
-                      label={t('form.categoria')}
-                      {...params}
-                      {...field}
-                      inputRef={ref}
-                      fullWidth
-                      error={!!errors.categoria}
-                      helperText={errors.categoria?.message}
-                      disabled={disabled}
-                    />
-                  )}
-                />
-              );
-            }}
+            render={({ field }) => (
+              <TextField
+                select
+                size="small"
+                label={t('form.categoria')}
+                fullWidth
+                {...field}
+                disabled={disabled}
+                error={!!errors.categoria}
+                helperText={errors.categoria?.message}
+              >
+                {categorias?.map((categoria) => (
+                  <MenuItem key={categoria._id} value={categoria._id}>
+                    {categoria.descripcion}
+                  </MenuItem>
+                ))}
+              </TextField>
+            )}
           />
         </Grid>
 
@@ -159,7 +148,7 @@ export const useMovimientoForm = ({ movimiento = undefined, tipo }: Props) => {
           />
         </Grid>
 
-        {movimiento && (
+        {/* {movimiento && (
           <Grid xs={6} item>
             <Button
               color="inherit"
@@ -169,7 +158,7 @@ export const useMovimientoForm = ({ movimiento = undefined, tipo }: Props) => {
               {t('edit')}
             </Button>
           </Grid>
-        )}
+        )} */}
       </Grid>
     ),
   };

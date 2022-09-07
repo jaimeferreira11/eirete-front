@@ -1,6 +1,5 @@
 import { FC } from 'react';
 
-import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 
 import { IMovimiento } from '@core/interfaces';
@@ -69,7 +68,7 @@ export const MovimientoEditView: FC<Props> = ({
               <Typography>Cancelar</Typography>
             </Button>
           </Grid>
-          <Grid item>
+          {/* <Grid item>
             <Button
               type="submit"
               color="success"
@@ -79,7 +78,7 @@ export const MovimientoEditView: FC<Props> = ({
             >
               <Typography>Guardar</Typography>
             </Button>
-          </Grid>
+          </Grid> */}
         </Grid>
       </Grid>
     </form>

@@ -15,6 +15,7 @@ import {
 import { IMovimiento } from '@core/interfaces';
 import { useMovimientosProvider, useUtilsProvider } from '@lib/hooks';
 import { INewMovimiento } from '@lib/interfaces';
+import { clearNumberFormat } from 'src/utils';
 import { useMovimientoForm } from './useMovimientoForm';
 
 interface Props {
@@ -43,7 +44,13 @@ export const MovimientoDialog: FC<Props> = ({
 
   const onSubmit = async (newData: INewMovimiento) => {
     setIsSaving(true);
-    const result = await save(newData);
+
+    newData.monto = clearNumberFormat(newData.monto);
+
+    const result = await save({
+      ...newData,
+      categoria: { _id: newData.categoria },
+    });
     if (!result.hasError) {
       showSnackbar({
         message: t('persist'),
@@ -51,6 +58,7 @@ export const MovimientoDialog: FC<Props> = ({
         show: true,
       });
       setIsSaving(false);
+      reset();
       handleClose();
     } else {
       showSnackbar({

@@ -6,7 +6,6 @@ import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import Inventory2Icon from '@mui/icons-material/Inventory2';
 import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
-import moment from 'moment';
 import { IFamiliaArticulo } from '../core/interfaces/familiaArticulo';
 
 import {
@@ -16,6 +15,7 @@ import {
   IMovimiento,
 } from '@core/interfaces';
 import { ISucursal } from '../core/interfaces/sucursal';
+import { formateDate } from './formats';
 
 export const parseSucursalesToItemList = (
   sucursales: ISucursal[]
@@ -89,10 +89,11 @@ export const parseMovimientosToItemList = (
     (categoria): IListItemGeneric => ({
       _id: categoria._id,
       title: `${categoria.descripcion}`,
-      subtitle: `${moment(categoria.fechaAlta).format(
-        'DD/MM/YYYY'
-      )} - Monto: Gs. ${categoria.monto}`,
+      subtitle: `${formateDate(categoria.fechaAlta)} - Monto: Gs. ${
+        categoria.monto
+      }`,
       icon: categoria.esIngreso ? <CallMadeIcon /> : <CallReceivedIcon />,
+      iconColor: categoria.esIngreso ? '#4bb14b' : '#da4d4d',
     })
   );
 };
