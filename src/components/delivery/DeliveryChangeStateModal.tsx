@@ -21,7 +21,7 @@ interface Props {
   show: boolean;
   pedidoId: string;
   estadoActual: DeliveryEstado;
-  handleClose: (mutate: boolean) => void;
+  handleClose: (_mutate: boolean) => void;
   children?: React.ReactNode;
 }
 

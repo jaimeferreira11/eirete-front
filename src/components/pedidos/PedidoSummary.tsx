@@ -1,4 +1,4 @@
-import { ChangeEvent, KeyboardEvent, useState } from 'react';
+import { ChangeEvent, FC, KeyboardEvent, useState } from 'react';
 
 import {
   Box,
@@ -26,7 +26,7 @@ interface Props {
   children?: React.ReactNode;
 }
 
-export const PedidoSummary = ({ handleEditDireccion }) => {
+export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
   const { t } = useTranslation('pedidos', { keyPrefix: 'detallePedido' });
   const { showSnackbar } = useUtilsProvider();
 
