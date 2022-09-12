@@ -12,6 +12,7 @@ export interface IListItemGeneric {
   title: string;
   subtitle: string;
   icon?: React.ReactNode;
+  iconColor?: string;
 }
 
 interface Props {
@@ -38,7 +39,7 @@ export const ListItemGeneric: FC<Props> = ({
     >
       {item.icon && (
         <ListItemAvatar>
-          <Avatar>{item.icon}</Avatar>
+          <Avatar sx={{ bgcolor: item.iconColor || null }}>{item.icon}</Avatar>
         </ListItemAvatar>
       )}
       <ListItemText

@@ -1,0 +1,112 @@
+{
+  "title": "Pedidos",
+  "labelRowsPerPage": "Nro. pedidos por página",
+  "articulos": {
+    "title": "Artículos",
+    "search": "Buscar",
+    "sinStock": "Sin stock"
+  },
+  "detallePedido": {
+    "title": "Detalle de pedido",
+    "precioUniatario": "Precio unitario",
+    "emptyDetail": "Lista de pedidos vacía",
+    "total": "Total",
+    "ruc": "RUC",
+    "tipoPedido": "Tipo de pedido",
+    "efectivo": "Efectivo",
+    "tarjeta": "Tarjeta",
+    "cantidad": "Cantidad",
+    "cheque": "Cheque",
+    "montoRecibido": "Monto Recibido",
+    "vuelto": "Vuelto",
+    "cancelar": "Cancelar",
+    "confirmar": "Confirmar Pedido",
+    "precioUnitario": "Precio unitario",
+    "exentoIva": "Exento de IVA",
+    "razonSocial": "Razón social",
+    "errorClienteSearch": "Error al buscar el cliente",
+    "pedidoSubmit": "Pedido registrado exitosamente",
+    "pedidoSubmitError": "Ocurrió un error al registrar el pedido",
+    "ok": "Ok",
+    "setDirEnvio": "Especifique una dirección de envío",
+    "editDirEnvio": "Click para editar"
+  },
+  "direccionPedido": {
+    "titleModal": "Dirección de entrega pedido",
+
+    "form": {
+      "direccion": "Dirección",
+      "notas": "Notas",
+      "direccionesRegistradas": "Direcciones registradas",
+      "ciudad": "Ciudad",
+      "required": "Este campo es requerido",
+      "nroContacto": "Nro. Contacto",
+      "predeterminado": "Predeterminado",
+      "notasPedido": "Notas",
+      "notasPedidoPlaceholder": "Ej: casa con murallas",
+      "editData": "Editar datos",
+      "cancelar": "Cancelar",
+      "guardar": "Guardar",
+      "volver": "Volver"
+    }
+  },
+  "listado": {
+    "nroOrden": "Nro. Orden",
+    "hora": "Hora",
+    "cliente": "Cliente",
+    "tipo": "Tipo",
+    "total": "Total",
+    "pedido": "Pedido",
+    "verDetalles": "Ver detalles",
+    "cancelar": "Cancelar",
+    "actions": "Acciones",
+    "actionsDescription": "Acciones aplicables",
+    "noRowsLabel": "Sin pedidos que mostrar",
+    "estado": "Estado"
+  },
+  "newPedido": "Nuevo Pedido",
+  "editPedido": "Editar Pedido",
+  "pedidoPersist": "Pedido creado exitosamente",
+  "pedidoUpdated": "Pedido modificado exitosamente",
+  "pedidoPersistError": "Ocurrió un error al guardar el Pedido",
+  "confirmDeactivation": "¿Está seguro de cambiar el estado?",
+  "cancelarPedido": "Cancelar pedido {{nroPedido}}",
+  "motivoCancelacion": "Motivo de cancelación",
+  "motivoCancelacionEjemplo": "Ej: se introdujo mal un artículo",
+  "details": "Detalles",
+  "emptyList": "Sin pedidos que mostrar",
+  "editData": "Editar datos",
+  "search": "Buscar",
+  "confirmCancelacion": "¿Está seguro de querer cancelar el pedido?",
+  "confirmar": "Cancelar pedido",
+  "cancelar": "Volver",
+  "pedidoCancelacion": "Confirmar acción",
+  "pedidoCancelacionExitosa": "Se cancelado el pedido exitosamente",
+  "pedidoCancelacionError": "Ha ocurrido un error al cancelar el pedido",
+
+  "delivery": {
+    "title": "Administrar",
+    "table": {
+      "nroOrden": "Nº de orden",
+      "hora": "Hora",
+      "cliente": "Cliente",
+      "total": "Total",
+      "pago": "Pago",
+      "pedido": "Pedido",
+      "estado": "Estado",
+      "acciones": "Acciones",
+      "noRowsLabel": "Sin pedidos que mostrar",
+      "labelRowsPerPage": "Nro. pedidos por página",
+      "verDetalles": "Ver detalle",
+      "descargaPdf": "Descargar PDF"
+    },
+    "changeState": {
+      "title": "Cambiar estado",
+      "ok": "Guardar",
+      "volver": "Volver",
+      "cambioEstadoCombo": "Seleccione el nuevo estado",
+      "statePersist": "Estado cambiando exitosamente",
+      "stateError": "Ocurrió un error al actualizar el estado"
+    }
+  }
+}

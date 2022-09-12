@@ -22,6 +22,7 @@ export interface Persona {
   celular?: string;
   ciudad?: string;
   obs?: string;
+  ruc?: string;
 }
 
 export interface UsuarioAlta {
@@ -30,6 +31,7 @@ export interface UsuarioAlta {
 }
 
 export interface Direccion {
+  _id?: string;
   direccion: string;
   ciudad: string;
   predeterminado?: boolean;

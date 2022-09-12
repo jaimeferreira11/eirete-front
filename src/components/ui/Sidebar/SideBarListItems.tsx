@@ -14,6 +14,9 @@ import {
   StorefrontOutlined as SucursalIcon,
   TakeoutDiningOutlined as ArticuloIcon,
 } from '@mui/icons-material';
+
+import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
+
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import {
@@ -29,39 +32,53 @@ import { SideBarItem } from './SideBarItem';
 
 export const menuItems = [
   {
+    id: 'pedidos',
+    icon: <PedidoIcon />,
+    text: 'links.caja',
+    roles: [''],
+    path: '/',
+  },
+  {
+    id: 'cierre-caja',
+    icon: <CierreCajaIcon />,
+    text: 'links.cierreDeCaja',
+    roles: [''],
+    path: '/cierre-caja',
+  },
+  {
+    id: 'delivery',
+    icon: <DeliveryIcon />,
+    text: 'links.delivery',
+    roles: [''],
+    path: '/delivery',
+  },
+  {
     id: 'caja-agrupador',
     icon: <CajaIcon sx={{ mr: 1 }} />,
-    text: 'links.caja',
+    text: 'links.stock',
     roles: [''],
     path: '',
     items: [
       {
+        id: 'linea-articulos',
+        icon: <LineaArticuloIcon />,
+        text: 'links.lineaArticulos',
+        roles: [''],
+        path: '/linea-articulos',
+      },
+      {
+        id: 'articulos',
+        icon: <ArticuloIcon />,
+        text: 'links.articulos',
+        roles: [''],
+        path: '/articulos',
+      },
+      {
         id: 'stock',
         icon: <StockIcon />,
-        text: 'links.stock',
+        text: 'links.articulosEnSucursal',
         roles: [''],
-        path: '/',
-      },
-      {
-        id: 'movimientos',
-        icon: <MovimientosIcon />,
-        text: 'links.movimientos',
-        roles: [''],
-        path: '/',
-      },
-      {
-        id: 'cierre-caja',
-        icon: <CierreCajaIcon />,
-        text: 'links.cierreDeCaja',
-        roles: [''],
-        path: '/',
-      },
-      {
-        id: 'delivery',
-        icon: <DeliveryIcon />,
-        text: 'links.delivery',
-        roles: [''],
-        path: '/',
+        path: '/stock-sucursal',
       },
     ],
   },
@@ -94,34 +111,43 @@ export const menuItems = [
         path: '/sucursales',
       },
       {
-        id: 'caja',
-        icon: <CajaIcon />,
-        text: 'links.caja',
+        id: 'categoria-movimientos',
+        icon: <CompareArrowsIcon />,
+        text: 'links.categoriaMovimientos',
         roles: [''],
-        path: '/cajas',
-      },
-      {
-        id: 'linea-articulos',
-        icon: <LineaArticuloIcon />,
-        text: 'links.lineaArticulos',
-        roles: [''],
-        path: '/linea-articulos',
-      },
-      {
-        id: 'articulos',
-        icon: <ArticuloIcon />,
-        text: 'links.articulos',
-        roles: [''],
-        path: '/articulos',
+        path: '/categoria-movimientos',
       },
     ],
   },
   {
-    id: 'pedidos',
-    icon: <PedidoIcon />,
-    text: 'links.pedidos',
+    id: 'tesoreria',
+    icon: <MaintenanceIcon sx={{ mr: 1 }} />,
+    text: 'links.tesoreria',
     roles: [''],
-    path: '/pedidos',
+    path: '',
+    items: [
+      {
+        id: 'movimientos',
+        icon: <MovimientosIcon />,
+        text: 'links.movimientos',
+        roles: [''],
+        path: '/movimientos',
+      },
+      {
+        id: 'arqueos',
+        icon: <MovimientosIcon />,
+        text: 'links.arqueos',
+        roles: [''],
+        path: '/arqueos',
+      },
+    ],
+  },
+  {
+    id: 'reportes',
+    icon: <DeliveryIcon />,
+    text: 'links.reportes',
+    roles: [''],
+    path: '/reportes',
   },
 ];
 
