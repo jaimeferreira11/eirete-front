@@ -9,6 +9,22 @@
     "delivery": "Delivery",
     "stock": "Stock",
     "movimientos": "Movimientos",
-    "clientes": "Clientes"
-  }
+    "clientes": "Clientes",
+    "usuarios": "Usuarios",
+    "sucursales": "Sucursales",
+    "familiaArticulos": "Familia de artículos",
+    "lineaArticulos": "Línea de artículos",
+    "articulos": "Artículos",
+    "articulosEnSucursal": "Articulos en sucursal",
+    "maintenance": "Mantenimiento",
+    "pedidos": "Pedidos",
+    "tesoreria": "Tesoreria",
+    "categoriaMovimientos": "Categoría de movimientos",
+    "reportes": "Reportes",
+    "arqueos": "Arqueos"
+  },
+  "imprimirArqueo": "Imprimir último arqueo",
+  "contactarSoporte": "Contactar soporte",
+  "cerrarSesion": "Cerrar sesión",
+  "logoutConfirm": "¿Está seguro de cerrar su sesión?"
 }

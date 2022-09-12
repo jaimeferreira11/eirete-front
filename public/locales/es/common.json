@@ -1,5 +1,19 @@
 {
-  "homePage": {
-    "test": "TESTEaaaaaando"
+  "forms": {
+    "required": "Campo requerido",
+    "minLengthField": "Mínimo de {{cantidad}} caracteres",
+    "validEmail": "Ingrese un correo válido"
+  },
+  "modal": {
+    "ok": "Aceptar",
+    "cancel": "Cancelar"
+  },
+  "searchForm": {
+    "search": "Buscar",
+    "estado": "Estado",
+    "activos": "Activos",
+    "inactivos": "Inactivos",
+    "all": "Todo",
+    "fitrar": "Filtrar"
   }
 }
