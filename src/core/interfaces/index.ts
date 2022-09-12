@@ -5,6 +5,7 @@ export * from './caja';
 export * from './categoriaMovimiento';
 export * from './ciudad';
 export * from './cliente';
+export * from './delivery';
 export * from './endpointResult';
 export * from './familiaArticulo';
 export * from './lineaArticulo';

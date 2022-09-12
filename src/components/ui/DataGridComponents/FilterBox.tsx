@@ -1,28 +1,43 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 
 import { Button, Grid, MenuItem, TextField } from '@mui/material';
 import { useTranslation } from 'next-i18next';
 
 interface Props {
-  searchHandler: (query: string, activate: string) => void;
+  searchHandler: (
+    query: string,
+    activate: string,
+    optionValue?: string
+  ) => void;
   isLoading: boolean;
   children?: React.ReactNode;
   showActive: boolean;
+  optionsDropDown?:
+    | {
+        options: { value: any; description: string }[];
+        label: string;
+        initialValue: string;
+      }
+    | undefined;
 }
 
 export const FilterBox: FC<Props> = ({
   searchHandler,
   isLoading,
   showActive,
+  optionsDropDown,
 }) => {
   const { t } = useTranslation('common');
 
   const [activeValue, setActiveValue] = useState('true');
+  const [optionValue, setOptionValue] = useState(
+    optionsDropDown?.initialValue || ''
+  );
   const [searchQuery, setSearchQuery] = useState('');
 
-  const onFilter = () => {
-    searchHandler(searchQuery, activeValue);
-  };
+  const onFilter = useCallback(() => {
+    searchHandler(searchQuery, activeValue, optionValue);
+  }, [activeValue, optionValue, searchHandler, searchQuery]);
 
   return (
     <Grid container sx={{ width: '100%' }} spacing={2}>
@@ -59,6 +74,25 @@ export const FilterBox: FC<Props> = ({
           </TextField>
         </Grid>
       )}
+      {optionsDropDown && (
+        <Grid item xs={2}>
+          <TextField
+            size="small"
+            select
+            label={optionsDropDown?.label}
+            fullWidth
+            value={optionValue}
+            onChange={(e) => setOptionValue(e.target.value)}
+          >
+            {optionsDropDown.options.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.description}
+              </MenuItem>
+            ))}
+          </TextField>
+        </Grid>
+      )}
+
       <Grid item xs={2}>
         <Button disabled={isLoading} onClick={onFilter}>
           {t('searchForm.fitrar')}

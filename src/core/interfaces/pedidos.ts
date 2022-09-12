@@ -15,6 +15,7 @@ export interface IPedidoResponse {
   montoRecibido: number;
   vuelto: number;
   usuarioAlta: IPedidoUsuarioAlta;
+  estadoDelivery: string;
   fecha: string;
   fechaAlta: string;
   __v: number;

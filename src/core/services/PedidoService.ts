@@ -1,4 +1,5 @@
 import eireteApi from '@core/api';
+import { DeliveryEstado } from '@core/interfaces/delivery';
 
 import { useCallback } from 'react';
 
@@ -7,5 +8,14 @@ export const usePedidoService = () => {
     await eireteApi.post('/pedidos', newPedido);
   }, []);
 
-  return { addPedido };
+  const changeStatusDelivery = async (
+    pedidoId: string,
+    newState: DeliveryEstado
+  ) => {
+    await eireteApi.put(
+      `/pedidos/change-estado-delivery/${pedidoId}/${newState}`
+    );
+  };
+
+  return { addPedido, changeStatusDelivery };
 };

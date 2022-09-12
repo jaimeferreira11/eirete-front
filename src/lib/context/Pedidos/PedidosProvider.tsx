@@ -1,5 +1,6 @@
 import eireteApi from '@core/api';
 import {
+  DeliveryEstado,
   Direccion,
   IArticuloStock,
   IEnpointResult,
@@ -43,7 +44,7 @@ interface Props {
 
 export const PedidosProvider: FC<Props> = ({ children }) => {
   const { user } = useAuthProvider();
-  const { addPedido } = usePedidoService();
+  const { addPedido, changeStatusDelivery } = usePedidoService();
 
   const { searchClienteByNroDocumento, addDireccionEntrega } =
     useClienteService();
@@ -351,6 +352,24 @@ export const PedidosProvider: FC<Props> = ({ children }) => {
     }
   };
 
+  const changeStatusDeliveryPedido = async (
+    pedidoId: string,
+    newStatus: DeliveryEstado
+  ): Promise<IEnpointResult> => {
+    try {
+      await changeStatusDelivery(pedidoId, newStatus);
+
+      return {
+        hasError: false,
+      };
+    } catch (error) {
+      return {
+        hasError: true,
+        message: (error as AxiosError).message,
+      };
+    }
+  };
+
   const getVuelto = () => {
     return getTotal() - state.newPedido.importeTotal;
   };
@@ -434,6 +453,7 @@ export const PedidosProvider: FC<Props> = ({ children }) => {
       value={{
         ...state,
         cancelarPedido,
+        changeStatusDeliveryPedido,
         getDetalle,
         getImpuesto10,
         getImpuesto5,

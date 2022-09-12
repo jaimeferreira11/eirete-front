@@ -23,6 +23,7 @@ export const DataGridEirete: FC<Props> = ({ config, showActive = true }) => {
     rows,
     total,
     handleSearch,
+    optionsDropDown,
   } = config;
 
   return (
@@ -32,6 +33,7 @@ export const DataGridEirete: FC<Props> = ({ config, showActive = true }) => {
           searchHandler={handleSearch}
           isLoading={isLoading}
           showActive={showActive}
+          optionsDropDown={optionsDropDown}
         />
         <DataGrid
           getRowId={(row) => row._id}

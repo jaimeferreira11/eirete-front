@@ -1,6 +1,7 @@
 import { createContext } from 'react';
 
 import {
+  DeliveryEstado,
   Direccion,
   IArticuloStock,
   IEnpointResult,
@@ -16,6 +17,10 @@ interface ContextProps {
   cancelarPedido: (
     pedidoId: string,
     motivoCancelacion: string
+  ) => Promise<IEnpointResult>;
+  changeStatusDeliveryPedido: (
+    pedidoId: string,
+    newStatus: DeliveryEstado
   ) => Promise<IEnpointResult>;
   getDetalle: () => Detalle[];
   getMontoMetodoPago: (tipo: TiposPago) => number;

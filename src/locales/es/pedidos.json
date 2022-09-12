@@ -82,5 +82,31 @@
   "cancelar": "Volver",
   "pedidoCancelacion": "Confirmar acción",
   "pedidoCancelacionExitosa": "Se cancelado el pedido exitosamente",
-  "pedidoCancelacionError": "Ha ocurrido un error al cancelar el pedido"
+  "pedidoCancelacionError": "Ha ocurrido un error al cancelar el pedido",
+
+  "delivery": {
+    "title": "Administrar",
+    "table": {
+      "nroOrden": "Nº de orden",
+      "hora": "Hora",
+      "cliente": "Cliente",
+      "total": "Total",
+      "pago": "Pago",
+      "pedido": "Pedido",
+      "estado": "Estado",
+      "acciones": "Acciones",
+      "noRowsLabel": "Sin pedidos que mostrar",
+      "labelRowsPerPage": "Nro. pedidos por página",
+      "verDetalles": "Ver detalle",
+      "descargaPdf": "Descargar PDF"
+    },
+    "changeState": {
+      "title": "Cambiar estado",
+      "ok": "Guardar",
+      "volver": "Volver",
+      "cambioEstadoCombo": "Seleccione el nuevo estado",
+      "statePersist": "Estado cambiando exitosamente",
+      "stateError": "Ocurrió un error al actualizar el estado"
+    }
+  }
 }
