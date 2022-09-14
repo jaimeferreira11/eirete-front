@@ -31,7 +31,6 @@ export const MovimientosProvider: FC<Props> = ({ children }) => {
   };
 
   const save = async (newData: INewMovimiento): Promise<IEnpointResult> => {
-    console.log(newData);
     try {
       await eireteApi.post('/movimientos', newData);
 

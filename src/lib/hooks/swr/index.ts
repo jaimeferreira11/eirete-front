@@ -1,3 +1,4 @@
+export * from './useArqueo';
 export * from './useArticulos';
 export * from './useCajas';
 export * from './useCategoriaMovimientos';
