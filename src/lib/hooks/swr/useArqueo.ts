@@ -31,3 +31,16 @@ export const useArqueoPaginado = (
     mutate,
   };
 };
+
+export const useArqueoLastUser = () => {
+  const { data, error, mutate } = useSWR<IArqueo>(
+    `/arqueos/search/last-by-user`
+  );
+
+  return {
+    arqueo: data || null,
+    isLoading: !error && !data,
+    isError: error,
+    mutate,
+  };
+};

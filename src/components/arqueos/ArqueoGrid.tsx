@@ -2,6 +2,7 @@ import { GenericTab } from '@components/ui';
 import { Box, Tab, Tabs } from '@mui/material';
 import { useTranslation } from 'next-i18next';
 import { useState } from 'react';
+import { ArqueoLastUser } from './ArqueoLastUser';
 import { ListadoArqueos } from './ListadoArqueos';
 
 type OptionsPedidoTab = 'ultimo-arqueo' | 'listado-arqueos';
@@ -46,7 +47,7 @@ export const ArqueosGrid = () => {
 
         <>
           <GenericTab value={actualTab} index={'ultimo-arqueo'}>
-            Ultimo arqueo : En construccion
+            <ArqueoLastUser />
           </GenericTab>
           <GenericTab value={actualTab} index={'listado-arqueos'}>
             <ListadoArqueos />
