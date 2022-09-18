@@ -1,102 +1,153 @@
-import NextLink from 'next/link';
-import { useRouter } from 'next/router';
 import { FC } from 'react';
 
 import {
-  Category as CategoryIcon,
+  BuildOutlined as MaintenanceIcon,
   DeliveryDiningOutlined as DeliveryIcon,
+  Inventory as LineaArticuloIcon,
   Inventory2Outlined as StockIcon,
   LockOutlined as CierreCajaIcon,
   ManageAccountsOutlined as UserIcon,
   MonitorOutlined as CajaIcon,
   PersonOutlineOutlined as ClientesIcon,
+  ShoppingCartCheckoutOutlined as PedidoIcon,
   ShoppingCartOutlined as MovimientosIcon,
   StorefrontOutlined as SucursalIcon,
+  TakeoutDiningOutlined as ArticuloIcon,
 } from '@mui/icons-material';
 
-import Inventory2Icon from '@mui/icons-material/Inventory2';
+import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
+
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import {
-  Link,
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
   List,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
   Typography,
 } from '@mui/material';
 import { useTranslation } from 'next-i18next';
+import { SideBarItem } from './SideBarItem';
 
 export const menuItems = [
   {
-    id: 'caja',
-    icon: <CajaIcon />,
+    id: 'pedidos',
+    icon: <PedidoIcon />,
     text: 'links.caja',
     roles: [''],
-    path: '/cajas',
+    path: '/',
   },
   {
     id: 'cierre-caja',
     icon: <CierreCajaIcon />,
     text: 'links.cierreDeCaja',
     roles: [''],
-    path: '/',
+    path: '/cierre-caja',
   },
   {
     id: 'delivery',
     icon: <DeliveryIcon />,
     text: 'links.delivery',
     roles: [''],
-    path: '/',
+    path: '/delivery',
   },
   {
-    id: 'stock',
-    icon: <StockIcon />,
+    id: 'caja-agrupador',
+    icon: <CajaIcon sx={{ mr: 1 }} />,
     text: 'links.stock',
     roles: [''],
-    path: '/',
+    path: '',
+    items: [
+      {
+        id: 'linea-articulos',
+        icon: <LineaArticuloIcon />,
+        text: 'links.lineaArticulos',
+        roles: [''],
+        path: '/linea-articulos',
+      },
+      {
+        id: 'articulos',
+        icon: <ArticuloIcon />,
+        text: 'links.articulos',
+        roles: [''],
+        path: '/articulos',
+      },
+      {
+        id: 'stock',
+        icon: <StockIcon />,
+        text: 'links.articulosEnSucursal',
+        roles: [''],
+        path: '/stock-sucursal',
+      },
+    ],
   },
   {
-    id: 'movimientos',
-    icon: <MovimientosIcon />,
-    text: 'links.movimientos',
+    id: 'mantenimiento',
+    icon: <MaintenanceIcon sx={{ mr: 1 }} />,
+    text: 'links.maintenance',
     roles: [''],
-    path: '/',
+    path: '',
+    items: [
+      {
+        id: 'usuarios',
+        icon: <UserIcon />,
+        text: 'links.usuarios',
+        roles: [''],
+        path: '/users',
+      },
+      {
+        id: 'clientes',
+        icon: <ClientesIcon />,
+        text: 'links.clientes',
+        roles: [''],
+        path: '/clientes',
+      },
+      {
+        id: 'sucursales',
+        icon: <SucursalIcon />,
+        text: 'links.sucursales',
+        roles: [''],
+        path: '/sucursales',
+      },
+      {
+        id: 'categoria-movimientos',
+        icon: <CompareArrowsIcon />,
+        text: 'links.categoriaMovimientos',
+        roles: [''],
+        path: '/categoria-movimientos',
+      },
+    ],
   },
   {
-    id: 'clientes',
-    icon: <ClientesIcon />,
-    text: 'links.clientes',
+    id: 'tesoreria',
+    icon: <MaintenanceIcon sx={{ mr: 1 }} />,
+    text: 'links.tesoreria',
     roles: [''],
-    path: '/clientes',
+    path: '',
+    items: [
+      {
+        id: 'movimientos',
+        icon: <MovimientosIcon />,
+        text: 'links.movimientos',
+        roles: [''],
+        path: '/movimientos',
+      },
+      {
+        id: 'arqueos',
+        icon: <MovimientosIcon />,
+        text: 'links.arqueos',
+        roles: [''],
+        path: '/arqueos',
+      },
+    ],
   },
   {
-    id: 'sucursales',
-    icon: <SucursalIcon />,
-    text: 'links.sucursales',
+    id: 'reportes',
+    icon: <DeliveryIcon />,
+    text: 'links.reportes',
     roles: [''],
-    path: '/sucursales',
-  },
-  {
-    id: 'usuarios',
-    icon: <UserIcon />,
-    text: 'links.usuarios',
-    roles: [''],
-    path: '/users',
-  },
-
-  {
-    id: 'familia-articulos',
-    icon: <CategoryIcon />,
-    text: 'links.familiaArticulos',
-    roles: [''],
-    path: '/familia-articulos',
-  },
-  {
-    id: 'linea-articulos',
-    icon: <Inventory2Icon />,
-    text: 'links.lineaArticulos',
-    roles: [''],
-    path: '/linea-articulos',
+    path: '/reportes',
   },
 ];
 
@@ -106,44 +157,44 @@ interface Props {
 
 export const SideBarListItems: FC<Props> = () => {
   const { t } = useTranslation('sidebar');
-  const { asPath } = useRouter();
 
   return (
-    <List sx={{ maxHeight: 600, overflow: 'scroll' }}>
-      {menuItems.map((menuItem) => (
-        <NextLink href={menuItem.path} passHref key={menuItem.id}>
-          <Link sx={{ color: asPath === menuItem.path ? 'primary' : '#000' }}>
-            <ListItemButton
-              sx={{
-                mb: 1,
-              }}
-              selected={asPath === menuItem.path ? true : false}
-            >
-              <ListItemIcon
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  color: asPath !== menuItem.path ? 'primary' : '#fff',
-                }}
+    <List
+      sx={{
+        maxHeight: 600,
+        overflow: 'auto',
+      }}
+    >
+      {menuItems.map(({ id, text, items, icon, path }) =>
+        items ? (
+          <div key={id}>
+            <Accordion elevation={0}>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
               >
-                {menuItem.icon}
-              </ListItemIcon>
-              <ListItemText
-                sx={{
-                  display: { xs: 'none', sm: 'block' },
-                  overflow: 'clip',
-                  fontWeight: asPath !== menuItem.path ? 300 : 800,
-                }}
-                primary={
-                  <Typography sx={{ fontSize: '14px' }}>
-                    {t(menuItem.text) as any}
-                  </Typography>
-                }
-              />
-            </ListItemButton>
-          </Link>
-        </NextLink>
-      ))}
+                <Box display="flex" alignItems="center">
+                  {icon}
+                  <Typography sx={{ fontSize: '14px' }}>{t(text)}</Typography>
+                </Box>
+              </AccordionSummary>
+              <AccordionDetails>
+                {items.map((subMenuItem) => (
+                  <SideBarItem
+                    key={subMenuItem.id}
+                    icon={subMenuItem.icon}
+                    path={subMenuItem.path}
+                    text={subMenuItem.text}
+                  />
+                ))}
+              </AccordionDetails>
+            </Accordion>
+          </div>
+        ) : (
+          <SideBarItem key={id} icon={icon} path={path} text={text} />
+        )
+      )}
     </List>
   );
 };

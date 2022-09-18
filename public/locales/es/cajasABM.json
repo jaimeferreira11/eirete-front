@@ -1,0 +1,31 @@
+{
+  "title": "Cajas",
+  "noRowsLabel": "Sin cajas que mostrar",
+  "labelRowsPerPage": "Nro. cajas por página",
+  "form": {
+    "descripcion": "Descripción",
+    "sucursal": "Sucursal",
+    "nro": "Numero",
+    "active": "Activo",
+    "deactive": "Inactivo",
+    "actions": "Acciones",
+    "actionsDescription": "Acciones aplicables",
+    "edit": "Editar",
+    "remove": "Desactivar",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "estado": "Estado"
+  },
+  "newCaja": "Nueva Caja",
+  "editCaja": "Editar Caja",
+  "cajaPersist": "Caja creada exitosamente",
+  "cajaUpdated": "Caja modificada exitosamente",
+  "cajaPersistError": "Ocurrió un error al guardar la sucursal",
+  "confirmDeactivation": "¿Está seguro de cambiar el estado?",
+  "cajaDeactivation": "Desactivar caja",
+  "cajaSeleccionHelp": "Seleccione una caja para ver los detalles",
+  "details": "Detalles",
+  "emptyList": "Sin cajas que mostrar",
+  "editData": "Editar datos",
+  "search": "Buscar"
+}

@@ -1,17 +1,16 @@
 import { DataGridEirete } from '@components/ui/DataGridComponents';
-import { Box } from '@mui/material';
-import { GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
-import { useTranslation } from 'next-i18next';
-import { ActionsColumn } from '../ui/DataGridComponents/ActionsColumn';
-
 import { IPedidoResponse, ListPaginationOptions } from '@core/interfaces';
 import { usePedidosPaginado } from '@lib/hooks';
 import {
   HighlightOffOutlined as DeleteIcon,
   ReceiptLongOutlined as EditIcon,
 } from '@mui/icons-material';
+import { Box } from '@mui/material';
+import { GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import { useTranslation } from 'next-i18next';
 import { useMemo, useState } from 'react';
 import { formatCurrency, formateDate } from 'src/utils';
+import { ActionsColumn } from '../ui/DataGridComponents/ActionsColumn';
 import { PedicoCancelacionModal } from './pedidoModal/PedicoCancelacionModal';
 import { PedidoDetalleModal } from './pedidoModal/PedidoDetalleModal';
 

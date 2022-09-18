@@ -1,5 +1,5 @@
 import { ILineaArticulo } from '@core/interfaces';
-import { useLineasProvider, useSnackbarProvider } from '@lib/hooks';
+import { useLineasProvider, useUtilsProvider } from '@lib/hooks';
 import { INewLineaArticulo } from '@lib/interfaces';
 import {
   Button,
@@ -28,22 +28,17 @@ export const LineaDialog: FC<Props> = ({
 }) => {
   const { t } = useTranslation('lineaArticulosABM');
   const { save } = useLineasProvider();
-  const { showSnackbar } = useSnackbarProvider();
+  const { showSnackbar } = useUtilsProvider();
 
   const title = linea ? t('editUser') : t('newLinea');
 
-  const { form, handleSubmit } = useLineaForm({ linea });
+  const { form, handleSubmit, reset } = useLineaForm({ linea });
 
   const [isSaving, setIsSaving] = useState(false);
 
   const onSubmit = async (newLinea: INewLineaArticulo) => {
-    const newLineaCrud = {
-      ...newLinea,
-      familia: { _id: newLinea.familia },
-    };
-
     setIsSaving(true);
-    const result = await save(newLineaCrud);
+    const result = await save(newLinea);
     if (!result.hasError) {
       showSnackbar({
         message: t('lineaPersist'),
@@ -60,6 +55,11 @@ export const LineaDialog: FC<Props> = ({
       });
       setIsSaving(false);
     }
+  };
+
+  const handleCancelButton = () => {
+    reset();
+    handleClose();
   };
 
   return (
@@ -81,7 +81,7 @@ export const LineaDialog: FC<Props> = ({
         <DialogTitle>{title}</DialogTitle>
         <DialogContent style={{ maxHeight: '450px' }}>{form}</DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} disabled={isSaving}>
+          <Button onClick={handleCancelButton} disabled={isSaving}>
             <Typography>{t('form.cancel')}</Typography>
           </Button>
           <Button type="submit" disabled={isSaving}>

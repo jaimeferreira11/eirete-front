@@ -14,7 +14,7 @@ import {
 
 import { ICaja } from '@core/interfaces';
 
-import { useCajasProvider, useSnackbarProvider } from '@lib/hooks';
+import { useCajasProvider, useUtilsProvider } from '@lib/hooks';
 import { INewCaja } from '@lib/interfaces';
 import { useCajaForm } from './useCajaForm';
 
@@ -32,11 +32,11 @@ export const CajaDialog: FC<Props> = ({
 }) => {
   const { t } = useTranslation('cajasABM');
   const { save } = useCajasProvider();
-  const { showSnackbar } = useSnackbarProvider();
+  const { showSnackbar } = useUtilsProvider();
 
   const title = caja ? t('editCaja') : t('newCaja');
 
-  const { form, handleSubmit } = useCajaForm({ caja });
+  const { form, handleSubmit, reset } = useCajaForm({ caja });
 
   const [isSaving, setIsSaving] = useState(false);
 
@@ -65,6 +65,11 @@ export const CajaDialog: FC<Props> = ({
     }
   };
 
+  const handleCancelButton = () => {
+    reset();
+    handleClose();
+  };
+
   return (
     <Dialog
       sx={{
@@ -84,7 +89,7 @@ export const CajaDialog: FC<Props> = ({
         <DialogTitle>{title}</DialogTitle>
         <DialogContent style={{ maxHeight: '450px' }}>{form}</DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} disabled={isSaving}>
+          <Button onClick={handleCancelButton} disabled={isSaving}>
             <Typography>{t('form.cancel')}</Typography>
           </Button>
           <Button type="submit" disabled={isSaving}>

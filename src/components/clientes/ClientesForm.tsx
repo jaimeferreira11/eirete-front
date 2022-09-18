@@ -5,6 +5,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'next-i18next';
 
 import {
+  Autocomplete,
   Button,
   CircularProgress,
   Dialog,
@@ -17,9 +18,9 @@ import {
   Typography,
 } from '@mui/material';
 
-import { ICliente } from '@core/interfaces';
+import { ICiudad, ICliente } from '@core/interfaces';
 
-import { useClienteProvider, useSnackbarProvider } from '@lib/hooks';
+import { useCiudades, useClienteProvider, useUtilsProvider } from '@lib/hooks';
 import { INewPersona } from '@lib/interfaces/NewCliente';
 
 interface Props {
@@ -35,7 +36,7 @@ export const ClientesForm: FC<Props> = ({
   cliente = undefined,
 }) => {
   const { saveCliente } = useClienteProvider();
-  const { showSnackbar } = useSnackbarProvider();
+  const { showSnackbar } = useUtilsProvider();
   const { t } = useTranslation('clientesABM');
   const { t: tForm } = useTranslation('common', { keyPrefix: 'forms' });
 
@@ -51,9 +52,27 @@ export const ClientesForm: FC<Props> = ({
         sexo: '',
         tipoDoc: '',
         tipoPersona: '',
+        correo: '',
+        celular: '',
+        direccion: '',
+        ciudad: '',
       };
 
   const [isSaving, setIsSaving] = useState(false);
+  const { ciudades } = useCiudades();
+  const [ciudadAux, setCiudadAux] = useState<ICiudad | null | undefined>(null);
+
+  useEffect(() => {
+    if (cliente)
+      setCiudadAux(
+        ciudades
+          ? ciudades?.find(
+              (ciudad) => ciudad.descripcion === cliente.persona.ciudad
+            )
+          : null
+      );
+    else setCiudadAux(null);
+  }, [ciudades, cliente]);
 
   const {
     control,
@@ -64,7 +83,7 @@ export const ClientesForm: FC<Props> = ({
 
   const onSubmit = async (newPersona: INewPersona) => {
     setIsSaving(true);
-    const result = await saveCliente({ persona: newPersona }, cliente);
+    const result = await saveCliente(newPersona, cliente);
 
     if (!result.hasError) {
       showSnackbar({
@@ -205,6 +224,138 @@ export const ClientesForm: FC<Props> = ({
                     }}
                     error={!!errors.nroDoc}
                     helperText={errors.nroDoc?.message}
+                  />
+                )}
+              />
+            </Grid>
+
+            <Grid xs={6} item>
+              <Controller
+                control={control}
+                name="correo"
+                rules={{
+                  pattern: {
+                    value:
+                      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                    message: tForm('validEmail'),
+                  },
+                }}
+                defaultValue={persona?.correo}
+                render={({ field }) => (
+                  <TextField
+                    label={t('form.correo')}
+                    fullWidth
+                    {...field}
+                    inputProps={{
+                      autoComplete: 'correo',
+                      form: {
+                        autoComplete: 'off',
+                      },
+                    }}
+                    error={!!errors.correo}
+                    helperText={errors.correo?.message}
+                  />
+                )}
+              />
+            </Grid>
+            <Grid xs={6} item>
+              <Controller
+                control={control}
+                name="celular"
+                defaultValue={persona?.celular}
+                render={({ field }) => (
+                  <TextField
+                    type="number"
+                    label={t('form.celular')}
+                    fullWidth
+                    {...field}
+                    inputProps={{
+                      autoComplete: 'celular',
+                      form: {
+                        autoComplete: 'off',
+                      },
+                    }}
+                    error={!!errors.celular}
+                    helperText={errors.celular?.message}
+                  />
+                )}
+              />
+            </Grid>
+            <Grid xs={12} item>
+              <Controller
+                control={control}
+                name="direccion"
+                defaultValue={persona?.direccion}
+                render={({ field }) => (
+                  <TextField
+                    label={t('form.direccion')}
+                    fullWidth
+                    {...field}
+                    inputProps={{
+                      form: {
+                        autoComplete: 'off',
+                      },
+                    }}
+                    error={!!errors.celular}
+                    helperText={errors.celular?.message}
+                  />
+                )}
+              />
+            </Grid>
+
+            <Grid xs={6} item>
+              <Controller
+                control={control}
+                name="ciudad"
+                render={({ field: { ref, onChange, ...field } }) => {
+                  return (
+                    <Autocomplete
+                      options={ciudades || []}
+                      isOptionEqualToValue={(option, value) => {
+                        if (!value) return true;
+                        return option._id === value?._id;
+                      }}
+                      getOptionLabel={(option) => option.descripcion}
+                      onChange={(_, data) => {
+                        setCiudadAux(data);
+                        onChange(data?.descripcion);
+                      }}
+                      value={ciudadAux || null}
+                      renderInput={(params) => (
+                        <TextField
+                          label={t('form.ciudad')}
+                          {...params}
+                          {...field}
+                          inputRef={ref}
+                          fullWidth
+                          error={!!errors.ciudad}
+                          helperText={errors.ciudad?.message}
+                        />
+                      )}
+                    />
+                  );
+                }}
+              />
+            </Grid>
+
+            <Grid xs={6} item>
+              <Controller
+                control={control}
+                name="obs"
+                defaultValue={persona?.obs}
+                render={({ field }) => (
+                  <TextField
+                    label={t('form.obs')}
+                    fullWidth
+                    {...field}
+                    inputProps={{
+                      autoComplete: 'obs',
+                      form: {
+                        autoComplete: 'off',
+                      },
+                    }}
+                    error={!!errors.obs}
+                    helperText={errors.obs?.message}
                   />
                 )}
               />

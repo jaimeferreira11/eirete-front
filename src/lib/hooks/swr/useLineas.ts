@@ -47,3 +47,23 @@ export const useLineaGetById = ({ _id }: { _id: string }) => {
     mutate,
   };
 };
+
+// TODO: Debe estar en la ruta de linea de articulos
+export const useLineasBySucursal = ({
+  sucursalId,
+  active,
+}: {
+  sucursalId: string;
+  active: boolean;
+}) => {
+  const { data, error, mutate } = useSWR<ILineaArticulo[]>(
+    `/stock/sucursal/${sucursalId}/lineas?estado=${active}`
+  );
+
+  return {
+    lineas: data || null,
+    isLoading: !error && !data,
+    isError: error,
+    mutate,
+  };
+};

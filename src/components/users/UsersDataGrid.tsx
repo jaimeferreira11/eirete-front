@@ -3,6 +3,7 @@ import { useMemo, useState } from 'react';
 import {
   AddOutlined,
   EditOutlined as EditIcon,
+  PersonAddOutlined as ActiveIcon,
   PersonRemoveOutlined as DeleteIcon,
 } from '@mui/icons-material';
 import { Button, Chip, Grid, Typography } from '@mui/material';
@@ -16,14 +17,14 @@ import {
   DataGridEirete,
 } from '@components/ui/DataGridComponents';
 import { IUser, ListPaginationOptions } from '@core/interfaces';
-import { useSnackbarProvider, useUserProvider, useUsers } from '@lib/hooks';
+import { useUserProvider, useUsers, useUtilsProvider } from '@lib/hooks';
 import { UsuarioForm } from './UsuarioForm';
 
 export const UsersDataGrid = () => {
   const { t } = useTranslation('usersABM');
 
   const { deactivateUser } = useUserProvider();
-  const { showSnackbar } = useSnackbarProvider();
+  const { showSnackbar } = useUtilsProvider();
 
   const [usuarios, setUsuarios] = useState<IUser[]>([]);
   const [search, setSearch] = useState({ search: '', active: 'true' });
@@ -136,8 +137,8 @@ export const UsersDataGrid = () => {
                 setOpenRemoveModal(true);
                 setEditUser(params.row);
               },
-              icon: <DeleteIcon />,
-              title: t('form.remove'),
+              icon: params.row.estado ? <DeleteIcon /> : <ActiveIcon />,
+              title: params.row.estado ? t('form.remove') : t('form.activate'),
             },
           ]}
         />

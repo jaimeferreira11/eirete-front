@@ -4,7 +4,7 @@ import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 
 import { ISucursal } from '@core/interfaces';
-import { useSnackbarProvider, useSucuralesProvider } from '@lib/hooks';
+import { useSucuralesProvider, useUtilsProvider } from '@lib/hooks';
 import { INewSucursal } from '@lib/interfaces';
 import { Button, Grid, Typography } from '@mui/material';
 import { useTranslation } from 'next-i18next';
@@ -19,7 +19,7 @@ interface Props {
 export const SucursalEditView: FC<Props> = ({ sucursal, onCancel }) => {
   const { t } = useTranslation('sucursalesABM');
   const { update } = useSucuralesProvider();
-  const { showSnackbar } = useSnackbarProvider();
+  const { showSnackbar } = useUtilsProvider();
   const { form, handleSubmit, disabled } = useSucursalForm({
     sucursal,
   });

@@ -2,7 +2,7 @@ import { SnackBarEirete } from '@components/ui/Snackbar';
 import { Box } from '@mui/material';
 import Head from 'next/head';
 import { FC } from 'react';
-import { SideBar } from '../ui';
+import { CustomDrawer, SideBar } from '../ui';
 
 interface Props {
   title: string;
@@ -25,8 +25,15 @@ export const AppLayout: FC<Props> = ({ children, title, pageDescription }) => {
         <Box
           display="flex"
           gap={3}
-          sx={{ backgroundColor: '#E5E5E5', px: 4, py: 4, height: '100%' }}
+          sx={{
+            backgroundColor: '#E5E5E5',
+            px: 4,
+            py: 4,
+            height: '100%',
+            flexDirection: { xs: 'column', sm: 'row' },
+          }}
         >
+          <CustomDrawer />
           <SideBar />
           <SnackBarEirete />
           <Box

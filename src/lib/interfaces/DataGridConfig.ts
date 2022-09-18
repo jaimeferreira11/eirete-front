@@ -12,5 +12,13 @@ export interface IDataGridEireteConfig {
   labelRowsPerPage: string;
   title: string;
   total: number;
-  handleSearch: (query: string, activate: string) => void;
+  handleSearch: (query: string, activate: string, optionValue?: string) => void;
+  optionsDropDown?:
+    | {
+        options: { value: any; description: string }[];
+        label: string;
+        initialValue: string;
+      }
+    | undefined;
+  showSearchBar?: boolean;
 }

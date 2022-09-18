@@ -1,3 +1,4 @@
+import { useUtilsProvider } from '@lib/hooks';
 import {
   Box,
   Button,
@@ -8,9 +9,10 @@ import {
   Typography,
 } from '@mui/material';
 import { GetServerSideProps } from 'next';
-import { getSession, signIn } from 'next-auth/react';
+import { getSession, signIn, SignInResponse } from 'next-auth/react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useRouter } from 'next/router';
 import { ReactElement, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { AuthLayout } from '../../components/layouts';
@@ -25,6 +27,9 @@ type FormData = {
 const LoginPage: NextPageWithLayout = () => {
   const { t: tLogin } = useTranslation('login');
   const { t: tForm } = useTranslation('common', { keyPrefix: 'forms' });
+  const { showSnackbar } = useUtilsProvider();
+
+  const router = useRouter();
 
   const [isLogging, setIsLogging] = useState(false);
 
@@ -37,11 +42,25 @@ const LoginPage: NextPageWithLayout = () => {
   const onSubmit = async ({ username, password }: FormData) => {
     try {
       setIsLogging(true);
-      await signIn('credentials', { username, password });
-      setIsLogging(false);
+      signIn('credentials', {
+        username,
+        password,
+        redirect: false,
+      }).then((response: SignInResponse | undefined) => {
+        if (response && response.ok) {
+          const { p = '/' } = router.query;
+          router.replace({ pathname: p as string });
+        } else {
+          showSnackbar({
+            message: tLogin('errorLogin'),
+            type: 'error',
+            show: true,
+          });
+        }
+        setIsLogging(false);
+      });
     } catch (error) {
       setIsLogging(false);
-      console.log('error', error);
     }
   };
 

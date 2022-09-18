@@ -26,9 +26,9 @@ import { IUser } from '@core/interfaces';
 
 import {
   usePerfil,
-  useSnackbarProvider,
   useSucursal,
   useUserProvider,
+  useUtilsProvider,
 } from '@lib/hooks';
 import { INewUser } from '@lib/interfaces';
 
@@ -45,7 +45,7 @@ export const UsuarioForm: FC<Props> = ({
   user = undefined,
 }) => {
   const { saveUser, getByUsername } = useUserProvider();
-  const { showSnackbar } = useSnackbarProvider();
+  const { showSnackbar } = useUtilsProvider();
   const { t } = useTranslation('usersABM');
   const { t: tForm } = useTranslation('common', { keyPrefix: 'forms' });
 
@@ -56,7 +56,7 @@ export const UsuarioForm: FC<Props> = ({
         username: user?.username,
         nombreApellido: user?.nombreApellido,
         perfiles: user.perfiles.map((perfil) => perfil._id),
-        sucursal: user.sucursal._id,
+        sucursal: user.sucursal,
       }
     : {
         username: '',

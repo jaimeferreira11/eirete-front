@@ -10,7 +10,7 @@ import { SWRConfig } from 'swr';
 
 import { CssBaseline, ThemeProvider } from '@mui/material';
 
-import { SnackbarProvider } from '@lib/context/Utils';
+import { UtilsProvider } from '@lib/context/Utils';
 import eireteApi from 'src/core/api';
 import { AuthProvider } from '../lib/context/Auth';
 import '../styles/globals.css';
@@ -37,10 +37,10 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       >
         <AuthProvider>
           <ThemeProvider theme={lightTheme}>
-            <SnackbarProvider>
+            <UtilsProvider>
               <CssBaseline />
               {getLayout(<Component {...pageProps} />)}
-            </SnackbarProvider>
+            </UtilsProvider>
           </ThemeProvider>
         </AuthProvider>
       </SWRConfig>

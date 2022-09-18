@@ -6,6 +6,7 @@ export interface ICliente {
   estado: boolean;
   usuarioAlta: UsuarioAlta;
   fechaAlta: string;
+  direcciones?: Direccion[];
 }
 
 export interface Persona {
@@ -17,9 +18,23 @@ export interface Persona {
   tipoPersona: string;
   usuarioAlta: string;
   fechaAlta: string;
+  correo?: string;
+  celular?: string;
+  ciudad?: string;
+  obs?: string;
+  ruc?: string;
 }
 
 export interface UsuarioAlta {
   _id: string;
   username: string;
+}
+
+export interface Direccion {
+  _id?: string;
+  direccion: string;
+  ciudad: string;
+  predeterminado?: boolean;
+  contacto: string;
+  obs: string;
 }

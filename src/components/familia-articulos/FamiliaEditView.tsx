@@ -1,5 +1,5 @@
 import { IFamiliaArticulo } from '@core/interfaces';
-import { useSnackbarProvider } from '@lib/hooks';
+import { useUtilsProvider } from '@lib/hooks';
 import { useFamiliasProvider } from '@lib/hooks/providers/useFamiliasProvider';
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
@@ -8,8 +8,6 @@ import { useTranslation } from 'next-i18next';
 import { FC } from 'react';
 import { INewFamiliaArticulo } from '../../lib/interfaces/NewFamiliaArticulo';
 import { useFamiliaForm } from './useFamiliaForm';
-
-
 
 interface Props {
   children?: React.ReactNode;
@@ -20,7 +18,7 @@ interface Props {
 export const FamiliaEditView: FC<Props> = ({ familia, onCancel }) => {
   const { t } = useTranslation('familiaArticulosABM');
   const { update } = useFamiliasProvider();
-  const { showSnackbar } = useSnackbarProvider();
+  const { showSnackbar } = useUtilsProvider();
   const { form, handleSubmit, disabled } = useFamiliaForm({
     familia,
   });

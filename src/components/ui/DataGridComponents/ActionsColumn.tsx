@@ -20,6 +20,7 @@ export interface ActionMenuOption {
   title: string;
   icon: React.ReactNode;
   onClick: () => void;
+  disabled?: boolean;
 }
 
 export const ActionsColumn: FC<Props> = ({ actions }) => {
@@ -57,16 +58,17 @@ export const ActionsColumn: FC<Props> = ({ actions }) => {
         open={openOptions}
         onClose={handleClose}
       >
-        {actions.map((action) => (
+        {actions.map(({ id, icon, title, onClick, disabled = false }) => (
           <MenuItem
-            key={action.id}
+            key={id}
+            disabled={disabled}
             onClick={() => {
               handleClose();
-              action.onClick();
+              onClick();
             }}
           >
-            <ListItemIcon>{action.icon}</ListItemIcon>
-            <ListItemText>{action.title}</ListItemText>
+            <ListItemIcon>{icon}</ListItemIcon>
+            <ListItemText>{title}</ListItemText>
           </MenuItem>
         ))}
       </Menu>

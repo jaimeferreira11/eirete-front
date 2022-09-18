@@ -38,26 +38,25 @@ let lightTheme = createTheme({
     MuiTypography: {
       styleOverrides: {
         h1: {
-          fontSize: 30,
-          fontWeight: 600,
+          fontSize: 23,
+          fontWeight: 500,
         },
         h2: {
           fontSize: 20,
           fontWeight: 400,
         },
         h4: {
-          fontSize: 10,
+          fontSize: 18,
           fontWeight: 400,
         },
         h5: {
-          fontSize: 20,
+          fontSize: 16,
           fontWeight: 400,
         },
         body1: { fontSize: 14 },
         body2: { fontSize: 14 },
         subtitle1: {
-          fontSize: 18,
-          fontWeight: 600,
+          fontSize: 13,
         },
       },
     },

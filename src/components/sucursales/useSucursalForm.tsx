@@ -4,9 +4,16 @@ import { Controller, useForm } from 'react-hook-form';
 
 import { useTranslation } from 'next-i18next';
 
-import { Autocomplete, Button, Grid, TextField } from '@mui/material';
+import {
+  Autocomplete,
+  Button,
+  FormControlLabel,
+  Grid,
+  Switch,
+  TextField,
+} from '@mui/material';
 
-import { ISucursal } from '@core/interfaces';
+import { ICiudad, ISucursal } from '@core/interfaces';
 
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
@@ -32,6 +39,7 @@ export const useSucursalForm = ({ sucursal = undefined }: Props) => {
           rangoInicial: sucursal.rangoInicial,
           rangoFinal: sucursal.rangoFinal,
           puntoExpedicion: sucursal.puntoExpedicion,
+          estado: sucursal.estado,
         }
       : {
           ciudad: '',
@@ -42,12 +50,24 @@ export const useSucursalForm = ({ sucursal = undefined }: Props) => {
           rangoInicial: 1,
           rangoFinal: 9999999,
           puntoExpedicion: 1,
+          estado: true,
         };
   }, [sucursal]);
 
   const [disabled, setDisabled] = useState(sucursal ? true : false);
 
   const { ciudades } = useCiudades();
+  const [ciudadAux, setCiudadAux] = useState<ICiudad | null | undefined>(null);
+
+  useEffect(() => {
+    if (sucursal)
+      setCiudadAux(
+        ciudades
+          ? ciudades?.find((ciudad) => ciudad.descripcion === sucursal.ciudad)
+          : null
+      );
+    else setCiudadAux(null);
+  }, [ciudades, sucursal]);
 
   const {
     control,
@@ -125,13 +145,14 @@ export const useSucursalForm = ({ sucursal = undefined }: Props) => {
                   disabled={disabled}
                   options={ciudades || []}
                   isOptionEqualToValue={(option, value) =>
-                    option._id === value._id
+                    option._id === value?._id
                   }
                   getOptionLabel={(option) => option.descripcion}
-                  onChange={(_, data) => onChange(data?.descripcion)}
-                  value={ciudades?.find(
-                    (ciudad) => ciudad.descripcion === field.value
-                  )}
+                  onChange={(_, data) => {
+                    setCiudadAux(data);
+                    onChange(data?.descripcion);
+                  }}
+                  value={ciudadAux}
                   renderInput={(params) => (
                     <TextField
                       label={t('form.ciudad')}
@@ -268,6 +289,7 @@ export const useSucursalForm = ({ sucursal = undefined }: Props) => {
             )}
           />
         </Grid>
+
         {sucursal && (
           <Grid xs={6} item>
             <Button
@@ -279,6 +301,28 @@ export const useSucursalForm = ({ sucursal = undefined }: Props) => {
             </Button>
           </Grid>
         )}
+        <Grid xs={6} item>
+          <FormControlLabel
+            value={initialData?.estado || false}
+            control={
+              <Controller
+                name={'estado'}
+                control={control}
+                render={({ field: { ref, onChange, ...field } }) => (
+                  <Switch
+                    {...field}
+                    ref={ref}
+                    checked={field.value}
+                    onChange={(e, value) => onChange(value)}
+                    disabled={disabled}
+                  />
+                )}
+              />
+            }
+            disabled={disabled}
+            label={t('form.estado')}
+          />
+        </Grid>
       </Grid>
     ),
   };

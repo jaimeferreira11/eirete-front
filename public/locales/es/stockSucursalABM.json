@@ -1,0 +1,33 @@
+{
+  "title": "Stock",
+  "noRowsLabel": "Sin articulos que mostrar",
+  "labelRowsPerPage": "Nro. articulos por página",
+  "form": {
+    "articulo": "Artículo",
+    "deactive": "Inactivo",
+    "actions": "Acciones",
+    "actionsDescription": "Acciones aplicables",
+    "edit": "Editar",
+    "remove": "Desactivar",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "estado": "Estado",
+    "stock": "Stock Actual",
+    "stockBloqueado": "Stock Bloqueado",
+    "precioVenta": "Precio unit.",
+    "codigo": "Código",
+    "codigoBarra": "Código de barra"
+  },
+  "newArticulo": "Nuevo Artículo",
+  "editArticulo": "Editar Artículo",
+  "articuloPersist": "Artículo creado exitosamente",
+  "stockUpdated": "Stock modificado exitosamente",
+  "stockPersistError": "Ocurrió un error al actualizar el stock",
+  "confirmDeactivation": "¿Está seguro de cambiar el estado?",
+  "articuloDeactivation": "Desactivar artículo",
+  "articuloSeleccionHelp": "Seleccione un artículo para ver los detalles",
+  "details": "Detalles",
+  "emptyList": "Sin articulos que mostrar",
+  "editData": "Editar datos",
+  "search": "Buscar"
+}

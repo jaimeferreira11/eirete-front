@@ -3,18 +3,26 @@ import { ReactElement } from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import { AppLayout } from '@components/layouts';
+import { PedidosGrid } from '@components/pedidos';
+import { FullScreenLoading } from '@components/ui';
+import { PedidosProvider } from '@lib/context';
+import { useAuthProvider } from '@lib/hooks';
 import { GetStaticProps } from 'next';
 import { NextPageWithLayout } from './_app';
 
 const HomePage: NextPageWithLayout = () => {
-  return <div></div>;
+  const { isLoggedIn, user } = useAuthProvider();
+
+  return !isLoggedIn ? <FullScreenLoading /> : <PedidosGrid />;
 };
 
 HomePage.getLayout = function getLayout(page: ReactElement) {
   return (
-    <AppLayout title="Eirete - Home Page" pageDescription="Página">
-      {page}
-    </AppLayout>
+    <PedidosProvider>
+      <AppLayout title="Eirete - Home Page" pageDescription="Página">
+        {page}
+      </AppLayout>
+    </PedidosProvider>
   );
 };
 
@@ -23,7 +31,11 @@ export default HomePage;
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale || 'es', ['common', 'sidebar'])),
+      ...(await serverSideTranslations(locale || 'es', [
+        'common',
+        'sidebar',
+        'pedidos',
+      ])),
     },
   };
 };

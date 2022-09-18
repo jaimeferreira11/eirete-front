@@ -1,0 +1,31 @@
+{
+  "title": "Últimos movimientos",
+  "noRowsLabel": "Sin movimeintos que mostrar",
+  "labelRowsPerPage": "Nro. de movimeintos por página",
+  "form": {
+    "descripcion": "Descripcion",
+    "monto": "Monto",
+    "categoria": "Categoría",
+    "active": "Activo",
+    "deactive": "Inactivo",
+    "actions": "Acciones",
+    "actionsDescription": "Acciones aplicables",
+    "edit": "Editar",
+    "remove": "Desactivar",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "estado": "Estado"
+  },
+  "new": "Nuevo Movimiento",
+  "edit": "Editar Movimiento",
+  "persist": "Movimiento creado exitosamente",
+  "updated": "Movimiento modificado exitosamente",
+  "persistError": "Ocurrió un error al guardar la movimiento",
+  "confirmDeactivation": "¿Está seguro de cambiar el estado?",
+  "deactivation": "Desactivar movimiento",
+  "seleccionHelp": "Seleccione un movimiento para ver los detalles",
+  "details": "Detalles",
+  "emptyList": "Sin movimientos que mostrar",
+  "editData": "Editar datos",
+  "search": "Buscar"
+}

@@ -1,21 +1,21 @@
-import { useSnackbarProvider } from '@lib/hooks';
+import { useUtilsProvider } from '@lib/hooks';
 import { Alert, AlertColor, Snackbar } from '@mui/material';
 
 export const SnackBarEirete = () => {
-  const { show, closeSnackbar, message, type } = useSnackbarProvider();
+  const { snackBar, closeSnackbar } = useUtilsProvider();
   return (
     <Snackbar
-      open={show}
+      open={snackBar.show}
       autoHideDuration={6000}
       onClose={closeSnackbar}
       anchorOrigin={{ horizontal: 'center', vertical: 'top' }}
     >
       <Alert
         onClose={closeSnackbar}
-        severity={type as AlertColor}
+        severity={snackBar.type as AlertColor}
         sx={{ width: '100%' }}
       >
-        {message}
+        {snackBar.message}
       </Alert>
     </Snackbar>
   );
