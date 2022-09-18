@@ -2,10 +2,10 @@ import { useMemo } from 'react';
 
 import {
   AddOutlined as AddIcon,
-  CloseOutlined as DeleteIcon,
   ContentPasteOffOutlined as EmptyIcon,
   RemoveOutlined as MinusIcon,
 } from '@mui/icons-material';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { Box, IconButton, Stack, Typography } from '@mui/material';
 import { useTranslation } from 'next-i18next';
 
@@ -41,14 +41,14 @@ export const PedidoDetalleList = () => {
                 onClick={() => updateCantidad(detalle, -1)}
                 aria-label="delete"
               >
-                <MinusIcon />
+                <MinusIcon fontSize="small" />
               </IconButton>
-              <Typography>{detalle.cantidad}</Typography>
+              <Typography sx={{ ml: 1, mr: 1 }}>{detalle.cantidad}</Typography>
               <IconButton
                 aria-label="delete"
                 onClick={() => updateCantidad(detalle, 1)}
               >
-                <AddIcon />
+                <AddIcon fontSize="small" />
               </IconButton>
             </Stack>
 
@@ -65,9 +65,13 @@ export const PedidoDetalleList = () => {
             </Typography>
             <IconButton
               aria-label="delete"
+              style={{
+                backgroundColor: '#f44336',
+                color: 'white',
+              }}
               onClick={() => removeArticuloFromDetalle(detalle)}
             >
-              <DeleteIcon />
+              <DeleteOutlineIcon fontSize="small" />
             </IconButton>
           </Stack>
         ))

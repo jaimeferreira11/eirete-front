@@ -1,24 +1,18 @@
 import { DataGridEirete } from '@components/ui/DataGridComponents';
-import { Box } from '@mui/material';
-import { GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
-import { useTranslation } from 'next-i18next';
-import { ActionsColumn } from '../ui/DataGridComponents/ActionsColumn';
-
-import {
-  IPedidoDetalle,
-  IPedidoResponse,
-  ListPaginationOptions,
-} from '@core/interfaces';
+import { IPedidoResponse, ListPaginationOptions } from '@core/interfaces';
 import { usePedidosPaginado } from '@lib/hooks';
 import {
   HighlightOffOutlined as DeleteIcon,
   ReceiptLongOutlined as EditIcon,
 } from '@mui/icons-material';
+import { Box } from '@mui/material';
+import { GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import { useTranslation } from 'next-i18next';
 import { useMemo, useState } from 'react';
 import { formatCurrency, formateDate } from 'src/utils';
+import { ActionsColumn } from '../ui/DataGridComponents/ActionsColumn';
 import { PedicoCancelacionModal } from './pedidoModal/PedicoCancelacionModal';
 import { PedidoDetalleModal } from './pedidoModal/PedidoDetalleModal';
-import { getPedidoString } from './utils';
 
 export const ListadoPedidos = () => {
   const { t } = useTranslation('pedidos', { keyPrefix: 'listado' });
@@ -72,8 +66,8 @@ export const ListadoPedidos = () => {
       valueGetter: (params: GridValueGetterParams) => params.row.nro,
     },
     {
-      field: 'hora',
-      headerName: t('hora'),
+      field: 'fecha',
+      headerName: t('fecha'),
       width: 150,
       valueGetter: (params: GridValueGetterParams) =>
         formateDate(params.row.fecha),
@@ -107,13 +101,13 @@ export const ListadoPedidos = () => {
       valueGetter: (params: GridValueGetterParams) =>
         formatCurrency(params.row.estadoPedido),
     },
-    {
-      field: 'pedido',
-      headerName: t('pedido'),
-      flex: 1,
-      valueGetter: (params: GridValueGetterParams) =>
-        getPedidoString(params.row.detalles as IPedidoDetalle[]),
-    },
+    // {
+    //   field: 'pedido',
+    //   headerName: t('pedido'),
+    //   flex: 1,
+    //   valueGetter: (params: GridValueGetterParams) =>
+    //     getPedidoString(params.row.detalles as IPedidoDetalle[]),
+    // },
     // {
     //   field: 'estado',
     //   headerName: t('form.estado'),

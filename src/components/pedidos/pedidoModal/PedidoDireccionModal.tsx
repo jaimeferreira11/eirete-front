@@ -297,8 +297,9 @@ export const PedidoDireccionModal: FC<Props> = ({ show, handleClose }) => {
             <Grid container xs={6} item spacing={1} justifyContent="flex-end">
               <Grid item>
                 <Button
+                  variant="outlined"
                   onClick={handleClose}
-                  color="secondary"
+                  color="error"
                   startIcon={<CloseOutlinedIcon />}
                   disabled={isFetching}
                 >
@@ -309,7 +310,7 @@ export const PedidoDireccionModal: FC<Props> = ({ show, handleClose }) => {
                 <Grid item>
                   <Button
                     onClick={onSubmit}
-                    color="success"
+                    color="primary"
                     startIcon={isFetching ? <CheckOutlinedIcon /> : null}
                     sx={{ color: 'white' }}
                     disabled={!editMode}

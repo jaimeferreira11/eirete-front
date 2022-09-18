@@ -108,6 +108,12 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
     });
   };
 
+  const getVuelto = () => {
+    const vuelto = getTotal() - importeTotal;
+
+    return vuelto > 0 ? vuelto : 0;
+  };
+
   return (
     <Box flex="50%" display="flex" flexDirection="column">
       <Box
@@ -131,11 +137,11 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
             <Typography sx={{ fontWeight: 500 }}>{t('exentoIva')}</Typography>
           </Box>
           <Box display="flex">
-            <Typography sx={{ fontWeight: 500 }}>
-              Iva 5%: {formatCurrency(exentoIVA ? 0 : getImpuesto5())}
+            <Typography>
+              <b>Iva 5%:</b> {formatCurrency(exentoIVA ? 0 : getImpuesto5())}
             </Typography>
-            <Typography sx={{ ml: 2, fontWeight: 500 }}>
-              Iva 10%: {formatCurrency(exentoIVA ? 0 : getImpuesto10())}
+            <Typography sx={{ ml: 2 }}>
+              <b>Iva 10%:</b> {formatCurrency(exentoIVA ? 0 : getImpuesto10())}
             </Typography>
           </Box>
         </Box>
@@ -205,7 +211,7 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
             >
               <Button
                 variant="outlined"
-                color={direccionDelivery ? 'info' : 'error'}
+                color={direccionDelivery ? 'primary' : 'error'}
                 onClick={handleEditDireccion}
               >
                 {direccionDelivery ? t('editDirEnvio') : t('setDirEnvio')}
@@ -329,7 +335,7 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
         <Typography
           sx={{ flex: 1, fontSize: 18, fontWeight: 800, textAlign: 'center' }}
         >
-          {`${t('vuelto')}: ${formatCurrency(getTotal() - importeTotal)}`}
+          {`${t('vuelto')}: ${formatCurrency(getVuelto())}`}
         </Typography>
       </Box>
       <Box

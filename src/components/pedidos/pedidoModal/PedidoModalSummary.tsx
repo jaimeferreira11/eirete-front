@@ -30,6 +30,7 @@ interface Props {
   tipoPedido: TipoPedido;
   rucValue: string;
   razonSocial: string;
+  motivoCancelacion: string;
   montoEfectivo: number;
   montoTarjeta: number;
   montoCheque: number;
@@ -52,6 +53,7 @@ export const PedidoModalSummary: FC<Props> = ({
   montoEfectivo,
   montoTarjeta,
   montoCheque,
+  motivoCancelacion,
   total,
   vuelto,
   items = [],
@@ -60,37 +62,6 @@ export const PedidoModalSummary: FC<Props> = ({
 
   return (
     <Box flex="50%" display="flex" flexDirection="column">
-      <Box display="flex" justifyContent="space-evenly" gap={3} sx={{ mt: 2 }}>
-        <FormControl fullWidth>
-          <InputLabel htmlFor="outlined-adornment-amount">
-            {t('nroPedido')}
-          </InputLabel>
-          <OutlinedInput
-            disabled
-            inputProps={{
-              min: 0,
-            }}
-            size="small"
-            label={t('nroPedido')}
-            value={nroPedido}
-          />
-        </FormControl>
-        <FormControl fullWidth>
-          <InputLabel htmlFor="outlined-adornment-amount">
-            {t('fecha')}
-          </InputLabel>
-          <OutlinedInput
-            disabled
-            inputProps={{
-              min: 0,
-            }}
-            size="small"
-            label={t('fecha')}
-            value={formateDate(fecha)}
-          />
-        </FormControl>
-      </Box>
-
       <Box
         display="flex"
         alignItems="center"
@@ -98,7 +69,6 @@ export const PedidoModalSummary: FC<Props> = ({
         sx={{
           borderTop: '0.1em solid #EAEAEA',
           borderBottom: '0.1em solid #EAEAEA',
-          py: 1,
           my: 2,
         }}
       >
@@ -116,12 +86,45 @@ export const PedidoModalSummary: FC<Props> = ({
             </Typography>
           </Box>
         </Box>
-        <Typography sx={{ fontSize: 16, fontWeight: 800 }}>
+        <Typography sx={{ fontSize: 18, fontWeight: 800 }}>
           {`${t('total')} : ${formatCurrency(importeTotal)}`}
         </Typography>
       </Box>
-      <Grid container justifyContent="space-between">
-        <Grid item xs={6} sx={{ pr: 1 }}>
+      <Grid container sx={{ mb: 2 }}>
+        <Grid item xs={3} sx={{ mr: 1 }}>
+          <FormControl fullWidth>
+            <InputLabel htmlFor="outlined-adornment-amount">
+              {t('nroPedido')}
+            </InputLabel>
+            <OutlinedInput
+              disabled
+              inputProps={{
+                min: 0,
+              }}
+              size="small"
+              label={t('nroPedido')}
+              value={nroPedido}
+            />
+          </FormControl>
+        </Grid>
+        <Grid item xs={3} sx={{ pr: 1 }}>
+          <FormControl fullWidth>
+            <InputLabel htmlFor="outlined-adornment-amount">
+              {t('fecha')}
+            </InputLabel>
+            <OutlinedInput
+              disabled
+              inputProps={{
+                min: 0,
+              }}
+              size="small"
+              label={t('fecha')}
+              value={formateDate(fecha)}
+            />
+          </FormControl>
+        </Grid>
+
+        <Grid item xs={3} sx={{ pr: 1 }}>
           <TextField
             id="tipo-pedido-select"
             select
@@ -137,10 +140,12 @@ export const PedidoModalSummary: FC<Props> = ({
             ))}
           </TextField>
         </Grid>
-        <Grid item xs={6} sx={{ pl: 1 }}>
+      </Grid>
+      <Grid container>
+        <Grid item xs={3}>
           <TextField fullWidth label={t('ruc')} value={rucValue} disabled />
         </Grid>
-        <Grid item xs={12} sx={{ mt: 4 }}>
+        <Grid item xs={9} sx={{ pl: 1 }}>
           <TextField
             fullWidth
             InputProps={{}}
@@ -150,7 +155,8 @@ export const PedidoModalSummary: FC<Props> = ({
           />
         </Grid>
       </Grid>
-      <Box display="flex" justifyContent="space-evenly" gap={3} sx={{ my: 4 }}>
+
+      <Box display="flex" justifyContent="space-evenly" gap={3} sx={{ mt: 2 }}>
         <FormControl fullWidth>
           <InputLabel htmlFor="outlined-adornment-amount">
             {t('efectivo')}
@@ -210,7 +216,21 @@ export const PedidoModalSummary: FC<Props> = ({
         </FormControl>
       </Box>
 
-      <Box
+      {motivoCancelacion && (
+        <Grid container>
+          <Grid item xs={12} sx={{ mt: 2 }}>
+            <TextField
+              fullWidth
+              InputProps={{}}
+              label={t('obs')}
+              value={motivoCancelacion}
+              disabled
+            />
+          </Grid>
+        </Grid>
+      )}
+
+      {/* <Box
         display="flex"
         gap={4}
         alignItems="center"
@@ -239,9 +259,14 @@ export const PedidoModalSummary: FC<Props> = ({
         >
           {`${t('vuelto')}: ${formatCurrency(vuelto)}`}
         </Typography>
-      </Box>
+      </Box> */}
 
-      <Box>
+      <Box
+        sx={{
+          borderTop: '0.1em solid #EAEAEA',
+          borderBottom: '0.1em solid #EAEAEA',
+        }}
+      >
         <Typography sx={{ mt: 2, mb: 1 }} variant="h6" component="div">
           Items
         </Typography>
