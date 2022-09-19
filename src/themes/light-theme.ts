@@ -46,11 +46,11 @@ let lightTheme = createTheme({
           fontWeight: 400,
         },
         h4: {
-          fontSize: 10,
+          fontSize: 18,
           fontWeight: 400,
         },
         h5: {
-          fontSize: 20,
+          fontSize: 16,
           fontWeight: 400,
         },
         body1: { fontSize: 14 },
@@ -105,6 +105,17 @@ let lightTheme = createTheme({
         },
       },
     },
+    MuiIconButton: {
+      defaultProps: {
+        size: 'small',
+      },
+      styleOverrides: {
+        root: {
+          borderRadius: 8,
+          backgroundColor: '#F3F3F3',
+        },
+      },
+    },
 
     MuiCard: {
       defaultProps: {
@@ -120,6 +131,19 @@ let lightTheme = createTheme({
     MuiTextField: {
       defaultProps: {
         size: 'small',
+        autoComplete: 'off',
+      },
+      styleOverrides: {
+        root: {},
+      },
+    },
+    MuiAutocomplete: {
+      defaultProps: {
+        size: 'small',
+        autoComplete: false,
+      },
+      styleOverrides: {
+        root: {},
       },
     },
   },

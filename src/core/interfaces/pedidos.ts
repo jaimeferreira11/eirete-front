@@ -16,6 +16,7 @@ export interface IPedidoResponse {
   vuelto: number;
   usuarioAlta: IPedidoUsuarioAlta;
   estadoDelivery: string;
+  motivoCancelacion: string;
   fecha: string;
   fechaAlta: string;
   __v: number;

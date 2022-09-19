@@ -11,7 +11,8 @@
     "precioUniatario": "Precio unitario",
     "emptyDetail": "Lista de pedidos vacía",
     "total": "Total",
-    "ruc": "RUC",
+    "ruc": "CI/RUC",
+    "nroPedido": "Nro. Orden",
     "tipoPedido": "Tipo de pedido",
     "efectivo": "Efectivo",
     "tarjeta": "Tarjeta",
@@ -29,7 +30,8 @@
     "pedidoSubmitError": "Ocurrió un error al registrar el pedido",
     "ok": "Ok",
     "setDirEnvio": "Especifique una dirección de envío",
-    "editDirEnvio": "Click para editar"
+    "editDirEnvio": "Click para editar",
+    "obs": "Observación"
   },
   "direccionPedido": {
     "titleModal": "Dirección de entrega pedido",
@@ -37,11 +39,11 @@
     "form": {
       "direccion": "Dirección",
       "notas": "Notas",
-      "direccionesRegistradas": "Direcciones registradas",
+      "direccionesRegistradas": "Buscar direcciones registradas...",
       "ciudad": "Ciudad",
       "required": "Este campo es requerido",
       "nroContacto": "Nro. Contacto",
-      "predeterminado": "Predeterminado",
+      "predeterminado": "Definir dirección como predeterminado",
       "notasPedido": "Notas",
       "notasPedidoPlaceholder": "Ej: casa con murallas",
       "editData": "Editar datos",
@@ -53,6 +55,7 @@
   "listado": {
     "nroOrden": "Nro. Orden",
     "hora": "Hora",
+    "fecha": "Fecha",
     "cliente": "Cliente",
     "tipo": "Tipo",
     "total": "Total",

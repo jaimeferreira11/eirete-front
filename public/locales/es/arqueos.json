@@ -1,0 +1,45 @@
+{
+  "title": "Arqueos",
+  "tabs": {
+    "ultimoArqueo": "Último arqueo",
+    "listadoArqueo": "Listado de arqueos"
+  },
+
+  "listado": {
+    "sucursal": "Sucursal",
+    "fecha": "Fecha",
+    "hora": "Hora",
+    "usuario": "Usuario",
+    "fondo": "Fondo",
+    "ingresos": "Ingresos",
+    "responsable": "Responsable",
+    "verDetalles": "Ver detalles",
+    "labelRowsPerPage": "Nro. arqueos por página",
+    "noRowsLabel": "Sin arqueos que mostrar",
+    "title": "Arqueos",
+    "efectivo": "Total efectivo",
+    "depositos": "Total depósitos",
+    "egresos": "Total egresos",
+    "acciones": "Acciones"
+  },
+  "detalleArqueo": {
+    "volver": "Volver",
+    "title": "Detalle arqueo",
+    "datosGenerales": "Datos generales",
+    "dinero": "Dinero",
+    "sucursal": "Sucursal",
+    "fechaApertura": "Fecha apertura",
+    "fechaCierre": "Fecha cierre",
+    "abiertoPor": "Abierto por",
+    "cerradoPor": "Cerrado por",
+    "totalEfectivo": "Total efectivo",
+    "totalDeposito": "Total deposito",
+    "pedidosRealizados": "Pedidos realizados",
+    "pedidosCancelados": "Pedidos cancelados",
+    "billetes": "Billetes de",
+    "monedas": "Monedas de"
+  },
+  "filterFecha": {
+    "title": "Seleccionar fecha"
+  }
+}

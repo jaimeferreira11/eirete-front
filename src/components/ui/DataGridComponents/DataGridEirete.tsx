@@ -24,17 +24,20 @@ export const DataGridEirete: FC<Props> = ({ config, showActive = true }) => {
     total,
     handleSearch,
     optionsDropDown,
+    showSearchBar = true,
   } = config;
 
   return (
     <>
       <Box sx={{ height: { xs: '60vh', sm: '75vh' }, width: '100%' }}>
-        <FilterBox
-          searchHandler={handleSearch}
-          isLoading={isLoading}
-          showActive={showActive}
-          optionsDropDown={optionsDropDown}
-        />
+        {showSearchBar && (
+          <FilterBox
+            searchHandler={handleSearch}
+            isLoading={isLoading}
+            showActive={showActive}
+            optionsDropDown={optionsDropDown}
+          />
+        )}
         <DataGrid
           getRowId={(row) => row._id}
           rows={rows}

@@ -13,7 +13,6 @@ import { NextPageWithLayout } from './_app';
 const HomePage: NextPageWithLayout = () => {
   const { isLoggedIn, user } = useAuthProvider();
 
-  console.log('user', user);
   return !isLoggedIn ? <FullScreenLoading /> : <PedidosGrid />;
 };
 

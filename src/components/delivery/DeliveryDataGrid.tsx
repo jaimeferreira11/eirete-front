@@ -67,7 +67,6 @@ export const DeliveryDataGrid = () => {
     search.search
   );
 
-  console.log('pedidos', pedidos);
   useMemo(() => {
     setPedidosData(pedidos?.data || []);
   }, [pedidos?.data]);

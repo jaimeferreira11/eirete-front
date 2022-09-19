@@ -12,3 +12,11 @@ export const formatCurrency = (
 export const formateDate = (value: string) => {
   return dayjs(value).format('YYYY-MM-DD HH:mm');
 };
+
+export const formateDateOnly = (value: string) => {
+  return dayjs(value).format('YYYY-MM-DD');
+};
+
+export const formateDateHour = (value: string) => {
+  return dayjs(value).format('HH:mm');
+};

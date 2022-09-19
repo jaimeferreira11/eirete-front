@@ -20,4 +20,5 @@ export interface IDataGridEireteConfig {
         initialValue: string;
       }
     | undefined;
+  showSearchBar?: boolean;
 }

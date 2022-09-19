@@ -1,3 +1,4 @@
+export * from './Arqueos';
 export * from './Auth';
 export * from './Cajas';
 export * from './CategoriaMovimientos';

@@ -73,6 +73,7 @@ export const PedidoDetalleModal: FC<Props> = ({ show, handleClose, item }) => {
           montoCheque={montoCheque}
           total={item?.montoRecibido || 0}
           vuelto={item?.vuelto || 0}
+          motivoCancelacion={item?.motivoCancelacion || ''}
         />
       </DialogContent>
       <DialogActions>

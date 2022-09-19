@@ -1,31 +1,31 @@
-import { DeliveryDataGrid } from '@components/delivery/DeliveryDataGrid';
+import { ArqueosGrid } from '@components/arqueos';
 import { AppLayout } from '@components/layouts';
 
 import { FullScreenLoading } from '@components/ui';
-import { PedidosProvider } from '@lib/context';
+import { ArqueoProvider } from '@lib/context';
 import { useAuthProvider } from '@lib/hooks';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { ReactElement } from 'react';
 import { NextPageWithLayout } from '../_app';
 
-const DeliveryPage: NextPageWithLayout = () => {
+const ArqueosPage: NextPageWithLayout = () => {
   const { isLoggedIn, user } = useAuthProvider();
 
-  return !isLoggedIn ? <FullScreenLoading /> : <DeliveryDataGrid />;
+  return !isLoggedIn ? <FullScreenLoading /> : <ArqueosGrid />;
 };
 
-DeliveryPage.getLayout = function getLayout(page: ReactElement) {
+ArqueosPage.getLayout = function getLayout(page: ReactElement) {
   return (
-    <PedidosProvider>
+    <ArqueoProvider>
       <AppLayout title="Eirete - Pedidos" pageDescription="Pedidos">
         {page}
       </AppLayout>
-    </PedidosProvider>
+    </ArqueoProvider>
   );
 };
 
-export default DeliveryPage;
+export default ArqueosPage;
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
@@ -33,7 +33,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       ...(await serverSideTranslations(locale || 'es', [
         'common',
         'sidebar',
-        'pedidos',
+        'arqueos',
         'listGeneric',
       ])),
     },
