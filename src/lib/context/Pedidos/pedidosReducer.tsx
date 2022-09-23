@@ -25,7 +25,7 @@ type PedidosType =
   | { type: 'UpdateDireccionEnvio'; payload: Direccion }
   | { type: 'ResetPedido'; payload: INewPedido }
   | { type: 'UpdateMontoRecibido'; payload: number }
-  | { type: 'UpdateExentoIVA' }
+  | { type: 'UpdateExentoIVA'; payload: number }
   | { type: 'UpdateRazonSocial'; payload: string }
   | {
       type: 'UpdateMetodosPago';
@@ -99,6 +99,7 @@ export const pedidosReducer = (
         newPedido: {
           ...state.newPedido,
           exentoIVA: !state.newPedido.exentoIVA,
+          importeTotal: action.payload,
         },
       };
     case 'UpdateMetodosPago':

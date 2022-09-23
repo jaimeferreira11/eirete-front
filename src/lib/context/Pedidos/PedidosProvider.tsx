@@ -89,13 +89,21 @@ export const PedidosProvider: FC<Props> = ({ children }) => {
       dispatch({
         type: 'SetCliente',
         payload: {
-          cliente: undefined,
+          cliente: {
+            _id: undefined,
+            persona: {
+              _id: undefined,
+              nroDoc: nroDocumento,
+              nombreApellido: '',
+            },
+          },
           direcciones: [],
           defaultDireccion: undefined,
         },
       });
       return {
-        errorMessage: (error as AxiosError).message || 'Usuario no existe',
+        ruc: nroDocumento,
+        errorMessage: (error as AxiosError).message,
       };
     }
   };
@@ -115,6 +123,8 @@ export const PedidosProvider: FC<Props> = ({ children }) => {
       (p) => p.articulo._id === item._id
     );
 
+    const exentoIva = state.newPedido.exentoIVA;
+
     if (!productInCart)
       return dispatch({
         type: 'UpdateDetalleAndTotals',
@@ -131,11 +141,19 @@ export const PedidosProvider: FC<Props> = ({ children }) => {
               stockDisponible,
             },
           ],
-          addAmount: item.precioVenta,
-          impuestoAmount: calculateImpuesto(
-            item.tipoImpuesto as TipoImpuesto,
-            item.precioVenta
-          ),
+          addAmount: !exentoIva
+            ? item.precioVenta
+            : item.precioVenta -
+              calculateImpuesto(
+                item.tipoImpuesto as TipoImpuesto,
+                item.precioVenta
+              ),
+          impuestoAmount: exentoIva
+            ? 0
+            : calculateImpuesto(
+                item.tipoImpuesto as TipoImpuesto,
+                item.precioVenta
+              ),
         },
       });
 
@@ -169,7 +187,7 @@ export const PedidosProvider: FC<Props> = ({ children }) => {
       payload: {
         detalle: updateProducts,
         addAmount,
-        impuestoAmount,
+        impuestoAmount: exentoIva ? 0 : impuestoAmount,
       },
     });
   };
@@ -179,18 +197,30 @@ export const PedidosProvider: FC<Props> = ({ children }) => {
     let impuestoAmount = 0;
     let cantidadToUpdate = 0;
     let stockDisponible = 0;
+    const exentoIva = state.newPedido.exentoIVA;
     const updateProducts = state.newPedido.detalles.map((p) => {
       if (p.articulo._id !== detalle.articulo._id) return p;
 
       const newCantidad = p.cantidad + cantidad;
       cantidadToUpdate = newCantidad;
-      addAmount += p.precioUnitario * cantidad;
+      addAmount += !state.newPedido.exentoIVA
+        ? p.precioUnitario * cantidad
+        : (p.precioUnitario -
+            calculateImpuesto(
+              p.tipoImpuesto as TipoImpuesto,
+              p.precioUnitario
+            )) *
+          cantidad;
+
+      console.log('state.newPedido.importeTotal', state.newPedido.importeTotal);
+      console.log('addAmount', addAmount);
       stockDisponible = p.stockDisponible;
-      impuestoAmount +=
-        calculateImpuesto(
-          detalle.tipoImpuesto as TipoImpuesto,
-          detalle.precioUnitario
-        ) * cantidad;
+      impuestoAmount += exentoIva
+        ? 0
+        : calculateImpuesto(
+            detalle.tipoImpuesto as TipoImpuesto,
+            detalle.precioUnitario
+          ) * cantidad;
       return { ...p, cantidad: newCantidad };
     });
 
@@ -205,7 +235,11 @@ export const PedidosProvider: FC<Props> = ({ children }) => {
 
     dispatch({
       type: 'UpdateDetalleAndTotals',
-      payload: { detalle: updateProducts, addAmount, impuestoAmount },
+      payload: {
+        detalle: updateProducts,
+        addAmount,
+        impuestoAmount: exentoIva ? 0 : impuestoAmount,
+      },
     });
   };
 
@@ -216,10 +250,11 @@ export const PedidosProvider: FC<Props> = ({ children }) => {
   const removeArticuloFromDetalle = (detalle: Detalle) => {
     let addAmount = 0;
     let impuestoAmount = 0;
+    const exentoIva = state.newPedido.exentoIVA;
     const updateProducts = state.newPedido.detalles.filter((product) => {
       if (product.articulo._id !== detalle.articulo._id) return true;
 
-      addAmount -= product.cantidad * product.precioUnitario;
+      addAmount -= calculateAmountExentOrNot(product);
       impuestoAmount -=
         product.cantidad *
         calculateImpuesto(
@@ -231,7 +266,11 @@ export const PedidosProvider: FC<Props> = ({ children }) => {
 
     dispatch({
       type: 'UpdateDetalleAndTotals',
-      payload: { detalle: updateProducts, addAmount, impuestoAmount },
+      payload: {
+        detalle: updateProducts,
+        addAmount,
+        impuestoAmount: exentoIva ? 0 : impuestoAmount,
+      },
     });
   };
 
@@ -249,6 +288,10 @@ export const PedidosProvider: FC<Props> = ({ children }) => {
     getVuelto() >= 0;
 
   const getImpuesto10 = () => {
+    const exentoIva = state.newPedido.exentoIVA;
+
+    if (exentoIva) return Math.round(0);
+
     let impuesto = 0;
     state.newPedido.detalles.forEach((element) => {
       if (element.tipoImpuesto === 10)
@@ -262,6 +305,8 @@ export const PedidosProvider: FC<Props> = ({ children }) => {
   };
 
   const getImpuesto5 = () => {
+    const exentoIva = state.newPedido.exentoIVA;
+    if (exentoIva) return Math.round(0);
     let impuesto = 0;
     state.newPedido.detalles.forEach((element) => {
       if (element.tipoImpuesto === 5)
@@ -285,7 +330,29 @@ export const PedidosProvider: FC<Props> = ({ children }) => {
     }
   };
 
-  const toogleExtentoIVA = () => dispatch({ type: 'UpdateExentoIVA' });
+  const toogleExtentoIVA = () => {
+    let nuevoTotal = 0;
+    state.newPedido.detalles.forEach((p) => {
+      nuevoTotal += calculateAmountPedidoExenta(p);
+    });
+    dispatch({ type: 'UpdateExentoIVA', payload: nuevoTotal });
+  };
+
+  const calculateAmountExentOrNot = (p: Detalle) => {
+    const totalProducto = p.precioUnitario * p.cantidad;
+    const impuestosProducto = state.newPedido.exentoIVA
+      ? calculateImpuesto(p.tipoImpuesto as TipoImpuesto, totalProducto)
+      : 0;
+    return totalProducto - impuestosProducto;
+  };
+
+  const calculateAmountPedidoExenta = (p: Detalle) => {
+    const totalProducto = p.precioUnitario * p.cantidad;
+    const impuestosProducto = state.newPedido.exentoIVA
+      ? 0
+      : calculateImpuesto(p.tipoImpuesto as TipoImpuesto, totalProducto);
+    return totalProducto - impuestosProducto;
+  };
 
   const updateMetodosPago = ({
     descripcion,
@@ -382,6 +449,11 @@ export const PedidosProvider: FC<Props> = ({ children }) => {
         type: 'SetClienteRazonSocial',
         payload: razonSocial,
       });
+
+    dispatch({
+      type: 'SetClienteRazonSocial',
+      payload: razonSocial,
+    });
   };
 
   const cancelarPedido = async (

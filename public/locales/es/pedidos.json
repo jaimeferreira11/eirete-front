@@ -31,7 +31,8 @@
     "ok": "Aceptar",
     "setDirEnvio": "Especifique una dirección de envío",
     "editDirEnvio": "Click para editar",
-    "obs": "Observación"
+    "obs": "Observación",
+    "rucWarning": "El usuario no existe y será creado al completar el pedido"
   },
   "direccionPedido": {
     "titleModal": "Dirección de entrega pedido",

@@ -35,6 +35,7 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
   const [submiting, setSubmiting] = useState(false);
   const [searchingRuc, setSearchingRuc] = useState(false);
   const [rucError, setRucError] = useState<string | undefined>('');
+  const [rucWarning, setRucWarning] = useState('');
   const {
     newPedido,
     setTipoPedido,
@@ -82,10 +83,16 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
     if (e.key === 'Enter') {
       setRucError('');
       setSearchingRuc(true);
-      const res = await searchCliente(rucValue);
+      const { errorMessage = '', ruc } = await searchCliente(rucValue);
+      if (errorMessage?.includes('no existe')) {
+        setRucError('');
+        setRucWarning(t('rucWarning'));
+      } else if (errorMessage?.includes('al menos')) {
+        setRucWarning('');
+        setRucError(errorMessage);
+      }
       setSearchingRuc(false);
-      setRucError(res.errorMessage || '');
-      if (res.ruc) setRucValue(res.ruc);
+      if (ruc) setRucValue(ruc);
     }
   };
 
@@ -188,7 +195,7 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
               ) : null,
             }}
             error={!!rucError}
-            helperText={rucError}
+            helperText={rucWarning || rucError}
           />
         </Grid>
         {tipoPedido === 'DELIVERY' && newPedido.cliente && (
@@ -227,7 +234,6 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
             InputProps={{}}
             label={t('razonSocial')}
             value={newPedido.cliente?.persona.nombreApellido || ''}
-            disabled={newPedido.cliente?.persona.nombreApellido !== undefined}
             onChange={onChangeRazonSocial}
           />
         </Grid>
