@@ -22,7 +22,7 @@ export const PedidoDetalleList = () => {
 
   return (
     <Box display="flex" flexDirection="column" flex="50%">
-      <Typography variant="h5" component={'div'}>
+      <Typography variant="h5" component={'div'} style={{ fontWeight: 'bold' }}>
         {t('title')}
       </Typography>
 

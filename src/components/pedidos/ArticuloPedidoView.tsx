@@ -26,8 +26,10 @@ export const ArticuloPedidoView: FC<Props> = ({ item }) => {
       key={item._id}
       sx={{
         p: 1,
-        border: '1px solid #EAEAEA',
+        border: '2px solid #EAEAEA',
+        background: '#FFFFFF',
         borderRadius: 2,
+        minHeight: '50px',
       }}
       component={IconButton}
       onClick={() =>

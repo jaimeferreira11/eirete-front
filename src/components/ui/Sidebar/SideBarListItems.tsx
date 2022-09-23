@@ -1,17 +1,21 @@
 import { FC } from 'react';
 
 import {
-  BuildOutlined as MaintenanceIcon,
-  DeliveryDiningOutlined as DeliveryIcon,
-  Inventory as LineaArticuloIcon,
-  Inventory2Outlined as StockIcon,
+  AccountBalanceOutlined as GroupTesoreia,
+  CurrencyExchangeOutlined as ArqueoIcon,
+  GroupOutlined as ClientesIcon,
+  InsertChartOutlined as EstadisticaIcon,
+  Inventory2Outlined as LineaArticuloIcon,
+  InventoryOutlined as StockIcon,
+  LocalAtmOutlined as MovimientosIcon,
   LockOutlined as CierreCajaIcon,
   ManageAccountsOutlined as UserIcon,
-  MonitorOutlined as CajaIcon,
-  PersonOutlineOutlined as ClientesIcon,
-  ShoppingCartCheckoutOutlined as PedidoIcon,
-  ShoppingCartOutlined as MovimientosIcon,
-  StorefrontOutlined as SucursalIcon,
+  MonitorOutlined as PedidoIcon,
+  NearMeOutlined as DeliveryIcon,
+  PieChartOutlined as GroupReports,
+  SettingsOutlined as MaintenanceIcon,
+  StorefrontOutlined as GroupStock,
+  StoreMallDirectoryOutlined as SucursalIcon,
   TakeoutDiningOutlined as ArticuloIcon,
 } from '@mui/icons-material';
 
@@ -54,7 +58,7 @@ export const menuItems = [
   },
   {
     id: 'caja-agrupador',
-    icon: <CajaIcon sx={{ mr: 1 }} />,
+    icon: <GroupStock sx={{ mr: 1 }} />,
     text: 'links.stock',
     roles: [''],
     path: '',
@@ -121,7 +125,7 @@ export const menuItems = [
   },
   {
     id: 'tesoreria',
-    icon: <MaintenanceIcon sx={{ mr: 1 }} />,
+    icon: <GroupTesoreia sx={{ mr: 1 }} />,
     text: 'links.tesoreria',
     roles: [''],
     path: '',
@@ -133,21 +137,30 @@ export const menuItems = [
         roles: [''],
         path: '/movimientos',
       },
-      {
-        id: 'arqueos',
-        icon: <MovimientosIcon />,
-        text: 'links.arqueos',
-        roles: [''],
-        path: '/arqueos',
-      },
     ],
   },
   {
     id: 'reportes',
-    icon: <DeliveryIcon />,
+    icon: <GroupReports sx={{ mr: 1 }} />,
     text: 'links.reportes',
     roles: [''],
-    path: '/reportes',
+    path: '',
+    items: [
+      {
+        id: 'arqueos',
+        icon: <ArqueoIcon />,
+        text: 'links.arqueos',
+        roles: [''],
+        path: '/arqueos',
+      },
+      {
+        id: 'estadisticas',
+        icon: <EstadisticaIcon />,
+        text: 'links.estadisticas',
+        roles: [''],
+        path: '/estadisticas',
+      },
+    ],
   },
 ];
 

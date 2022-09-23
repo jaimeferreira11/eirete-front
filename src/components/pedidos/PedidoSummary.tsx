@@ -1,5 +1,7 @@
 import { ChangeEvent, FC, KeyboardEvent, useState } from 'react';
 
+import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import {
   Box,
   Button,
@@ -244,7 +246,22 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
             size="small"
             id="efectivo-adornment"
             startAdornment={
-              <InputAdornment position="start">GS.</InputAdornment>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignContent: 'center',
+                  textAlign: 'center',
+                  backgroundColor: '#F3F3F3',
+                  height: 38,
+                  width: 38,
+                  marginLeft: -13,
+                  marginRight: 5,
+                }}
+              >
+                <InputAdornment position="start">&nbsp; GS.</InputAdornment>
+              </div>
             }
             label={t('cantidad')}
             onChange={(e) =>
@@ -269,7 +286,22 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
             size="small"
             id="tarjeta-adornment"
             startAdornment={
-              <InputAdornment position="start">GS.</InputAdornment>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignContent: 'center',
+                  textAlign: 'center',
+                  backgroundColor: '#F3F3F3',
+                  height: 38,
+                  width: 38,
+                  marginLeft: -13,
+                  marginRight: 5,
+                }}
+              >
+                <InputAdornment position="start">&nbsp; GS.</InputAdornment>
+              </div>
             }
             label={t('cantidad')}
             onChange={(e) =>
@@ -294,7 +326,22 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
             id="cheque-adornment-amount"
             size="small"
             startAdornment={
-              <InputAdornment position="start">GS.</InputAdornment>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignContent: 'center',
+                  textAlign: 'center',
+                  backgroundColor: '#F3F3F3',
+                  height: 38,
+                  width: 38,
+                  marginLeft: -13,
+                  marginRight: 5,
+                }}
+              >
+                <InputAdornment position="start">&nbsp; GS.</InputAdornment>
+              </div>
             }
             label={t('cantidad')}
             onChange={(e) =>
@@ -351,6 +398,7 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
         }}
       >
         <Button color="error" fullWidth onClick={() => resetPedido()}>
+          <CloseOutlinedIcon sx={{ fontSize: 20, marginRight: '5px' }} />
           {t('cancelar')}
         </Button>
         <Button
@@ -360,6 +408,9 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
           sx={{ color: '#fff' }}
           onClick={handleSubmit}
         >
+          {!submiting && (
+            <CheckOutlinedIcon sx={{ fontSize: 20, marginRight: '5px' }} />
+          )}
           {!submiting ? t('confirmar') : <CircularProgress size="25px" />}
         </Button>
       </Box>
