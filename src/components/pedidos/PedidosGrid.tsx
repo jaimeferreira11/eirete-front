@@ -38,6 +38,9 @@ export const PedidosGrid = () => {
               textColor="primary"
               indicatorColor="primary"
               aria-label="secondary tabs example"
+              TabIndicatorProps={{
+                style: {},
+              }}
             >
               <Tab value="pedidos" label="Pedidos" />
               <Tab value="listado-pedidos" label="Listado de pedidos" />
