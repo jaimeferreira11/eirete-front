@@ -3,6 +3,7 @@ import { FC } from 'react';
 import { useTranslation } from 'next-i18next';
 
 import { IArqueo } from '@core/interfaces';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import {
   Button,
   Dialog,
@@ -209,7 +210,8 @@ export const ArqueoDetalleModal: FC<Props> = ({ show, handleClose, item }) => {
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>
+        <Button color="error" onClick={handleClose}>
+          <CloseOutlinedIcon sx={{ fontSize: 20, marginRight: '5px' }} />
           <Typography>{t('volver')}</Typography>
         </Button>
       </DialogActions>

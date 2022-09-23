@@ -119,7 +119,10 @@ let lightTheme = createTheme({
           borderColor: '#EAEAEA',
           borderRadius: '8px 8px 8px 8px',
           marginBottom: '10px',
-          minWidth: '12vw',
+          minWidth: '11vw',
+          maxHeight: '7vh',
+          minHeight: '6vh',
+          textTransform: 'capitalize',
           '&.Mui-selected': {
             border: `1px solid #F9DC9D`,
             backgroundColor: '#FFF9ED',
@@ -146,12 +149,42 @@ let lightTheme = createTheme({
           textTransform: 'none',
           boxShadow: 'none',
           borderRadius: 10,
+          color: '#FFFFFF',
           ':hover': {
             backgroundColor: '#FEEFC3',
+            color: '#F0A70A',
             transition: 'all 0.3s ease-in-out',
           },
         },
       },
+      variants: [
+        {
+          props: { variant: 'outlined', color: 'primary' },
+          style: {
+            color: '#F0A70A',
+          },
+        },
+        {
+          props: { color: 'success' },
+          style: {
+            ':hover': {
+              backgroundColor: '#59af25ad',
+              color: '#FFFFFF',
+              transition: 'all 0.3s ease-in-out',
+            },
+          },
+        },
+        {
+          props: { color: 'error' },
+          style: {
+            ':hover': {
+              backgroundColor: '#f44336ad',
+              color: '#FFFFFF',
+              transition: 'all 0.3s ease-in-out',
+            },
+          },
+        },
+      ],
     },
     MuiIconButton: {
       defaultProps: {

@@ -15,6 +15,8 @@ import {
 import { IMovimiento } from '@core/interfaces';
 import { useMovimientosProvider, useUtilsProvider } from '@lib/hooks';
 import { INewMovimiento } from '@lib/interfaces';
+import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { clearNumberFormat } from 'src/utils';
 import { useMovimientoForm } from './useMovimientoForm';
 
@@ -96,13 +98,16 @@ export const MovimientoDialog: FC<Props> = ({
         <DialogActions>
           <Button
             color="error"
-            variant={'outlined'}
             onClick={handleCancelButton}
             disabled={isSaving}
           >
+            <CloseOutlinedIcon sx={{ fontSize: 20, marginRight: '5px' }} />
             <Typography>{t('form.cancel')}</Typography>
           </Button>
-          <Button type="submit" disabled={isSaving}>
+          <Button type="submit" color="success" disabled={isSaving}>
+            {!isSaving && (
+              <CheckOutlinedIcon sx={{ fontSize: 20, marginRight: '5px' }} />
+            )}
             {isSaving ? (
               <CircularProgress size="25px" color="info" />
             ) : (

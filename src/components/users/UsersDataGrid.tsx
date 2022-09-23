@@ -179,7 +179,6 @@ export const UsersDataGrid = () => {
           <Grid item>
             <Button
               sx={{
-                color: '#000',
                 p: 1,
               }}
               onClick={() => setShowModal(true)}

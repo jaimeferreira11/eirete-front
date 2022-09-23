@@ -22,6 +22,8 @@ import { ICiudad, ICliente } from '@core/interfaces';
 
 import { useCiudades, useClienteProvider, useUtilsProvider } from '@lib/hooks';
 import { INewPersona } from '@lib/interfaces/NewCliente';
+import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 
 interface Props {
   children?: React.ReactNode;
@@ -363,10 +365,15 @@ export const ClientesForm: FC<Props> = ({
           </Grid>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="error" variant="outlined">
+          <Button onClick={handleClose} color="error">
+            <CloseOutlinedIcon sx={{ fontSize: 20, marginRight: '5px' }} />
             <Typography>{t('form.cancel')}</Typography>
           </Button>
-          <Button type="submit" disabled={isSaving}>
+          <Button type="submit" color="success" disabled={isSaving}>
+            {!isSaving && (
+              <CheckOutlinedIcon sx={{ fontSize: 20, marginRight: '5px' }} />
+            )}
+
             {isSaving ? (
               <CircularProgress size="25px" color="info" />
             ) : (

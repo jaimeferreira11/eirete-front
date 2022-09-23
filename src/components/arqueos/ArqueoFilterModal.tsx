@@ -1,4 +1,6 @@
 import { useArqueoProvider } from '@lib/hooks';
+import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import DateRangeOutlinedIcon from '@mui/icons-material/DateRangeOutlined';
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined';
@@ -194,6 +196,9 @@ export const ArqueoFilterModal = () => {
                   </Box>
                   <Box display="flex" alignSelf="flex-end" gap={2}>
                     <Button color="error" onClick={() => setOpen(false)}>
+                      <CloseOutlinedIcon
+                        sx={{ fontSize: 20, marginRight: '5px' }}
+                      />
                       Cancelar
                     </Button>
                     <Button
@@ -203,6 +208,9 @@ export const ArqueoFilterModal = () => {
                         else setOpen(false);
                       }}
                     >
+                      <CheckOutlinedIcon
+                        sx={{ fontSize: 20, marginRight: '5px' }}
+                      />
                       Aceptar
                     </Button>
                   </Box>

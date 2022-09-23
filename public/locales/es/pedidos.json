@@ -28,7 +28,7 @@
     "errorClienteSearch": "Error al buscar el cliente",
     "pedidoSubmit": "Pedido registrado exitosamente",
     "pedidoSubmitError": "Ocurrió un error al registrar el pedido",
-    "ok": "Ok",
+    "ok": "Aceptar",
     "setDirEnvio": "Especifique una dirección de envío",
     "editDirEnvio": "Click para editar",
     "obs": "Observación"
@@ -82,7 +82,7 @@
   "search": "Buscar",
   "confirmCancelacion": "¿Está seguro de querer cancelar el pedido?",
   "confirmar": "Cancelar pedido",
-  "cancelar": "Volver",
+  "cancelar": "Cancelar",
   "pedidoCancelacion": "Confirmar acción",
   "pedidoCancelacionExitosa": "Se cancelado el pedido exitosamente",
   "pedidoCancelacionError": "Ha ocurrido un error al cancelar el pedido",
@@ -106,7 +106,7 @@
     "changeState": {
       "title": "Cambiar estado",
       "ok": "Guardar",
-      "volver": "Volver",
+      "volver": "Cancelar",
       "cambioEstadoCombo": "Seleccione el nuevo estado",
       "statePersist": "Estado cambiando exitosamente",
       "stateError": "Ocurrió un error al actualizar el estado"

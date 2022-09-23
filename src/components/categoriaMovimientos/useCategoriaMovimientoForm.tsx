@@ -207,7 +207,7 @@ export const useCategoriaMovimientoForm = ({
         {categoria && (
           <Grid xs={6} item>
             <Button
-              color="inherit"
+              variant="outlined"
               startIcon={<EditOutlinedIcon />}
               onClick={() => setDisabled(false)}
             >

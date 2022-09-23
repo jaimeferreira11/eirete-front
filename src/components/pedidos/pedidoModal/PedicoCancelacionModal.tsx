@@ -17,6 +17,8 @@ import { KeyedMutator } from 'swr';
 
 import { IPedidoResponse, ListPaginatedResponse } from '@core/interfaces';
 import { usePedidosProvider, useUtilsProvider } from '@lib/hooks';
+import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 
 interface Props {
   show: boolean;
@@ -139,13 +141,16 @@ export const PedicoCancelacionModal: FC<Props> = ({
         </DialogContent>
         <DialogActions>
           <Button color="error" onClick={close}>
+            <CloseOutlinedIcon sx={{ fontSize: 20, marginRight: '5px' }} />
             <Typography>{t('cancelar')}</Typography>
           </Button>
 
           <Button
+            color="success"
             onClick={handleFirstConfirmationCancelacion}
             disabled={motivo.length === 0 || !pedidoId}
           >
+            <CheckOutlinedIcon sx={{ fontSize: 20, marginRight: '5px' }} />
             <Typography>{t('confirmar')}</Typography>
           </Button>
         </DialogActions>

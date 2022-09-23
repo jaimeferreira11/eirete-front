@@ -16,6 +16,8 @@ import { ICategoriaMovimiento } from '@core/interfaces';
 
 import { useCategoriaMovimientosProvider, useUtilsProvider } from '@lib/hooks';
 import { INewCategoriaMovimiento } from '@lib/interfaces/NewCategoriaMovimiento';
+import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { useCategoriaMovimientoForm } from './useCategoriaMovimientoForm';
 
 interface Props {
@@ -87,10 +89,18 @@ export const CategoriaMovimientoDialog: FC<Props> = ({
         <DialogTitle>{title}</DialogTitle>
         <DialogContent style={{ maxHeight: '450px' }}>{form}</DialogContent>
         <DialogActions>
-          <Button onClick={handleCancelButton} disabled={isSaving}>
+          <Button
+            color="error"
+            onClick={handleCancelButton}
+            disabled={isSaving}
+          >
+            <CloseOutlinedIcon sx={{ fontSize: 20, marginRight: '5px' }} />
             <Typography>{t('form.cancel')}</Typography>
           </Button>
-          <Button type="submit" disabled={isSaving}>
+          <Button type="submit" color="success" disabled={isSaving}>
+            {!isSaving && (
+              <CheckOutlinedIcon sx={{ fontSize: 20, marginRight: '5px' }} />
+            )}
             {isSaving ? (
               <CircularProgress size="25px" color="info" />
             ) : (
