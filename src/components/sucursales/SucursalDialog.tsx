@@ -16,6 +16,8 @@ import { ISucursal } from '@core/interfaces';
 
 import { useSucuralesProvider, useUtilsProvider } from '@lib/hooks';
 import { INewSucursal } from '@lib/interfaces';
+import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { useSucursalForm } from './useSucursalForm';
 
 interface Props {
@@ -87,13 +89,16 @@ export const SucursalDialog: FC<Props> = ({
         <DialogActions>
           <Button
             color="error"
-            variant={'outlined'}
             onClick={handleCancelButton}
             disabled={isSaving}
           >
+            <CloseOutlinedIcon sx={{ fontSize: 20, marginRight: '5px' }} />
             <Typography>{t('form.cancel')}</Typography>
           </Button>
-          <Button type="submit" disabled={isSaving}>
+          <Button type="submit" color="success" disabled={isSaving}>
+            {!isSaving && (
+              <CheckOutlinedIcon sx={{ fontSize: 20, marginRight: '5px' }} />
+            )}
             {isSaving ? (
               <CircularProgress size="25px" color="info" />
             ) : (

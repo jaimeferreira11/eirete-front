@@ -285,7 +285,7 @@ export const PedidoDireccionModal: FC<Props> = ({ show, handleClose }) => {
             <Grid xs={6} item>
               {selectedDireccion && (
                 <Button
-                  color="inherit"
+                  variant="outlined"
                   startIcon={<EditOutlinedIcon />}
                   onClick={() => setEditMode(true)}
                 >
