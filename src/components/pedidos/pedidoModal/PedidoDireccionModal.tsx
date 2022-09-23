@@ -40,12 +40,13 @@ export const PedidoDireccionModal: FC<Props> = ({ show, handleClose }) => {
     updateClienteDirecciones,
     updateClienteDireccionEnvio,
   } = usePedidosProvider();
+
   const { ciudades } = useCiudades();
   const [editMode, setEditMode] = useState(false);
 
   const [selectedDireccion, setSelectedDireccion] = useState<
     Direccion | null | undefined
-  >(direccionDelivery);
+  >(null);
   const [isFetching, setIsFetching] = useState(false);
   const [ciudadAux, setCiudadAux] = useState<ICiudad | null | undefined>(null);
 
@@ -80,6 +81,9 @@ export const PedidoDireccionModal: FC<Props> = ({ show, handleClose }) => {
         predeterminado: selectedDireccion.predeterminado,
         obs: selectedDireccion.obs,
       });
+    } else if (direccionDelivery) {
+      setEditMode(false);
+      setSelectedDireccion(direccionDelivery);
     } else {
       setEditMode(true);
       reset({
@@ -90,7 +94,7 @@ export const PedidoDireccionModal: FC<Props> = ({ show, handleClose }) => {
       });
       setCiudadAux(null);
     }
-  }, [ciudades, reset, selectedDireccion]);
+  }, [ciudades, direccionDelivery, reset, selectedDireccion]);
 
   const { direccionesCliente } = usePedidosProvider();
 
@@ -159,6 +163,7 @@ export const PedidoDireccionModal: FC<Props> = ({ show, handleClose }) => {
                     label={tForm('direccionesRegistradas')}
                   />
                 )}
+                value={selectedDireccion}
                 onChange={(event: any, newValue: Direccion | null) => {
                   setSelectedDireccion(newValue);
                   if (newValue) updateClienteDireccionEnvio(newValue);
