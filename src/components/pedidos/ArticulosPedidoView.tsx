@@ -32,7 +32,7 @@ export const ArticulosPedidoView = () => {
       width="100%"
       sx={{ pl: 2, pr: 2, height: '90%' }}
     >
-      <Box flex="10%">
+      <Box>
         <Typography variant="h5" component={'div'}>
           {t('title')}
         </Typography>
@@ -53,7 +53,10 @@ export const ArticulosPedidoView = () => {
       {!newPedido.sucursal?._id ? (
         <CircularProgress />
       ) : (
-        <ArticulosAccordionList sucursalId={newPedido.sucursal._id} />
+        <ArticulosAccordionList
+          sucursalId={newPedido.sucursal._id}
+          searchQuery={searchQuery}
+        />
       )}
     </Box>
   );
