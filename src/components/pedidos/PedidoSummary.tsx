@@ -270,7 +270,7 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
                 descripcion: 'EFECTIVO',
               })
             }
-            value={getMontoMetodoPago('EFECTIVO') || ''}
+            value={formatCurrency(getMontoMetodoPago('EFECTIVO')) || ''}
           />
         </FormControl>
         <FormControl fullWidth>
@@ -310,7 +310,7 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
                 descripcion: 'TARJETA',
               })
             }
-            value={getMontoMetodoPago('TARJETA') || ''}
+            value={formatCurrency(getMontoMetodoPago('TARJETA')) || ''}
           />
         </FormControl>
         <FormControl fullWidth>
@@ -350,7 +350,7 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
                 descripcion: 'CHEQUE',
               })
             }
-            value={getMontoMetodoPago('CHEQUE') || ''}
+            value={formatCurrency(getMontoMetodoPago('CHEQUE')) || ''}
           />
         </FormControl>
       </Box>
