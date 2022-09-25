@@ -31,6 +31,8 @@ import {
   useUtilsProvider,
 } from '@lib/hooks';
 import { INewUser } from '@lib/interfaces';
+import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 
 interface Props {
   children?: React.ReactNode;
@@ -379,10 +381,19 @@ export const UsuarioForm: FC<Props> = ({
           </Grid>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="error" variant="outlined">
+          <Button onClick={handleClose} color="error">
+            <CloseOutlinedIcon sx={{ fontSize: 20, marginRight: '5px' }} />
             <Typography>{t('form.cancel')}</Typography>
           </Button>
-          <Button type="submit" disabled={isSaving || !isUniqueUsername}>
+          <Button
+            color="success"
+            type="submit"
+            disabled={isSaving || !isUniqueUsername}
+          >
+            {!isSaving && (
+              <CheckOutlinedIcon sx={{ fontSize: 20, marginRight: '5px' }} />
+            )}
+
             {isSaving ? (
               <CircularProgress size="25px" color="info" />
             ) : (

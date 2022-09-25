@@ -293,7 +293,7 @@ export const useSucursalForm = ({ sucursal = undefined }: Props) => {
         {sucursal && (
           <Grid xs={6} item>
             <Button
-              color="inherit"
+              variant="outlined"
               startIcon={<EditOutlinedIcon />}
               onClick={() => setDisabled(false)}
             >

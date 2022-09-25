@@ -1,5 +1,5 @@
 import eireteApi from '@core/api';
-import { IArqueo, ListPaginatedResponse } from '@core/interfaces';
+import { IArqueo, ICierreCaja, ListPaginatedResponse } from '@core/interfaces';
 import { useCallback } from 'react';
 
 export const useArqueoService = () => {
@@ -22,5 +22,9 @@ export const useArqueoService = () => {
     []
   );
 
-  return { getArqueosRangoFecha };
+  const saveArqueo = useCallback(async (arqueo: ICierreCaja) => {
+    await eireteApi.post(`/arqueos`, arqueo);
+  }, []);
+
+  return { getArqueosRangoFecha, saveArqueo };
 };

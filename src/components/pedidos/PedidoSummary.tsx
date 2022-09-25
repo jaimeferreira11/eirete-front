@@ -1,5 +1,7 @@
 import { ChangeEvent, FC, KeyboardEvent, useState } from 'react';
 
+import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import {
   Box,
   Button,
@@ -33,6 +35,7 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
   const [submiting, setSubmiting] = useState(false);
   const [searchingRuc, setSearchingRuc] = useState(false);
   const [rucError, setRucError] = useState<string | undefined>('');
+  const [rucWarning, setRucWarning] = useState('');
   const {
     newPedido,
     setTipoPedido,
@@ -80,10 +83,16 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
     if (e.key === 'Enter') {
       setRucError('');
       setSearchingRuc(true);
-      const res = await searchCliente(rucValue);
+      const { errorMessage = '', ruc } = await searchCliente(rucValue);
+      if (errorMessage?.includes('no existe')) {
+        setRucError('');
+        setRucWarning(t('rucWarning'));
+      } else if (errorMessage?.includes('al menos')) {
+        setRucWarning('');
+        setRucError(errorMessage);
+      }
       setSearchingRuc(false);
-      setRucError(res.errorMessage || '');
-      if (res.ruc) setRucValue(res.ruc);
+      if (ruc) setRucValue(ruc);
     }
   };
 
@@ -186,7 +195,7 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
               ) : null,
             }}
             error={!!rucError}
-            helperText={rucError}
+            helperText={rucWarning || rucError}
           />
         </Grid>
         {tipoPedido === 'DELIVERY' && newPedido.cliente && (
@@ -225,7 +234,6 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
             InputProps={{}}
             label={t('razonSocial')}
             value={newPedido.cliente?.persona.nombreApellido || ''}
-            disabled={newPedido.cliente?.persona.nombreApellido !== undefined}
             onChange={onChangeRazonSocial}
           />
         </Grid>
@@ -244,7 +252,22 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
             size="small"
             id="efectivo-adornment"
             startAdornment={
-              <InputAdornment position="start">GS.</InputAdornment>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignContent: 'center',
+                  textAlign: 'center',
+                  backgroundColor: '#F3F3F3',
+                  height: 38,
+                  width: 38,
+                  marginLeft: -13,
+                  marginRight: 5,
+                }}
+              >
+                <InputAdornment position="start">&nbsp; GS.</InputAdornment>
+              </div>
             }
             label={t('cantidad')}
             onChange={(e) =>
@@ -253,7 +276,7 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
                 descripcion: 'EFECTIVO',
               })
             }
-            value={getMontoMetodoPago('EFECTIVO') || ''}
+            value={formatCurrency(getMontoMetodoPago('EFECTIVO')) || ''}
           />
         </FormControl>
         <FormControl fullWidth>
@@ -269,7 +292,22 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
             size="small"
             id="tarjeta-adornment"
             startAdornment={
-              <InputAdornment position="start">GS.</InputAdornment>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignContent: 'center',
+                  textAlign: 'center',
+                  backgroundColor: '#F3F3F3',
+                  height: 38,
+                  width: 38,
+                  marginLeft: -13,
+                  marginRight: 5,
+                }}
+              >
+                <InputAdornment position="start">&nbsp; GS.</InputAdornment>
+              </div>
             }
             label={t('cantidad')}
             onChange={(e) =>
@@ -278,7 +316,7 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
                 descripcion: 'TARJETA',
               })
             }
-            value={getMontoMetodoPago('TARJETA') || ''}
+            value={formatCurrency(getMontoMetodoPago('TARJETA')) || ''}
           />
         </FormControl>
         <FormControl fullWidth>
@@ -294,7 +332,22 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
             id="cheque-adornment-amount"
             size="small"
             startAdornment={
-              <InputAdornment position="start">GS.</InputAdornment>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignContent: 'center',
+                  textAlign: 'center',
+                  backgroundColor: '#F3F3F3',
+                  height: 38,
+                  width: 38,
+                  marginLeft: -13,
+                  marginRight: 5,
+                }}
+              >
+                <InputAdornment position="start">&nbsp; GS.</InputAdornment>
+              </div>
             }
             label={t('cantidad')}
             onChange={(e) =>
@@ -303,7 +356,7 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
                 descripcion: 'CHEQUE',
               })
             }
-            value={getMontoMetodoPago('CHEQUE') || ''}
+            value={formatCurrency(getMontoMetodoPago('CHEQUE')) || ''}
           />
         </FormControl>
       </Box>
@@ -351,6 +404,7 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
         }}
       >
         <Button color="error" fullWidth onClick={() => resetPedido()}>
+          <CloseOutlinedIcon sx={{ fontSize: 20, marginRight: '5px' }} />
           {t('cancelar')}
         </Button>
         <Button
@@ -360,6 +414,9 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
           sx={{ color: '#fff' }}
           onClick={handleSubmit}
         >
+          {!submiting && (
+            <CheckOutlinedIcon sx={{ fontSize: 20, marginRight: '5px' }} />
+          )}
           {!submiting ? t('confirmar') : <CircularProgress size="25px" />}
         </Button>
       </Box>

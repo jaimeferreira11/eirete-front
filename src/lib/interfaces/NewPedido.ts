@@ -16,11 +16,12 @@ export interface INewPedido {
 }
 
 export interface Cliente {
-  _id: string;
+  _id?: string;
   persona: Persona;
 }
 
 export interface Persona {
+  _id?: string;
   nroDoc: string;
   ruc?: string;
   nombreApellido?: string;

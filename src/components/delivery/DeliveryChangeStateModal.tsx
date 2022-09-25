@@ -16,6 +16,8 @@ import {
 
 import { DeliveryEstado } from '@core/interfaces';
 import { usePedidosProvider, useUtilsProvider } from '@lib/hooks';
+import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 
 interface Props {
   show: boolean;
@@ -91,7 +93,7 @@ export const DeliveryChangeStateModal: FC<Props> = ({
         },
       }}
       fullWidth
-      maxWidth="md"
+      maxWidth="sm"
       open={show}
       onClose={handleClose}
     >
@@ -115,16 +117,21 @@ export const DeliveryChangeStateModal: FC<Props> = ({
       <DialogActions>
         <Button
           onClick={() => handleClose(false)}
-          variant="outlined"
-          sx={{ color: '#000' }}
+          color="error"
           disabled={isSaving}
         >
+          <CloseOutlinedIcon sx={{ fontSize: 20, marginRight: '5px' }} />
           <Typography>{t('volver')}</Typography>
         </Button>
         <Button
+          color="success"
           onClick={handleEstadoChange}
           disabled={valueEstadoChange === 'ignore' || isSaving}
         >
+          {!isSaving && (
+            <CheckOutlinedIcon sx={{ fontSize: 20, marginRight: '5px' }} />
+          )}
+
           {isSaving ? (
             <CircularProgress size="25px" color="info" />
           ) : (

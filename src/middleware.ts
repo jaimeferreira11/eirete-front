@@ -34,6 +34,7 @@ export const config = {
     '/users',
     '/familia-articulos',
     '/linea-articulos',
+    '/cierre-caja',
     '/articulos',
     '/pedidos',
   ],

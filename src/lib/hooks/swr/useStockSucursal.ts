@@ -4,7 +4,7 @@ import { ILineaArticulo, IStockArticuloSucursal } from '@core/interfaces';
 import { ILineasStockArticulosSearch } from '@lib/interfaces/LineasStockArticulosSearch';
 import { IArticuloSucursal } from '../../../core/interfaces/articuloSucursal';
 
-export const useStockPorSucursal = (sucursalId: string) => {
+export const useStockPorSucursal = (sucursalId?: string) => {
   const { data, error, mutate } = useSWR<IArticuloSucursal[]>(
     `/stock/sucursal/${sucursalId}`
   );
@@ -63,3 +63,5 @@ export const useArticulosStockPorLineaSearch = (
     mutate,
   };
 };
+
+// api/stock/sucursal/{sucursalId}

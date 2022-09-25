@@ -173,7 +173,7 @@ export const PedidoModalSummary: FC<Props> = ({
               <InputAdornment position="start">GS.</InputAdornment>
             }
             label={t('cantidad')}
-            value={montoEfectivo}
+            value={formatCurrency(montoEfectivo)}
           />
         </FormControl>
         <FormControl fullWidth>
@@ -192,7 +192,7 @@ export const PedidoModalSummary: FC<Props> = ({
               <InputAdornment position="start">GS.</InputAdornment>
             }
             label={t('cantidad')}
-            value={montoTarjeta}
+            value={formatCurrency(montoTarjeta)}
           />
         </FormControl>
         <FormControl fullWidth>
@@ -211,7 +211,7 @@ export const PedidoModalSummary: FC<Props> = ({
               <InputAdornment position="start">GS.</InputAdornment>
             }
             label={t('cantidad')}
-            value={montoCheque}
+            value={formatCurrency(montoCheque)}
           />
         </FormControl>
       </Box>
