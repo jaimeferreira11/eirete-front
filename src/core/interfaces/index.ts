@@ -8,6 +8,7 @@ export * from './ciudad';
 export * from './cliente';
 export * from './delivery';
 export * from './endpointResult';
+export * from './estadisticas';
 export * from './familiaArticulo';
 export * from './lineaArticulo';
 export * from './ListPaginationOptions';

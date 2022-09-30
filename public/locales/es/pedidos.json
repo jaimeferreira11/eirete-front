@@ -66,7 +66,8 @@
     "actions": "Acciones",
     "actionsDescription": "Acciones aplicables",
     "noRowsLabel": "Sin pedidos que mostrar",
-    "estado": "Estado"
+    "estado": "Estado",
+    "labelRowsPerPage": "Nro. pedidos por página"
   },
   "newPedido": "Nuevo Pedido",
   "editPedido": "Editar Pedido",

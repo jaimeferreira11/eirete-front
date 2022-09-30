@@ -212,8 +212,6 @@ export const PedidosProvider: FC<Props> = ({ children }) => {
             )) *
           cantidad;
 
-      console.log('state.newPedido.importeTotal', state.newPedido.importeTotal);
-      console.log('addAmount', addAmount);
       stockDisponible = p.stockDisponible;
       impuestoAmount += exentoIva
         ? 0

@@ -7,7 +7,6 @@ const eireteApi = axios.create({
 eireteApi.interceptors.response.use(
   (res) => res,
   (err) => {
-    console.log(err);
     if (err.response.data.errors && Array.isArray(err.response.data.errors))
       throw new AxiosError(
         err.response.data.errors
