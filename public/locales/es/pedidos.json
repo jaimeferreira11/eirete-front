@@ -32,7 +32,8 @@
     "setDirEnvio": "Especifique una dirección de envío",
     "editDirEnvio": "Click para editar",
     "obs": "Observación",
-    "rucWarning": "El usuario no existe y será creado al completar el pedido"
+    "rucWarning": "El usuario no existe y será creado al completar el pedido",
+    "pdf": "Exportar a pdf"
   },
   "direccionPedido": {
     "titleModal": "Dirección de entrega pedido",
@@ -67,7 +68,8 @@
     "actionsDescription": "Acciones aplicables",
     "noRowsLabel": "Sin pedidos que mostrar",
     "estado": "Estado",
-    "labelRowsPerPage": "Nro. pedidos por página"
+    "labelRowsPerPage": "Nro. pedidos por página",
+    "pdf": "Exportar a pdf"
   },
   "newPedido": "Nuevo Pedido",
   "editPedido": "Editar Pedido",

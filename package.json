@@ -24,6 +24,8 @@
     "axios": "^0.27.2",
     "dayjs": "^1.11.5",
     "debounce": "^1.2.1",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.1",
     "next": "^12.2.5",
     "next-auth": "^4.10.0",
     "next-i18next": "^11.2.1",

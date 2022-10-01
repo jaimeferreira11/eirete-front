@@ -8,12 +8,16 @@ import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
 import { IFamiliaArticulo } from '../core/interfaces/familiaArticulo';
 
+import html2canvas from 'html2canvas';
+import { jsPDF } from 'jspdf';
+
 import {
   ICaja,
   ICategoriaMovimiento,
   ILineaArticulo,
   IMovimiento,
 } from '@core/interfaces';
+import { MutableRefObject } from 'react';
 import { ISucursal } from '../core/interfaces/sucursal';
 import { formateDate } from './formats';
 
@@ -102,4 +106,19 @@ export const clearNumberFormat = (value: number): number => {
   if (!value) return 0;
   const num = value.toString().replace(/\D/g, '');
   return num ? Number(num) : 0;
+};
+
+export const handleDownloadPdf = async (printRef: MutableRefObject<any>) => {
+  console.log('printRef', printRef);
+  const element = printRef.current;
+  const canvas = await html2canvas(element);
+  const data = canvas.toDataURL('image/png');
+
+  const pdf = new jsPDF();
+  const imgProperties = pdf.getImageProperties(data);
+  const pdfWidth = pdf.internal.pageSize.getWidth();
+  const pdfHeight = (imgProperties.height * pdfWidth) / imgProperties.width;
+
+  pdf.addImage(data, 'PNG', 0, 0, pdfWidth, pdfHeight);
+  pdf.save('print.pdf');
 };

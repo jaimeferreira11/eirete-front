@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { FC, useMemo, useRef } from 'react';
 
 import { useTranslation } from 'next-i18next';
 
@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 
 import { IPedidoResponse } from '@core/interfaces';
+import { handleDownloadPdf } from 'src/utils';
 import { TipoPedido } from '../../../core/interfaces/TipoPedidos';
 import { PedidoModalSummary } from './PedidoModalSummary';
 import { getImpuestos, getMontosDetalle } from './utils';
@@ -24,6 +25,7 @@ interface Props {
 }
 
 export const PedidoDetalleModal: FC<Props> = ({ show, handleClose, item }) => {
+  const printRef = useRef();
   const { impuesto10, impuesto5 } = useMemo(
     () => getImpuestos(item?.detalles || []),
     [item?.detalles]
@@ -52,7 +54,7 @@ export const PedidoDetalleModal: FC<Props> = ({ show, handleClose, item }) => {
       onClose={handleClose}
     >
       <DialogTitle>{t('title')}</DialogTitle>
-      <DialogContent style={{ maxHeight: '80vh' }}>
+      <DialogContent style={{ maxHeight: '80vh' }} ref={printRef}>
         <PedidoModalSummary
           items={item?.detalles || []}
           nroPedido={item?.nro || 0}
@@ -77,6 +79,9 @@ export const PedidoDetalleModal: FC<Props> = ({ show, handleClose, item }) => {
         />
       </DialogContent>
       <DialogActions>
+        <Button onClick={() => handleDownloadPdf(printRef)}>
+          <Typography>{t('pdf')}</Typography>
+        </Button>
         <Button onClick={handleClose}>
           <Typography>{t('ok')}</Typography>
         </Button>
