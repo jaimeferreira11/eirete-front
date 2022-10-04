@@ -25,12 +25,18 @@ export const DataGridEirete: FC<Props> = ({ config, showActive = true }) => {
     handleSearch,
     optionsDropDown,
     showSearchBar = true,
+    zeroHeight = false,
   } = config;
 
   return (
     <>
-      <Box sx={{ height: { xs: '60vh', sm: '75vh' }, width: '100%' }}>
-        {showSearchBar && (
+      <Box
+        sx={{
+          height: !zeroHeight ? { xs: '60vh', sm: '75vh' } : 'auto',
+          width: '100%',
+        }}
+      >
+        {showSearchBar && handleSearch && (
           <FilterBox
             searchHandler={handleSearch}
             isLoading={isLoading}

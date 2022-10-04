@@ -159,7 +159,6 @@ export const CierreCajaDetalle = () => {
           if (currentValue)
             newTotal += Number(currentValue) * helperCurrency[index];
         });
-        console.log('newTotal', newTotal);
         setTotalImporte(newTotal);
       }
     });

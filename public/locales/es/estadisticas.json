@@ -1,0 +1,39 @@
+{
+  "title": "Estadísticas",
+  "montoTotalEfectivo": "Monto total efectivo",
+  "montoTotalDeposito": "Monto total depósito",
+  "montoPromedioEfectivo": "Monto promedio efectivo",
+  "montoPromedioDeposito": "Monto promedio depósito",
+  "montoPromedioVuelto": "Monto promedio de vuelto",
+  "cantPedidos": "Cantidad de pedidos",
+  "montoTotalVendido": "Monto total vendido",
+  "cantidadArticulos": "Cantidad de artículos",
+  "ventaPromedio": "Venta promedio",
+  "errorEstadisticas": "Ocurrió un error al cargar las estadísticas",
+  "sucursal": "Sucursal",
+  "filterFecha": {
+    "title": "Seleccionar fecha",
+    "today": "Hoy",
+    "week": "Semana",
+    "month": "Mes",
+    "year": "Año",
+    "cancelar": "Canceler",
+    "aceptar": "Acepter"
+  },
+  "pedidos": {
+    "nroOrden": "Nro. Orden",
+    "hora": "Hora",
+    "fecha": "Fecha",
+    "cliente": "Cliente",
+    "tipo": "Tipo",
+    "total": "Total",
+    "pedido": "Pedido",
+    "verDetalles": "Ver detalles",
+    "cancelar": "Cancelar",
+    "actions": "Acciones",
+    "actionsDescription": "Acciones aplicables",
+    "noRowsLabel": "Sin pedidos que mostrar",
+    "estado": "Estado",
+    "labelRowsPerPage": "Nro. pedidos por página"
+  }
+}

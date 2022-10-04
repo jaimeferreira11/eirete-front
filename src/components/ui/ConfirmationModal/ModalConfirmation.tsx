@@ -122,13 +122,12 @@ const ModalConfirmation: FC<Props> = ({
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button variant="contained" onClick={onCancel} sx={{ py: 1, px: 2 }}>
+        <Button color="error" onClick={onCancel} sx={{ py: 1, px: 2 }}>
           {t('cancel')}
         </Button>
         <Button
-          variant="outlined"
-          color="primary"
-          sx={{ color: '#000', py: 1, px: 2 }}
+          color="success"
+          sx={{ py: 1, px: 2 }}
           onClick={onAccept}
           autoFocus
         >

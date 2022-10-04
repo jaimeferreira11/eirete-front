@@ -4,6 +4,7 @@ export * from './useCajas';
 export * from './useCategoriaMovimientos';
 export * from './useCiudades';
 export * from './useClientes';
+export * from './useEstadisticas';
 export * from './useFamilias';
 export * from './useLineas';
 export * from './useMovimientos';
