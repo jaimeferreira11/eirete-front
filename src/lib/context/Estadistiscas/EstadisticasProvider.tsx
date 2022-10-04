@@ -14,7 +14,7 @@ export interface EstadisticasState {
 }
 
 const ESTADISTISCAS_INITIAL_STATE: EstadisticasState = {
-  fechaDesdeFilter: dayjs().format('YYYY-MM-DD'),
+  fechaDesdeFilter: dayjs().subtract(30, 'days').format('YYYY-MM-DD'),
   fechaHastaFilter: dayjs().format('YYYY-MM-DD'),
   pedidosList: {
     total: 0,

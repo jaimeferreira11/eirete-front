@@ -46,13 +46,12 @@ export const EstadisticasView = () => {
                 <Grid item xs={6}>
                   <Box display="flex" flexDirection="column" gap={2}>
                     <Typography>
-                      <b>{t('cantPedidos')}</b>{' '}
-                      {formatCurrency(estadisticas?.cantPedidos || 0)}
+                      <b>{t('cantPedidos')}</b> {estadisticas?.cantPedidos || 0}
                     </Typography>
 
                     <Typography>
                       <b>{t('cantidadArticulos')}</b>{' '}
-                      {formatCurrency(estadisticas.cantArticulos || 0)}
+                      {estadisticas.cantArticulos || 0}
                     </Typography>
 
                     <Typography>
