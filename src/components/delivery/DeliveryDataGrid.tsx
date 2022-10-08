@@ -40,8 +40,7 @@ export const DeliveryDataGrid = () => {
 
   const [pedidosData, setPedidosData] = useState<IPedidoResponse[]>([]);
   const [search, setSearch] = useState({ search: '', active: 'true' });
-  const [estadoDelivery, setEstadoDelivery] =
-    useState<DeliveryEstado>('EN_ESPERA');
+  const [estadoDelivery, setEstadoDelivery] = useState<DeliveryEstado>('TODOS');
 
   const [showModal, setShowModal] = useState<{
     show: boolean;
@@ -221,7 +220,10 @@ export const DeliveryDataGrid = () => {
               optionsDropDown: {
                 initialValue: estadoDelivery,
                 label: tTable('estado'),
-                options: DeliveryEstadoArray,
+                options: [
+                  { value: 'TODOS', description: 'TODOS' },
+                  ...DeliveryEstadoArray,
+                ],
               },
             }}
             showActive={false}
