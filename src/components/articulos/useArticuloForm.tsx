@@ -226,6 +226,8 @@ export const useArticuloForm = ({ articulo = undefined }: Props) => {
                 customInput={TextField}
                 thousandSeparator={'.'}
                 decimalSeparator={','}
+                allowNegative={false}
+                decimalScale={0}
               />
             )}
           />

@@ -15,7 +15,7 @@ import { useTranslation } from 'next-i18next';
 import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import NumberFormat from 'react-number-format';
-import { formatCurrency } from 'src/utils';
+import { clearNumberFormat, formatCurrency } from 'src/utils';
 
 interface IFormCierre {
   moneda50: number;
@@ -157,7 +157,8 @@ export const CierreCajaDetalle = () => {
         let newTotal = 0;
         multipleValues.forEach((currentValue, index) => {
           if (currentValue)
-            newTotal += Number(currentValue) * helperCurrency[index];
+            newTotal +=
+              Number(clearNumberFormat(currentValue)) * helperCurrency[index];
         });
         setTotalImporte(newTotal);
       }
@@ -182,7 +183,10 @@ export const CierreCajaDetalle = () => {
                 rules={{ required: t('required') }}
                 render={({ field: { onChange, value, ...field } }) => (
                   <NumberFormat
-                    thousandSeparator
+                    thousandSeparator={'.'}
+                    decimalSeparator={','}
+                    allowNegative={false}
+                    decimalScale={0}
                     disabled={isSaving}
                     label={t('moneda50')}
                     fullWidth
@@ -204,7 +208,10 @@ export const CierreCajaDetalle = () => {
                 rules={{ required: t('required') }}
                 render={({ field }) => (
                   <NumberFormat
-                    thousandSeparator
+                    thousandSeparator={'.'}
+                    decimalSeparator={','}
+                    allowNegative={false}
+                    decimalScale={0}
                     disabled={isSaving}
                     label={t('moneda100')}
                     fullWidth
@@ -223,7 +230,10 @@ export const CierreCajaDetalle = () => {
                 rules={{ required: t('required') }}
                 render={({ field }) => (
                   <NumberFormat
-                    thousandSeparator
+                    thousandSeparator={'.'}
+                    decimalSeparator={','}
+                    allowNegative={false}
+                    decimalScale={0}
                     disabled={isSaving}
                     label={t('moneda500')}
                     fullWidth
@@ -242,7 +252,10 @@ export const CierreCajaDetalle = () => {
                 rules={{ required: t('required') }}
                 render={({ field }) => (
                   <NumberFormat
-                    thousandSeparator
+                    thousandSeparator={'.'}
+                    decimalSeparator={','}
+                    allowNegative={false}
+                    decimalScale={0}
                     disabled={isSaving}
                     label={t('moneda1000')}
                     fullWidth
@@ -267,7 +280,10 @@ export const CierreCajaDetalle = () => {
                 rules={{ required: t('required') }}
                 render={({ field: { onChange, value, ...field } }) => (
                   <NumberFormat
-                    thousandSeparator
+                    thousandSeparator={'.'}
+                    decimalSeparator={','}
+                    allowNegative={false}
+                    decimalScale={0}
                     disabled={isSaving}
                     label={t('billete2000')}
                     fullWidth
@@ -289,7 +305,10 @@ export const CierreCajaDetalle = () => {
                 rules={{ required: t('required') }}
                 render={({ field }) => (
                   <NumberFormat
-                    thousandSeparator
+                    thousandSeparator={'.'}
+                    decimalSeparator={','}
+                    allowNegative={false}
+                    decimalScale={0}
                     disabled={isSaving}
                     label={t('billete5000')}
                     fullWidth
@@ -308,7 +327,10 @@ export const CierreCajaDetalle = () => {
                 rules={{ required: t('required') }}
                 render={({ field }) => (
                   <NumberFormat
-                    thousandSeparator
+                    thousandSeparator={'.'}
+                    decimalSeparator={','}
+                    allowNegative={false}
+                    decimalScale={0}
                     disabled={isSaving}
                     label={t('billete10000')}
                     fullWidth
@@ -327,7 +349,10 @@ export const CierreCajaDetalle = () => {
                 rules={{ required: t('required') }}
                 render={({ field }) => (
                   <NumberFormat
-                    thousandSeparator
+                    thousandSeparator={'.'}
+                    decimalSeparator={','}
+                    allowNegative={false}
+                    decimalScale={0}
                     disabled={isSaving}
                     label={t('billete20000')}
                     fullWidth
@@ -346,7 +371,10 @@ export const CierreCajaDetalle = () => {
                 rules={{ required: t('required') }}
                 render={({ field }) => (
                   <NumberFormat
-                    thousandSeparator
+                    thousandSeparator={'.'}
+                    decimalSeparator={','}
+                    allowNegative={false}
+                    decimalScale={0}
                     disabled={isSaving}
                     label={t('billete50000')}
                     fullWidth
@@ -365,7 +393,10 @@ export const CierreCajaDetalle = () => {
                 rules={{ required: t('required') }}
                 render={({ field }) => (
                   <NumberFormat
-                    thousandSeparator
+                    thousandSeparator={'.'}
+                    decimalSeparator={','}
+                    allowNegative={false}
+                    decimalScale={0}
                     disabled={isSaving}
                     label={t('billete100000')}
                     fullWidth
@@ -422,7 +453,10 @@ export const CierreCajaDetalle = () => {
                 rules={{ required: t('required') }}
                 render={({ field }) => (
                   <NumberFormat
-                    thousandSeparator
+                    thousandSeparator={'.'}
+                    decimalSeparator={','}
+                    allowNegative={false}
+                    decimalScale={0}
                     disabled={isSaving}
                     label={t('totalDeposito')}
                     fullWidth
