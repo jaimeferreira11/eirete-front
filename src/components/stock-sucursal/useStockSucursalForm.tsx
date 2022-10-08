@@ -152,6 +152,8 @@ export const useStockSucursalForm = ({
                 customInput={TextField}
                 thousandSeparator={'.'}
                 decimalSeparator={','}
+                allowNegative={false}
+                decimalScale={0}
               />
             )}
           />
@@ -175,6 +177,8 @@ export const useStockSucursalForm = ({
                 customInput={TextField}
                 thousandSeparator={'.'}
                 decimalSeparator={','}
+                allowNegative={false}
+                decimalScale={0}
               />
             )}
           />

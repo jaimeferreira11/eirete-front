@@ -2,7 +2,8 @@ export type DeliveryEstado =
   | 'EN_ESPERA'
   | 'EN_CAMINO'
   | 'ENTREGADO'
-  | 'PERDIDO';
+  | 'PERDIDO'
+  | 'TODOS';
 
 export const DeliveryEstadoArray = [
   { value: 'EN_ESPERA', description: 'EN ESPERA' },
@@ -16,4 +17,5 @@ export const DeliveryEstadoColors = {
   EN_CAMINO: 'info',
   ENTREGADO: 'success',
   PERDIDO: 'error',
+  TODOS: 'primary',
 };

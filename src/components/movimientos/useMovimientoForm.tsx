@@ -143,6 +143,8 @@ export const useMovimientoForm = ({ movimiento = undefined, tipo }: Props) => {
                 customInput={TextField}
                 thousandSeparator={'.'}
                 decimalSeparator={','}
+                allowNegative={false}
+                decimalScale={0}
               />
             )}
           />
