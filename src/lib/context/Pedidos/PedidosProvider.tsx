@@ -58,6 +58,14 @@ export const PedidosProvider: FC<Props> = ({ children }) => {
       dispatch({ type: 'SetSucursalID', payload: user?.sucursal! });
   }, [state.newPedido.sucursal, user?.sucursal]);
 
+  useEffect(() => {
+    if (state.newPedido.detalles.length === 0)
+      dispatch({
+        type: 'UpdateMetodosPago',
+        payload: { nuevosMetodosPago: [], nuevoMontoRecibido: 0 },
+      });
+  }, [state.newPedido.detalles.length]);
+
   const searchCliente = async (
     nroDocumento: string
   ): Promise<{ errorMessage?: string; ruc?: string }> => {

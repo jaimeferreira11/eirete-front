@@ -17,10 +17,13 @@ export const PedidoDetalleView = () => {
       justifyContent="space-between"
       sx={{ pl: 2, pr: 2, overflow: 'auto' }}
     >
-      <PedidoDireccionModal
-        handleClose={() => setDireccionModalState(false)}
-        show={direccionModalState}
-      />
+      {direccionModalState && (
+        <PedidoDireccionModal
+          handleClose={() => setDireccionModalState(false)}
+          show={direccionModalState}
+        />
+      )}
+
       <PedidoDetalleList />
       <PedidoSummary handleEditDireccion={() => setDireccionModalState(true)} />
     </Box>

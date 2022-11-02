@@ -20,7 +20,7 @@ import {
 import { TipoPedido, TipoPedidoArray } from '@core/interfaces/TipoPedidos';
 import { usePedidosProvider, useUtilsProvider } from '@lib/hooks';
 import { useTranslation } from 'next-i18next';
-import { formatCurrency } from 'src/utils';
+import { formatNumber } from 'src/utils';
 import { TiposPago } from '../../core/interfaces/MetodoPago';
 
 interface Props {
@@ -147,15 +147,15 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
           </Box>
           <Box display="flex">
             <Typography>
-              <b>Iva 5%:</b> {formatCurrency(exentoIVA ? 0 : getImpuesto5())}
+              <b>Iva 5%:</b> {formatNumber(exentoIVA ? 0 : getImpuesto5())}
             </Typography>
             <Typography sx={{ ml: 2 }}>
-              <b>Iva 10%:</b> {formatCurrency(exentoIVA ? 0 : getImpuesto10())}
+              <b>Iva 10%:</b> {formatNumber(exentoIVA ? 0 : getImpuesto10())}
             </Typography>
           </Box>
         </Box>
         <Typography sx={{ fontSize: 16, fontWeight: 800 }}>
-          {`${t('total')} : ${formatCurrency(importeTotal)}`}
+          {`${t('total')} : ${formatNumber(importeTotal)}`}
         </Typography>
       </Box>
       <Grid container justifyContent="space-between">
@@ -276,7 +276,7 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
                 descripcion: 'EFECTIVO',
               })
             }
-            value={formatCurrency(getMontoMetodoPago('EFECTIVO')) || ''}
+            value={formatNumber(getMontoMetodoPago('EFECTIVO')) || ''}
           />
         </FormControl>
         <FormControl fullWidth>
@@ -316,7 +316,7 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
                 descripcion: 'TARJETA',
               })
             }
-            value={formatCurrency(getMontoMetodoPago('TARJETA')) || ''}
+            value={formatNumber(getMontoMetodoPago('TARJETA')) || ''}
           />
         </FormControl>
         <FormControl fullWidth>
@@ -356,7 +356,7 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
                 descripcion: 'CHEQUE',
               })
             }
-            value={formatCurrency(getMontoMetodoPago('CHEQUE')) || ''}
+            value={formatNumber(getMontoMetodoPago('CHEQUE')) || ''}
           />
         </FormControl>
       </Box>
@@ -382,13 +382,13 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
             textAlign: 'center',
           }}
         >
-          {`${t('total')}: ${formatCurrency(getTotal())}`}
+          {`${t('total')}: ${formatNumber(getTotal())}`}
         </Typography>
 
         <Typography
           sx={{ flex: 1, fontSize: 18, fontWeight: 800, textAlign: 'center' }}
         >
-          {`${t('vuelto')}: ${formatCurrency(getVuelto())}`}
+          {`${t('vuelto')}: ${formatNumber(getVuelto())}`}
         </Typography>
       </Box>
       <Box

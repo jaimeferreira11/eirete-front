@@ -140,7 +140,10 @@ export const PedidoDireccionModal: FC<Props> = ({ show, handleClose }) => {
         fullWidth
         maxWidth="sm"
         open={show}
-        onClose={handleClose}
+        onClose={() => {
+          reset();
+          handleClose();
+        }}
       >
         <DialogTitle>{t('titleModal')}</DialogTitle>
         <DialogContent
