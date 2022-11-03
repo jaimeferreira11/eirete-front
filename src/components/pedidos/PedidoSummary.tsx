@@ -244,7 +244,7 @@ export const PedidoSummary: FC<Props> = ({
             >
               <Button
                 variant="outlined"
-                color={direccionDelivery ? 'primary' : 'error'}
+                color={'primary'}
                 onClick={handleEditDireccion}
               >
                 {direccionDelivery ? t('editDirEnvio') : t('setDirEnvio')}
