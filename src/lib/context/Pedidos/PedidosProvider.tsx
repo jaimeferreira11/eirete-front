@@ -3,8 +3,9 @@ import {
   DeliveryEstado,
   Direccion,
   IArticuloStock,
+  ICliente,
   IEnpointResult,
-  TipoImpuesto,
+  TipoImpuesto
 } from '@core/interfaces';
 import { useClienteService } from '@core/services/ClienteService';
 import { usePedidoService } from '@core/services/PedidoService';
@@ -46,8 +47,11 @@ export const PedidosProvider: FC<Props> = ({ children }) => {
   const { user } = useAuthProvider();
   const { addPedido, changeStatusDelivery } = usePedidoService();
 
-  const { searchClienteByNroDocumento, addDireccionEntrega } =
-    useClienteService();
+  const {
+    searchClienteByNroDocumento,
+    addDireccionEntrega,
+    searchClienteGeneral,
+  } = useClienteService();
 
   const { showSnackbar } = useUtilsProvider();
 
@@ -526,6 +530,31 @@ export const PedidosProvider: FC<Props> = ({ children }) => {
     });
   };
 
+  const searchClienteByKey = (_clave: string): Promise<ICliente[]> => {
+    return searchClienteGeneral(_clave);
+  };
+
+  const setearClienteByModal = (_cliente: ICliente) => {
+    const defaultDireccion = _cliente.direcciones?.find(
+      (direccion) => direccion.predeterminado
+    );
+    dispatch({
+      type: 'SetCliente',
+      payload: {
+        cliente: {
+          _id: _cliente._id,
+          persona: {
+            nroDoc: _cliente.persona.nroDoc,
+            ruc: _cliente.persona.ruc,
+            nombreApellido: _cliente.persona.nombreApellido,
+          },
+        },
+        direcciones: _cliente.direcciones || [],
+        defaultDireccion,
+      },
+    });
+  };
+
   return (
     <PedidosContext.Provider
       value={{
@@ -542,8 +571,10 @@ export const PedidosProvider: FC<Props> = ({ children }) => {
         removeArticuloFromDetalle,
         resetPedido,
         searchCliente,
+        searchClienteByKey,
         setArticuloDetalle,
         setTipoPedido,
+        setearClienteByModal,
         submitPedido,
         toogleExtentoIVA,
         updateCantidad,

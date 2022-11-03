@@ -1,4 +1,24 @@
-import { IPedidoDetalle, MetodosPago, TipoImpuesto } from '@core/interfaces';
+import { IListItemGeneric } from '@components/ui';
+import {
+  ICliente,
+  IPedidoDetalle,
+  MetodosPago,
+  TipoImpuesto,
+} from '@core/interfaces';
+import PersonIcon from '@mui/icons-material/Person';
+
+export const parseClientesAsListaItems = (
+  clientes: ICliente[]
+): IListItemGeneric[] => {
+  return clientes.map(
+    (cliente): IListItemGeneric => ({
+      _id: cliente._id,
+      title: `${cliente.persona?.nombreApellido}`,
+      subtitle: cliente.persona.ruc || '',
+      icon: <PersonIcon />,
+    })
+  );
+};
 
 export const getImpuestos = (detalle: IPedidoDetalle[]) => {
   let impuesto5 = 0;

@@ -4,10 +4,12 @@ import { Box } from '@mui/material';
 
 import { PedidoDetalleList } from './PedidoDetalleList';
 import { PedidoDireccionModal } from './pedidoModal/PedidoDireccionModal';
+import { SearchClienteModal } from './pedidoModal/SearchClienteModal';
 import { PedidoSummary } from './PedidoSummary';
 
 export const PedidoDetalleView = () => {
   const [direccionModalState, setDireccionModalState] = useState(false);
+  const [clienteSearchModal, setClienteSearchModal] = useState(false);
 
   return (
     <Box
@@ -24,8 +26,18 @@ export const PedidoDetalleView = () => {
         />
       )}
 
+      {clienteSearchModal && (
+        <SearchClienteModal
+          handleClose={() => setClienteSearchModal(false)}
+          show={clienteSearchModal}
+        />
+      )}
+
       <PedidoDetalleList />
-      <PedidoSummary handleEditDireccion={() => setDireccionModalState(true)} />
+      <PedidoSummary
+        handleEditDireccion={() => setDireccionModalState(true)}
+        handleSearchCliente={() => setClienteSearchModal(true)}
+      />
     </Box>
   );
 };

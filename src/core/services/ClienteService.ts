@@ -1,4 +1,5 @@
 import eireteApi from '@core/api';
+import { ListPaginatedResponse } from '@core/interfaces';
 import { useCallback } from 'react';
 import { Direccion, ICliente } from '../interfaces/cliente';
 
@@ -28,5 +29,17 @@ export const useClienteService = () => {
     []
   );
 
-  return { addDireccionEntrega, searchClienteByNroDocumento };
+  const searchClienteGeneral = useCallback(async (clave: string) => {
+    const { data: clientes } = await eireteApi.get<
+      ListPaginatedResponse<ICliente>
+    >(`/clientes?estado=true&search=${clave}`);
+
+    return clientes.data;
+  }, []);
+
+  return {
+    addDireccionEntrega,
+    searchClienteByNroDocumento,
+    searchClienteGeneral,
+  };
 };
