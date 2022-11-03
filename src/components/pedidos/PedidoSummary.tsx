@@ -1,7 +1,8 @@
-import { ChangeEvent, FC, KeyboardEvent, useState } from 'react';
+import { ChangeEvent, FC, KeyboardEvent, useEffect, useState } from 'react';
 
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import SearchIcon from '@mui/icons-material/Search';
 import {
   Box,
   Button,
@@ -9,6 +10,7 @@ import {
   CircularProgress,
   FormControl,
   Grid,
+  IconButton,
   InputAdornment,
   InputLabel,
   MenuItem,
@@ -20,15 +22,19 @@ import {
 import { TipoPedido, TipoPedidoArray } from '@core/interfaces/TipoPedidos';
 import { usePedidosProvider, useUtilsProvider } from '@lib/hooks';
 import { useTranslation } from 'next-i18next';
-import { formatCurrency } from 'src/utils';
+import { formatNumber } from 'src/utils';
 import { TiposPago } from '../../core/interfaces/MetodoPago';
 
 interface Props {
   handleEditDireccion: () => void;
+  handleSearchCliente: () => void;
   children?: React.ReactNode;
 }
 
-export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
+export const PedidoSummary: FC<Props> = ({
+  handleEditDireccion,
+  handleSearchCliente,
+}) => {
   const { t } = useTranslation('pedidos', { keyPrefix: 'detallePedido' });
   const { showSnackbar } = useUtilsProvider();
 
@@ -79,9 +85,14 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
     updateRazonSocial(e.target.value);
   };
 
-  const rucSearch = async (e: KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === 'Enter') {
-      setRucError('');
+  useEffect(() => {
+    setRucValue(newPedido.cliente?.persona.nroDoc || '');
+  }, [newPedido.cliente?.persona.nroDoc]);
+
+  const rucSearch = async () => {
+    setRucError('');
+
+    if (rucValue) {
       setSearchingRuc(true);
       const { errorMessage = '', ruc } = await searchCliente(rucValue);
       if (errorMessage?.includes('no existe')) {
@@ -93,6 +104,14 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
       }
       setSearchingRuc(false);
       if (ruc) setRucValue(ruc);
+    } else {
+      handleSearchCliente();
+    }
+  };
+
+  const handleEnterRuc = async (e: KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Enter') {
+      rucSearch();
     }
   };
 
@@ -147,18 +166,18 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
           </Box>
           <Box display="flex">
             <Typography>
-              <b>Iva 5%:</b> {formatCurrency(exentoIVA ? 0 : getImpuesto5())}
+              <b>Iva 5%:</b> {formatNumber(exentoIVA ? 0 : getImpuesto5())}
             </Typography>
             <Typography sx={{ ml: 2 }}>
-              <b>Iva 10%:</b> {formatCurrency(exentoIVA ? 0 : getImpuesto10())}
+              <b>Iva 10%:</b> {formatNumber(exentoIVA ? 0 : getImpuesto10())}
             </Typography>
           </Box>
         </Box>
         <Typography sx={{ fontSize: 16, fontWeight: 800 }}>
-          {`${t('total')} : ${formatCurrency(importeTotal)}`}
+          {`${t('total')} : ${formatNumber(importeTotal)}`}
         </Typography>
       </Box>
-      <Grid container justifyContent="space-between">
+      <Grid container justifyContent="space-between" alignItems="center">
         <Grid container direction="column" item xs={6} sx={{ pr: 1 }}>
           <Grid item>
             <TextField
@@ -179,11 +198,11 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
             </TextField>
           </Grid>
         </Grid>
-        <Grid item xs={6} sx={{ pl: 1 }}>
+        <Grid item xs={5} sx={{ pl: 1 }}>
           <TextField
             fullWidth
             label={t('ruc')}
-            onKeyDown={rucSearch}
+            onKeyDown={handleEnterRuc}
             onChange={onChangeRuc}
             value={rucValue}
             disabled={searchingRuc}
@@ -197,6 +216,11 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
             error={!!rucError}
             helperText={rucWarning || rucError}
           />
+        </Grid>
+        <Grid item xs={1} sx={{ pl: 1 }}>
+          <IconButton onClick={rucSearch}>
+            <SearchIcon sx={{ color: '#F5B223' }} />
+          </IconButton>
         </Grid>
         {tipoPedido === 'DELIVERY' && newPedido.cliente && (
           <Grid container item xs={12} alignItems="center">
@@ -276,7 +300,7 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
                 descripcion: 'EFECTIVO',
               })
             }
-            value={formatCurrency(getMontoMetodoPago('EFECTIVO')) || ''}
+            value={formatNumber(getMontoMetodoPago('EFECTIVO')) || ''}
           />
         </FormControl>
         <FormControl fullWidth>
@@ -316,7 +340,7 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
                 descripcion: 'TARJETA',
               })
             }
-            value={formatCurrency(getMontoMetodoPago('TARJETA')) || ''}
+            value={formatNumber(getMontoMetodoPago('TARJETA')) || ''}
           />
         </FormControl>
         <FormControl fullWidth>
@@ -356,7 +380,7 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
                 descripcion: 'CHEQUE',
               })
             }
-            value={formatCurrency(getMontoMetodoPago('CHEQUE')) || ''}
+            value={formatNumber(getMontoMetodoPago('CHEQUE')) || ''}
           />
         </FormControl>
       </Box>
@@ -382,13 +406,13 @@ export const PedidoSummary: FC<Props> = ({ handleEditDireccion }) => {
             textAlign: 'center',
           }}
         >
-          {`${t('total')}: ${formatCurrency(getTotal())}`}
+          {`${t('total')}: ${formatNumber(getTotal())}`}
         </Typography>
 
         <Typography
           sx={{ flex: 1, fontSize: 18, fontWeight: 800, textAlign: 'center' }}
         >
-          {`${t('vuelto')}: ${formatCurrency(getVuelto())}`}
+          {`${t('vuelto')}: ${formatNumber(getVuelto())}`}
         </Typography>
       </Box>
       <Box
