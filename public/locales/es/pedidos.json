@@ -115,5 +115,15 @@
       "statePersist": "Estado cambiando exitosamente",
       "stateError": "Ocurrió un error al actualizar el estado"
     }
+  },
+  "clienteModal": {
+    "search": "Buscar",
+    "searchKey": "Ingrese nombre o RUC/CI del cliente",
+    "titleModal": "Buscar cliente",
+    "required": "Este campo es requerido",
+    "empty": "No se encontraron clientes",
+    "clientesEncontrados": "Cientes encontrados",
+    "volver": "Volver",
+    "ingreseClave": "Ingrese una clave de búsqueda"
   }
 }

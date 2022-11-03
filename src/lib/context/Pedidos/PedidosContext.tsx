@@ -4,6 +4,7 @@ import {
   DeliveryEstado,
   Direccion,
   IArticuloStock,
+  ICliente,
   IEnpointResult,
   TiposPago,
 } from '@core/interfaces';
@@ -34,6 +35,8 @@ interface ContextProps {
   searchCliente: (
     nroDocumento: string
   ) => Promise<{ errorMessage?: string; ruc?: string }>;
+  searchClienteByKey: (_clave: string) => Promise<ICliente[]>;
+  setearClienteByModal: (_cliente: ICliente) => void;
   setArticuloDetalle: (
     articulo: IArticuloStock,
     stockDisponible: number

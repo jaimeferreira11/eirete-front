@@ -9,6 +9,9 @@ export const formatCurrency = (
   }
 ): string => value.toLocaleString(lang, options);
 
+export const formatNumber = (value: any): string =>
+  new Intl.NumberFormat('es-PY').format(value);
+
 export const formateDate = (value: string) => {
   return dayjs(value).format('YYYY-MM-DD HH:mm');
 };
