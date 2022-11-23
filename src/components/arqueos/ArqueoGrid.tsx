@@ -39,8 +39,16 @@ export const ArqueosGrid = () => {
               indicatorColor="primary"
               aria-label="secondary tabs example"
             >
-              <Tab value="ultimo-arqueo" label={tTabs('ultimoArqueo')} />
-              <Tab value="listado-arqueos" label={tTabs('listadoArqueo')} />
+              <Tab
+                value="ultimo-arqueo"
+                label={tTabs('ultimoArqueo')}
+                className="tab-left"
+              />
+              <Tab
+                value="listado-arqueos"
+                label={tTabs('listadoArqueo')}
+                className="tab-right"
+              />
             </Tabs>
           </Box>
         </Box>

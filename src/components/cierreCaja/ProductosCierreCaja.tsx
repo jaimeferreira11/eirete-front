@@ -43,7 +43,11 @@ export const ProductosCierreCaja = () => {
                   alignItems="center"
                   sx={{ p: 1.5 }}
                 >
-                  <Typography variant="body1" fontWeight={500}>
+                  <Typography
+                    variant="body2"
+                    style={{ width: '100%' }}
+                    fontWeight={500}
+                  >
                     {articulo.articulo.descripcion}
                   </Typography>
                   <Box
