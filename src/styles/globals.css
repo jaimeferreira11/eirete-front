@@ -12,15 +12,6 @@ input[type='number']::-webkit-outer-spin-button {
   margin: 0;
 }
 
-.MuiAccordion-root:before {
-  position: unset;
-}
-
-.MuiTabs-flexContainer {
-  max-height: 7vh;
-  min-height: 6vh;
-}
-
 .tab-left {
   border-radius: 8px 0px 0px 8px;
 }
@@ -29,41 +20,45 @@ input[type='number']::-webkit-outer-spin-button {
   border-radius: 0px 8px 8px 0px;
 }
 
-.MuiListItemIcon-root {
-  min-width: 30px;
+.MuiAccordion-root:before {
+  position: unset !important;
 }
-
-.MuiListItemIcon-root {
-  min-width: 30px;
+.MuiTabs-flexContainer {
+  max-height: 7vh !important;
+  min-height: 6vh !important;
 }
-
+.MuiListItemIcon-root {
+  min-width: 30px !important;
+}
+.MuiListItemIcon-root {
+  min-width: 30px !important;
+}
 .MuiList-root {
-  overflow-x: hidden;
+  overflow-x: hidden !important;
 }
 .MuiTablePagination-root {
-  overflow-x: hidden;
+  overflow-x: hidden !important;
+}
+.MuiGrid-root {
+  margin-bottom: 10px !important;
 }
 
-.MuiGrid-root {
-  margin-bottom: 10px;
-}
+/* Scroll */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
-/* Track */
 ::-webkit-scrollbar-track {
   -webkit-border-radius: 10px;
   border-radius: 10px;
 }
 
-/* Handle */
 ::-webkit-scrollbar-thumb {
   border-radius: 500px;
-
   background: #eaeaea;
   width: 8px;
 }
+
 ::-webkit-scrollbar-thumb:window-inactive {
   background: rgba(234, 234, 234, 0.7);
 }
