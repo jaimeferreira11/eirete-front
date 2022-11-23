@@ -54,7 +54,7 @@ let lightTheme = createTheme({
           fontWeight: 400,
         },
         body1: { fontSize: 14 },
-        body2: { fontSize: 14 },
+        body2: { fontSize: 12 },
         subtitle1: {
           fontSize: 13,
         },
@@ -64,6 +64,7 @@ let lightTheme = createTheme({
     MuiListItemButton: {
       styleOverrides: {
         root: {
+          width: '97% !important',
           margin: '0px 5px',
           borderRadius: '8px',
           '&.Mui-selected': {
@@ -117,12 +118,12 @@ let lightTheme = createTheme({
           borderWidth: '1px 1px 1px 1px',
           borderStyle: 'solid',
           borderColor: '#EAEAEA',
-          borderRadius: '8px 8px 8px 8px',
           marginBottom: '10px',
           minWidth: '11vw',
           maxHeight: '7vh',
           minHeight: '6vh',
           textTransform: 'capitalize',
+          fontWeight: 800,
           '&.Mui-selected': {
             border: `1px solid #F9DC9D`,
             backgroundColor: '#FFF9ED',
@@ -148,7 +149,7 @@ let lightTheme = createTheme({
           padding: '8px 16px',
           textTransform: 'none',
           boxShadow: 'none',
-          borderRadius: 10,
+          borderRadius: 8,
           color: '#FFFFFF',
           ':hover': {
             backgroundColor: '#FEEFC3',
@@ -205,7 +206,7 @@ let lightTheme = createTheme({
       styleOverrides: {
         root: {
           boxShadow: '0px 5px 5px rgba(0,0,0,0.05)',
-          borderRadius: '10px',
+          borderRadius: '8px',
         },
       },
     },

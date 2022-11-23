@@ -27,8 +27,8 @@ export const AppLayout: FC<Props> = ({ children, title, pageDescription }) => {
           gap={3}
           sx={{
             backgroundColor: '#E5E5E5',
-            px: 4,
-            py: 4,
+            px: 2,
+            py: 2,
             height: '100%',
             flexDirection: { xs: 'column', sm: 'row' },
           }}

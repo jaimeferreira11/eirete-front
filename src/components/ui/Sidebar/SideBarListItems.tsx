@@ -187,9 +187,15 @@ export const SideBarListItems: FC<Props> = () => {
                 aria-controls="panel1a-content"
                 id="panel1a-header"
               >
-                <Box display="flex" alignItems="center">
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  sx={{ color: '#757575' }}
+                >
                   {icon}
-                  <Typography sx={{ fontSize: '14px' }}>{t(text)}</Typography>
+                  <Typography sx={{ fontSize: '14px', color: '#1b1b1b' }}>
+                    {t(text)}
+                  </Typography>
                 </Box>
               </AccordionSummary>
               <AccordionDetails>

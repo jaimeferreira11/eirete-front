@@ -45,7 +45,40 @@ export const StockSucursalDataGrid = () => {
   };
 
   return (
-    <>
+    <Box
+      sx={{
+        px: 2,
+      }}
+    >
+      <Grid
+        container
+        justifyContent="center"
+        alignItems="center"
+        paddingTop={2}
+        paddingBottom={1}
+        sx={{
+          borderBottom: '0.1em solid #EAEAEA',
+        }}
+      >
+        <Grid xs={4} item>
+          {sucursales && (
+            <TextField
+              select
+              size="small"
+              label={t('form.sucursal')}
+              defaultValue={sucursalIdSelected}
+              fullWidth
+              onChange={handleChangeSucursal}
+            >
+              {sucursales?.map((sucursal) => (
+                <MenuItem key={sucursal._id} value={sucursal._id}>
+                  {sucursal.descripcion}
+                </MenuItem>
+              ))}
+            </TextField>
+          )}
+        </Grid>
+      </Grid>
       <Box display="flex" height="100%" width="100%" sx={{}}>
         <Box
           flex={1}
@@ -53,34 +86,16 @@ export const StockSucursalDataGrid = () => {
             overflow: 'auto',
             borderRight: '0.1em solid #EAEAEA',
             px: 2,
-            py: 4,
+            py: 2,
           }}
           display="flex"
           flexDirection="column"
         >
           <Grid spacing={2} container sx={{ mb: 0.5 }}>
             <Grid xs={4} item>
-              <Typography variant="h1" component="h1">
+              <Typography variant="h4" component="h4">
                 {t('title')}
               </Typography>
-            </Grid>
-            <Grid xs={8} item>
-              {sucursales && (
-                <TextField
-                  select
-                  size="small"
-                  label={t('form.sucursal')}
-                  defaultValue={sucursalIdSelected}
-                  fullWidth
-                  onChange={handleChangeSucursal}
-                >
-                  {sucursales?.map((sucursal) => (
-                    <MenuItem key={sucursal._id} value={sucursal._id}>
-                      {sucursal.descripcion}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              )}
             </Grid>
           </Grid>
 
@@ -102,8 +117,8 @@ export const StockSucursalDataGrid = () => {
             sucursalId={sucursalIdSelected}
           />
         </Box>
-        <Box flex={1} sx={{ height: '100%', px: 2, py: 4 }}>
-          <Typography variant="h1" component="h2">
+        <Box flex={1} sx={{ height: '100%', px: 2, py: 2 }}>
+          <Typography variant="h4" component="h2">
             {t('details')}
           </Typography>
 
@@ -120,6 +135,6 @@ export const StockSucursalDataGrid = () => {
           </Box>
         </Box>
       </Box>
-    </>
+    </Box>
   );
 };

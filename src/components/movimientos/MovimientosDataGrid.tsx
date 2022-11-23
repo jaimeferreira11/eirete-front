@@ -58,8 +58,8 @@ export const MovimientosDataGrid = () => {
               indicatorColor="primary"
               aria-label="secondary tabs example"
             >
-              <Tab value="ingresos" label="Ingresos" />
-              <Tab value="egresos" label="Gastos" />
+              <Tab value="ingresos" label="Ingresos" className="tab-left" />
+              <Tab value="egresos" label="Gastos" className="tab-right" />
             </Tabs>
           </Box>
 
