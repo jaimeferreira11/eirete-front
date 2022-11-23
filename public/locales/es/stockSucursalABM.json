@@ -4,6 +4,7 @@
   "labelRowsPerPage": "Nro. articulos por página",
   "form": {
     "articulo": "Artículo",
+    "sucursal": "Sucursal",
     "deactive": "Inactivo",
     "actions": "Acciones",
     "actionsDescription": "Acciones aplicables",

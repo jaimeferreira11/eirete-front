@@ -73,7 +73,7 @@ export const ListGeneric: FC<Props> = ({
         <List
           aria-label={title}
           sx={{
-            maxHeight: '55vh',
+            maxHeight: '65vh',
             overflow: 'auto',
           }}
         >

@@ -53,8 +53,8 @@ export const SucursalesDataGrid = () => {
               indicatorColor="primary"
               aria-label="secondary tabs example"
             >
-              <Tab value="activos" label="Activos" />
-              <Tab value="inactivos" label="Inactivos" />
+              <Tab value="activos" label="Activos" className="tab-left" />
+              <Tab value="inactivos" label="Inactivos" className="tab-right" />
             </Tabs>
           </Box>
 
