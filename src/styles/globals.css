@@ -12,11 +12,11 @@ input[type='number']::-webkit-outer-spin-button {
   margin: 0;
 }
 
-.css-1ova6bi-MuiPaper-root-MuiAccordion-root:before {
+.MuiAccordion-root:before {
   position: unset;
 }
 
-.css-1pyy021-MuiTabs-flexContainer {
+.MuiTabs-flexContainer {
   max-height: 7vh;
   min-height: 6vh;
 }
@@ -29,22 +29,22 @@ input[type='number']::-webkit-outer-spin-button {
   border-radius: 0px 8px 8px 0px;
 }
 
-.css-1mlsngt-MuiListItemIcon-root {
+.MuiListItemIcon-root {
   min-width: 30px;
 }
 
-.css-8qvueb-MuiListItemIcon-root {
+.MuiListItemIcon-root {
   min-width: 30px;
 }
 
-.css-1lbcsdz-MuiList-root {
+.MuiList-root {
   overflow-x: hidden;
 }
-.css-13gsxpi-MuiTablePagination-root {
+.MuiTablePagination-root {
   overflow-x: hidden;
 }
 
-.css-1tw2i9j-MuiGrid-root {
+.MuiGrid-root {
   margin-bottom: 10px;
 }
 ::-webkit-scrollbar {
