@@ -65,8 +65,6 @@ export const SearchClienteModal: FC<Props> = ({ handleClose, show }) => {
 
     // if (values.clave) {
     const clientesEncontrados = await searchClienteByKey(values.clave);
-    console.log('clientesEncontrados', clientesEncontrados);
-    console.log('values', values);
     setClientesBusqueda(clientesEncontrados);
     setIsFetching(false);
     // } else {

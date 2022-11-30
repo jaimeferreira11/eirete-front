@@ -1,6 +1,10 @@
 import { createContext } from 'react';
 
-import { IEnpointResult, IStockArticuloSucursal } from '@core/interfaces';
+import {
+  IArticuloMovimiento,
+  IEnpointResult,
+  IStockArticuloSucursal,
+} from '@core/interfaces';
 import { INewArticuloStock } from '@lib/interfaces/NewArticuloStock';
 import { KeyedMutator } from 'swr';
 
@@ -15,6 +19,12 @@ interface ContextProps {
     articuloStockUpdated: INewArticuloStock,
     sucursalId: string
   ) => Promise<IEnpointResult>;
+  rechazarEnvio: (_envio: IArticuloMovimiento) => Promise<IEnpointResult>;
+  recibirEnvio: (
+    _envio: IArticuloMovimiento,
+    _codigo: string
+  ) => Promise<IEnpointResult>;
+  reponerStock: (_id: string) => Promise<IEnpointResult>;
 }
 
 export const StockSucursalContext = createContext({} as ContextProps);

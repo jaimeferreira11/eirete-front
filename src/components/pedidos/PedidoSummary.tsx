@@ -66,8 +66,6 @@ export const PedidoSummary: FC<Props> = ({
     descripcion: TiposPago;
     importe: number;
   }) => {
-    console.log('descripcion', descripcion);
-    console.log('importe', importe);
     updateMetodosPago({ descripcion, importe });
   };
 

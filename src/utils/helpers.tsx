@@ -109,7 +109,6 @@ export const clearNumberFormat = (value: number): number => {
 };
 
 export const handleDownloadPdf = async (printRef: MutableRefObject<any>) => {
-  console.log('printRef', printRef);
   const element = printRef.current;
   const canvas = await html2canvas(element);
   const data = canvas.toDataURL('image/png');

@@ -1,5 +1,6 @@
 export * from './ApiResponses';
 export * from './arqueo';
+export * from './articuloMovimiento';
 export * from './articulos';
 export * from './articuloSucursal';
 export * from './caja';

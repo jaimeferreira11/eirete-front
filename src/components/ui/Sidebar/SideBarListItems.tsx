@@ -16,10 +16,9 @@ import {
   SettingsOutlined as MaintenanceIcon,
   StorefrontOutlined as GroupStock,
   StoreMallDirectoryOutlined as SucursalIcon,
+  SwapHoriz as MovimientoArticuloIcon,
   TakeoutDiningOutlined as ArticuloIcon,
 } from '@mui/icons-material';
-
-import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
@@ -33,7 +32,6 @@ import {
 } from '@mui/material';
 import { useTranslation } from 'next-i18next';
 import { SideBarItem } from './SideBarItem';
-
 export const menuItems = [
   {
     id: 'pedidos',
@@ -84,6 +82,13 @@ export const menuItems = [
         roles: [''],
         path: '/stock-sucursal',
       },
+      {
+        id: 'movimientos-articulo-stock',
+        icon: <MovimientoArticuloIcon />,
+        text: 'links.articulosEnSucursalMovimientos',
+        roles: [''],
+        path: '/movimientos-articulos',
+      },
     ],
   },
   {
@@ -116,7 +121,7 @@ export const menuItems = [
       },
       {
         id: 'categoria-movimientos',
-        icon: <CompareArrowsIcon />,
+        icon: <StockIcon />,
         text: 'links.categoriaMovimientos',
         roles: [''],
         path: '/categoria-movimientos',
