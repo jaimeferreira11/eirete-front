@@ -4,6 +4,7 @@ import { OptionsTab } from '@lib/interfaces';
 import { Box, Tab, Tabs } from '@mui/material';
 import { useTranslation } from 'next-i18next';
 import { useRef, useState } from 'react';
+import { EnvioTab } from './EnvioTab';
 import { MovimientoArticuloDataGrid } from './MovimientoArticuloDataGrid';
 
 export const MovimientosArticulosSucursal = () => {
@@ -69,7 +70,7 @@ export const MovimientosArticulosSucursal = () => {
               />
             </GenericTab>
             <GenericTab value={actualTab} index={'enviados'}>
-              <h1>Enviar</h1>
+              <EnvioTab sucursalId={sucursalIdSelected} />
             </GenericTab>
             <GenericTab value={actualTab} index={'rechazados'}>
               <MovimientoArticuloDataGrid

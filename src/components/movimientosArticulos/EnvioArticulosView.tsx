@@ -1,6 +1,7 @@
 import { FC, useState } from 'react';
 
 import { ArticuloPlaceHolder } from '@components/articulos/ArticuloPlaceHolder';
+
 import {
   useArticulosStockPorLineaSearch,
   useStockLineasSucursal,
@@ -14,18 +15,15 @@ import {
   CircularProgress,
   Typography,
 } from '@mui/material';
-import { ArticulosLineaPedidos } from './ArticulosLineaPedidos';
-import { ArticuloViewFromSearch } from './pedidoModal/ArticuloViewFromSearch';
+import { ArticulosListEnvio } from './ArticulosListEnvio';
+import { ArticuloViewEnvioFromSearch } from './ArticuloViewEnvioFromSearch';
 
 interface Props {
   searchQuery?: string;
   sucursalId: string;
 }
 
-export const ArticulosAccordionList: FC<Props> = ({
-  searchQuery,
-  sucursalId,
-}) => {
+export const EnvioArticulosView: FC<Props> = ({ searchQuery, sucursalId }) => {
   const { lineas, isLoading } = useStockLineasSucursal(sucursalId);
 
   const [loadingArticulos, setLoadingArticulos] = useState<{
@@ -69,7 +67,7 @@ export const ArticulosAccordionList: FC<Props> = ({
                     gap={2}
                   >
                     {linea.articulos.map((articulo) => (
-                      <ArticuloViewFromSearch
+                      <ArticuloViewEnvioFromSearch
                         key={articulo._id}
                         articulo={articulo}
                       />
@@ -124,7 +122,7 @@ export const ArticulosAccordionList: FC<Props> = ({
               </AccordionSummary>
               <AccordionDetails>
                 {loadingArticulos[linea._id] ? (
-                  <ArticulosLineaPedidos
+                  <ArticulosListEnvio
                     lineaId={linea._id}
                     sucursalId={sucursalId}
                   />

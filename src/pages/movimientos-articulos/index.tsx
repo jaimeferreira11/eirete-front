@@ -1,7 +1,7 @@
 import { AppLayout } from '@components/layouts';
 import { MovimientosArticulosSucursal } from '@components/movimientosArticulos';
 import { FullScreenLoading } from '@components/ui';
-import { StockSucursalProvider } from '@lib/context';
+import { EnviosProvider } from '@lib/context/Envios';
 import { useAuthProvider } from '@lib/hooks';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -18,14 +18,14 @@ MovimientosArticulosSucursalPage.getLayout = function getLayout(
   page: ReactElement
 ) {
   return (
-    <StockSucursalProvider>
+    <EnviosProvider>
       <AppLayout
         title="Eirete - Movimientos artículos"
         pageDescription="Movimientos de articulos"
       >
         {page}
       </AppLayout>
-    </StockSucursalProvider>
+    </EnviosProvider>
   );
 };
 

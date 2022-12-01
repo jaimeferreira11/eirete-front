@@ -25,5 +25,15 @@
     "rechazadoPor": "Rechazado por",
     "reponerError": "Ocurrió un error al reponer los articulos",
     "reponerExitoso": "Envio repuesto exitosamente"
+  },
+  "articulos": {
+    "title": "Productos",
+    "search": "Buscar",
+    "sinStock": "Sin stock",
+    "detalles": "Envío"
+  },
+  "detalleEnvio": {
+    "title": "Envío",
+    "emptyDetail": "Agregue articulos para envio"
   }
 }

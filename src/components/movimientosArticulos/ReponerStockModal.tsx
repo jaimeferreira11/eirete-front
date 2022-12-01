@@ -16,8 +16,7 @@ import {
 
 import { IArticuloMovimiento } from '@core/interfaces';
 
-import { useUtilsProvider } from '@lib/hooks';
-import { useStockSucursalProvider } from '@lib/hooks/providers/useStockSucursalProvider';
+import { useEnvioProvider, useUtilsProvider } from '@lib/hooks';
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { formateDate } from 'src/utils';
@@ -40,7 +39,7 @@ export const ReponerStockModal: FC<Props> = ({
     keyPrefix: 'listado',
   });
 
-  const { reponerStock } = useStockSucursalProvider();
+  const { reponerStock } = useEnvioProvider();
 
   const handleReponerStock = useCallback(async () => {
     if (!envio) return;

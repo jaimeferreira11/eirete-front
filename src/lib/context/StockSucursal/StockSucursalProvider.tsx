@@ -1,10 +1,6 @@
 import { FC, PropsWithChildren, useCallback, useReducer } from 'react';
 
-import {
-  IArticuloMovimiento,
-  IEnpointResult,
-  IStockArticuloSucursal
-} from '@core/interfaces';
+import { IEnpointResult, IStockArticuloSucursal } from '@core/interfaces';
 
 import eireteApi from '@core/api';
 import { AxiosError } from 'axios';
@@ -66,72 +62,12 @@ export const StockSucursalProvider: FC<PropsWithChildren<any>> = ({
     }
   };
 
-  const rechazarEnvio = async (
-    body: IArticuloMovimiento
-  ): Promise<IEnpointResult> => {
-    try {
-      await eireteApi.put(`/articulo-movimientos/recibir/${body._id}/null`, {
-        ...body,
-      });
-
-      return {
-        hasError: false,
-      };
-    } catch (error) {
-      return {
-        hasError: true,
-        message: (error as AxiosError).message,
-      };
-    }
-  };
-
-  const recibirEnvio = async (
-    body: IArticuloMovimiento,
-    codigo: string
-  ): Promise<IEnpointResult> => {
-    try {
-      await eireteApi.put(
-        `/articulo-movimientos/recibir/${body._id}/${codigo}`,
-        {
-          ...body,
-        }
-      );
-
-      return {
-        hasError: false,
-      };
-    } catch (error) {
-      return {
-        hasError: true,
-        message: (error as AxiosError).message,
-      };
-    }
-  };
-
-  const reponerStock = async (_id: string): Promise<IEnpointResult> => {
-    try {
-      await eireteApi.put(`/articulo-movimientos/reponer/${_id}`);
-
-      return {
-        hasError: false,
-      };
-    } catch (error) {
-      return {
-        hasError: true,
-        message: (error as AxiosError).message,
-      };
-    }
-  };
-
   return (
     <StockSucursalContext.Provider
       value={{
         ...state,
         setStockSucursalSelected,
         clearStockSucursalSelected,
-        rechazarEnvio,
-        recibirEnvio,
-        reponerStock,
         update,
       }}
     >

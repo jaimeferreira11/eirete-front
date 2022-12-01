@@ -18,8 +18,7 @@ import {
 import { IArticuloMovimiento } from '@core/interfaces';
 
 import { EstadoMovimientoArticulo } from '@core/services';
-import { useUtilsProvider } from '@lib/hooks';
-import { useStockSucursalProvider } from '@lib/hooks/providers/useStockSucursalProvider';
+import { useEnvioProvider, useUtilsProvider } from '@lib/hooks';
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { debounce } from 'debounce';
@@ -40,7 +39,7 @@ export const EnviarRecibirModal: FC<Props> = ({
 }) => {
   const [isSaving, setIsSaving] = useState(false);
 
-  const { recibirEnvio, rechazarEnvio } = useStockSucursalProvider();
+  const { recibirEnvio, rechazarEnvio } = useEnvioProvider();
   const [detalleCambios, setDetalleCambios] = useState<
     {
       _id: string;
