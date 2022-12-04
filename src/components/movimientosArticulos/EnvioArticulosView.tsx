@@ -16,7 +16,7 @@ import {
   Typography,
 } from '@mui/material';
 import { ArticulosListEnvio } from './ArticulosListEnvio';
-import { ArticuloViewEnvioFromSearch } from './ArticuloViewEnvioFromSearch';
+import { ArticuloViewEnvio } from './ArticuloViewEnvioFromSearch';
 
 interface Props {
   searchQuery?: string;
@@ -67,7 +67,7 @@ export const EnvioArticulosView: FC<Props> = ({ searchQuery, sucursalId }) => {
                     gap={2}
                   >
                     {linea.articulos.map((articulo) => (
-                      <ArticuloViewEnvioFromSearch
+                      <ArticuloViewEnvio
                         key={articulo._id}
                         articulo={articulo}
                       />

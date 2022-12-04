@@ -5,7 +5,7 @@ import {
   IArticuloStock,
   ICliente,
   IEnpointResult,
-  TipoImpuesto
+  TipoImpuesto,
 } from '@core/interfaces';
 import { useClienteService } from '@core/services/ClienteService';
 import { usePedidoService } from '@core/services/PedidoService';
@@ -58,9 +58,9 @@ export const PedidosProvider: FC<Props> = ({ children }) => {
   const [state, dispatch] = useReducer(pedidosReducer, PEDIDOS_INITIAL_STATE);
 
   useEffect(() => {
-    if (!state.newPedido.sucursal && user?.sucursal)
-      dispatch({ type: 'SetSucursalID', payload: user?.sucursal! });
-  }, [state.newPedido.sucursal, user?.sucursal]);
+    if (!state.newPedido.sucursal && user?.sucursal._id)
+      dispatch({ type: 'SetSucursalID', payload: user?.sucursal!._id });
+  }, [state.newPedido.sucursal, user?.sucursal._id]);
 
   useEffect(() => {
     if (state.newPedido.detalles.length === 0)

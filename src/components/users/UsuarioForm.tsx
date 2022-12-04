@@ -58,7 +58,7 @@ export const UsuarioForm: FC<Props> = ({
         username: user?.username,
         nombreApellido: user?.nombreApellido,
         perfiles: user.perfiles.map((perfil) => perfil._id),
-        sucursal: user.sucursal,
+        sucursal: user.sucursal._id,
       }
     : {
         username: '',

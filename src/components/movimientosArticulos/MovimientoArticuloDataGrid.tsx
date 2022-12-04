@@ -1,7 +1,11 @@
 import { FC, useMemo, useState } from 'react';
 
-import { EditOutlined as EditIcon } from '@mui/icons-material';
-import { Grid } from '@mui/material';
+import {
+  EditOutlined as EditIcon,
+  ReceiptLongOutlined,
+} from '@mui/icons-material';
+import BlockIcon from '@mui/icons-material/Block';
+import { Button, Chip, Grid } from '@mui/material';
 import { GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 
 import { useTranslation } from 'next-i18next';
@@ -46,9 +50,11 @@ export const MovimientoArticuloDataGrid: FC<Props> = ({
   const [showModal, setShowModal] = useState<{
     show: boolean;
     envio: IArticuloMovimiento | undefined;
+    isOnlyRead?: boolean;
   }>({
     show: false,
     envio: undefined,
+    isOnlyRead: false,
   });
 
   const {
@@ -75,7 +81,7 @@ export const MovimientoArticuloDataGrid: FC<Props> = ({
   };
 
   const handleCloseModal = () => {
-    setShowModal({ show: false, envio: undefined });
+    setShowModal({ show: false, envio: undefined, isOnlyRead: false });
     mutate();
   };
 
@@ -83,66 +89,195 @@ export const MovimientoArticuloDataGrid: FC<Props> = ({
     setSearch({ search: query, active });
   };
 
-  // columnas
-  const columns: GridColDef[] = [
-    {
-      field: 'fecha',
-      headerName: t('fecha'),
-      width: 200,
-      valueGetter: (params: GridValueGetterParams) =>
-        formateDate(params.row.fechaModif),
-    },
-    {
-      field: 'enviadoPor',
-      headerName: t('enviadoPor'),
-      width: 200,
-      valueGetter: (params: GridValueGetterParams) =>
-        params.row.usuarioModif?.username || '',
-    },
-    {
-      field: 'enviadoDesde',
-      headerName: t('enviadoDesde'),
-      width: 200,
-      valueGetter: (params: GridValueGetterParams) =>
-        params.row.sucursalOrigen?.descripcion,
-    },
-    {
-      field: 'estado',
-      headerName: t('estado'),
-      flex: 1,
-      valueGetter: (params: GridValueGetterParams) => params.row.estado,
-    },
-    {
-      field: 'acciones',
-      headerName: t('acciones'),
-      description: t('actionsDescription'),
+  const getColumns = (): GridColDef[] => {
+    if (estado === 'RECHAZADO' || estado === 'FINALIZADO')
+      return [
+        {
+          field: 'fecha',
+          headerName: t('fecha'),
+          width: 200,
+          valueGetter: (params: GridValueGetterParams) =>
+            formateDate(params.row.fechaModif),
+        },
+        {
+          field: 'enviadoPor',
+          headerName:
+            estado === 'RECHAZADO' ? 'Rechazado por' : t('enviadoPor'),
+          width: 200,
+          valueGetter: (params: GridValueGetterParams) =>
+            estado === 'RECHAZADO'
+              ? params.row.usuarioModif?.username || ''
+              : params.row.usuarioAlta?.username || '',
+        },
+        {
+          field: 'enviadoDesde',
+          headerName: estado === 'RECHAZADO' ? 'Rechazado desde' : 'Enviado a',
+          width: 200,
+          valueGetter: (params: GridValueGetterParams) =>
+            estado === 'RECHAZADO'
+              ? params.row.sucursalDestino?.descripcion
+              : params.row.sucursalDestino?.descripcion,
+        },
+        {
+          field: 'estado',
+          headerName: t('estado'),
+          flex: 1,
+          renderCell: (params: GridValueGetterParams) => (
+            <Chip
+              color={
+                params.row.estado === 'PENDIENTE'
+                  ? 'info'
+                  : params.row.estado === 'ATENCION'
+                  ? 'warning'
+                  : params.row.estado === 'FINALIZADO'
+                  ? 'success'
+                  : 'error'
+              }
+              label={params.row.estado}
+              variant="outlined"
+            />
+          ),
+        },
+        {
+          field: 'detalles',
+          headerName: '',
+          flex: 1,
+          renderCell: (params: GridValueGetterParams) => (
+            <Button
+              color="secondary"
+              onClick={() =>
+                setShowModal({
+                  show: true,
+                  envio: params.row,
+                  isOnlyRead: true,
+                })
+              }
+              startIcon={<ReceiptLongOutlined />}
+            >
+              {' '}
+              Ver detalles
+            </Button>
+          ),
+        },
+      ];
 
-      renderCell: (params: GridValueGetterParams) => (
-        <ActionsColumn
-          actions={[
-            {
-              id: 'enviarRechazar',
-              onClick: () => {
-                setShowModal({ show: true, envio: params.row });
-              },
-              icon: <EditIcon />,
-              title:
-                estado === 'PENDIENTE'
-                  ? t('enviarRechazar')
-                  : t('reponerStock'),
-            },
-          ]}
-        />
-      ),
-    },
-  ];
+    return [
+      {
+        field: 'fecha',
+        headerName: t('fecha'),
+        width: 150,
+        valueGetter: (params: GridValueGetterParams) =>
+          formateDate(params.row.fechaModif),
+      },
+      {
+        field: 'enviadoPor',
+        headerName: t('enviadoPor'),
+        width: 150,
+        valueGetter: (params: GridValueGetterParams) =>
+          params.row.usuarioAlta?.username || '',
+      },
+      {
+        field: 'enviadoDesde',
+        headerName: t('enviadoDesde'),
+        width: 150,
+        valueGetter: (params: GridValueGetterParams) =>
+          params.row.sucursalOrigen?.descripcion,
+      },
+      {
+        field: 'enviadoA',
+        headerName: 'Enviado a',
+        width: 150,
+        valueGetter: (params: GridValueGetterParams) =>
+          params.row.sucursalDestino?.descripcion,
+      },
+      {
+        field: 'estado',
+        headerName: t('estado'),
+        flex: 1,
+        renderCell: (params: GridValueGetterParams) => (
+          <Chip
+            color={
+              params.row.estado === 'PENDIENTE'
+                ? 'info'
+                : params.row.estado === 'ATENCION'
+                ? 'warning'
+                : params.row.estado === 'FINALIZADO'
+                ? 'success'
+                : 'error'
+            }
+            label={params.row.estado}
+            variant="outlined"
+          />
+        ),
+      },
+      {
+        field: 'detalles',
+        headerName: '',
+        flex: 1,
+        renderCell: (params: GridValueGetterParams) => (
+          <Button
+            color="secondary"
+            onClick={() =>
+              setShowModal({ show: true, envio: params.row, isOnlyRead: true })
+            }
+            startIcon={<ReceiptLongOutlined />}
+          >
+            {' '}
+            Ver detalles
+          </Button>
+        ),
+      },
+      {
+        field: 'acciones',
+        headerName: t('acciones'),
+        description: t('actionsDescription'),
+
+        renderCell: (params: GridValueGetterParams) => (
+          <ActionsColumn
+            actions={
+              params.row.estado === 'RECHAZADO' ||
+              params.row.estado === 'FINALIZADO'
+                ? [
+                    {
+                      id: 'movimientoRechazado',
+                      title: 'Sin acciones',
+                      icon: <BlockIcon />,
+                      onClick: () => {},
+                    },
+                  ]
+                : [
+                    {
+                      id: 'enviarRechazar',
+                      onClick: () => {
+                        setShowModal({
+                          show: true,
+                          envio: params.row,
+                          isOnlyRead: false,
+                        });
+                      },
+                      icon: <EditIcon />,
+                      title:
+                        estado === 'PENDIENTE'
+                          ? t('enviarRechazar')
+                          : t('reponerStock'),
+                    },
+                  ]
+            }
+          />
+        ),
+      },
+    ];
+  };
 
   return (
     <>
-      {estado === 'PENDIENTE' && (
+      {(estado === 'PENDIENTE' ||
+        estado === 'FINALIZADO' ||
+        estado === 'RECHAZADO') && (
         <EnviarRecibirModal
           open={showModal.show}
           envio={showModal.envio}
+          isOnlyRead={showModal.isOnlyRead}
           handleClose={handleCloseModal}
         />
       )}
@@ -150,6 +285,7 @@ export const MovimientoArticuloDataGrid: FC<Props> = ({
         <ReponerStockModal
           open={showModal.show}
           envio={showModal.envio}
+          isOnlyRead={showModal.isOnlyRead}
           handleClose={handleCloseModal}
         />
       )}
@@ -157,7 +293,7 @@ export const MovimientoArticuloDataGrid: FC<Props> = ({
         <Grid xs={11} item>
           <DataGridEirete
             config={{
-              columns,
+              columns: getColumns(),
               isLoading: isLoading,
               noRowsLabel: t('noRowsLabel'),
               labelRowsPerPage: t('labelRowsPerPage'),

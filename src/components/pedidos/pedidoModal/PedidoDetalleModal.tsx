@@ -79,7 +79,7 @@ export const PedidoDetalleModal: FC<Props> = ({ show, handleClose, item }) => {
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={() => handleDownloadPdf(printRef)}>
+        <Button onClick={() => handleDownloadPdf(printRef, 'Pedido')}>
           <Typography>{t('pdf')}</Typography>
         </Button>
         <Button onClick={handleClose}>

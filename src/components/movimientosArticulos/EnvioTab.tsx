@@ -31,52 +31,54 @@ export const EnvioTab: FC<Props> = ({ sucursalId }) => {
     setSearchQuery(target.value);
   };
   return (
-    <Box display="flex" flex="100%" sx={{ mt: 2 }}>
-      <Box
-        display="flex"
-        flexDirection="column"
-        flexGrow="initial"
-        flex="45%"
-        width="100%"
-        sx={{ pl: 2, pr: 2, height: '90%' }}
-      >
-        <Box>
-          <Typography variant="h5" component={'div'}>
-            {t('title')}
-          </Typography>
-          <TextField
-            label={t('search')}
-            sx={{ my: 2 }}
-            onChange={debounce(onSearch, 500)}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchOutlined />
-                </InputAdornment>
-              ),
-            }}
-            fullWidth
-          />
+    <>
+      <Box display="flex" flex="100%" sx={{ mt: 2 }}>
+        <Box
+          display="flex"
+          flexDirection="column"
+          flexGrow="initial"
+          flex="45%"
+          width="100%"
+          sx={{ pl: 2, pr: 2, height: '90%' }}
+        >
+          <Box>
+            <Typography variant="h5" component={'div'}>
+              {t('title')}
+            </Typography>
+            <TextField
+              label={t('search')}
+              sx={{ my: 2 }}
+              onChange={debounce(onSearch, 500)}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchOutlined />
+                  </InputAdornment>
+                ),
+              }}
+              fullWidth
+            />
+          </Box>
+          {!sucursalId ? (
+            <CircularProgress />
+          ) : (
+            <EnvioArticulosView
+              sucursalId={sucursalId}
+              searchQuery={searchQuery}
+            />
+          )}
         </Box>
-        {!sucursalId ? (
-          <CircularProgress />
-        ) : (
-          <EnvioArticulosView
-            sucursalId={sucursalId}
-            searchQuery={searchQuery}
-          />
-        )}
+        <Box
+          display="flex"
+          flexDirection="column"
+          flex="55%"
+          justifyContent="space-between"
+          sx={{ pl: 2, pr: 2, overflow: 'auto' }}
+        >
+          <EnvioDetalleList />
+          <SucursalEnvioView />
+        </Box>
       </Box>
-      <Box
-        display="flex"
-        flexDirection="column"
-        flex="55%"
-        justifyContent="space-between"
-        sx={{ pl: 2, pr: 2, overflow: 'auto' }}
-      >
-        <EnvioDetalleList />
-        <SucursalEnvioView />
-      </Box>
-    </Box>
+    </>
   );
 };

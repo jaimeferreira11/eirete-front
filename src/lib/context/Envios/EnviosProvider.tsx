@@ -20,6 +20,7 @@ export interface ISucursalEnvio {
 export interface NewEnvioState {
   newEnvio: IEnvioNuevo;
   sucursalesPosibles: ISucursalEnvio[];
+  envioRealizado?: IArticuloMovimiento;
 }
 
 export const NEW_ENVIO_INITIAL_STATE: NewEnvioState = {
@@ -42,14 +43,14 @@ export const EnviosProvider: FC<Props> = ({ children }) => {
   const { sucursales, isLoading } = useSucursal();
 
   useEffect(() => {
-    if (!state.newEnvio.sucursalOrigen && user?.sucursal)
+    if (!state.newEnvio.sucursalOrigen && user?.sucursal._id)
       dispatch({
         type: 'SetNewEnvioOnStart',
-        payload: { sucursalOrigen: user?.sucursal! },
+        payload: { sucursalOrigen: user?.sucursal._id! },
       });
 
     return () => {};
-  }, [state.newEnvio.sucursalOrigen, user?.sucursal]);
+  }, [state.newEnvio.sucursalOrigen, user?.sucursal._id]);
 
   useEffect(() => {
     if (
@@ -61,12 +62,12 @@ export const EnviosProvider: FC<Props> = ({ children }) => {
       dispatch({
         type: 'SetSucursalesPosibles',
         payload: sucursales
-          ?.filter((s) => s._id !== user?.sucursal)
+          ?.filter((s) => s._id !== user?.sucursal._id)
           .map((sc) => ({ _id: sc._id, descripcion: sc.descripcion })),
       });
 
     return () => {};
-  }, [isLoading, state.sucursalesPosibles, sucursales, user?.sucursal]);
+  }, [isLoading, state.sucursalesPosibles, sucursales, user?.sucursal._id]);
 
   const getDetalle = (): IEnvioDetalle[] => state.newEnvio.detalles;
   const setSucursalDestino = (sucursalDestino: string): void =>
@@ -146,6 +147,7 @@ export const EnviosProvider: FC<Props> = ({ children }) => {
         type: 'UpdateDetalles',
         payload: {
           newDetalle: [
+            ...state.newEnvio.detalles,
             {
               articulo: {
                 _id: item._id,
@@ -236,10 +238,14 @@ export const EnviosProvider: FC<Props> = ({ children }) => {
 
   const realizarEnvio = async (): Promise<IEnpointResult> => {
     try {
-      await eireteApi.post(`/articulo-movimientos/enviar`, {
+      const result = await eireteApi.post(`/articulo-movimientos/enviar`, {
         ...state.newEnvio,
       });
 
+      dispatch({
+        type: 'EnvioRealizado',
+        payload: result.data,
+      });
       return {
         hasError: false,
       };
@@ -249,6 +255,15 @@ export const EnviosProvider: FC<Props> = ({ children }) => {
         message: (error as AxiosError).message,
       };
     }
+  };
+
+  const getCantidadTotalArticulos = (): Number => {
+    let cantidad = 0;
+    state.newEnvio.detalles.forEach((d) => {
+      cantidad += d.enviado;
+    });
+    console.info('La cantidad de articulos es', cantidad);
+    return cantidad;
   };
 
   return (
@@ -265,6 +280,7 @@ export const EnviosProvider: FC<Props> = ({ children }) => {
         updateCantidad,
         resetEnvio,
         realizarEnvio,
+        getCantidadTotalArticulos,
       }}
     >
       {children}

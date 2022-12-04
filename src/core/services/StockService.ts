@@ -41,9 +41,12 @@ export const useArticulosMovimiento = ({
   sucursalId,
   estado,
 }: Props) => {
-  const { data, error, mutate } = useSWR(
-    `/articulo-movimientos?paginado=true&sucursalOrigen=${sucursalId}&limite=${pagination.limite}&desde=${pagination.desde}&estado=${estado}`
-  );
+  let url = `/articulo-movimientos?paginado=true&sucursalDestino=${sucursalId}&limite=${pagination.limite}&desde=${pagination.desde}&estado=${estado}`;
+  if (estado !== 'PENDIENTE') {
+    url = `/articulo-movimientos?paginado=true&sucursalOrigen=${sucursalId}&limite=${pagination.limite}&desde=${pagination.desde}&estado=${estado}`;
+  }
+
+  const { data, error, mutate } = useSWR(url);
 
   return {
     articulos: data ? data : null,
