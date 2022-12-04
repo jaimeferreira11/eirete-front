@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import {
@@ -13,7 +13,12 @@ import {
 
 import { useEnvioProvider, useUtilsProvider } from '@lib/hooks';
 
-const SucursalEnvioView = () => {
+interface Props {
+  imprimirPdf: () => Promise<void>;
+  children?: React.ReactNode;
+}
+
+const SucursalEnvioView: FC<Props> = ({ imprimirPdf }) => {
   const [isSaving, setIsSaving] = useState(false);
   const { showSnackbar } = useUtilsProvider();
   const {
@@ -40,8 +45,12 @@ const SucursalEnvioView = () => {
         type: 'success',
         show: true,
       });
+
+      setTimeout(async () => {
+        await imprimirPdf();
+        resetEnvio();
+      }, 1500);
       setIsSaving(false);
-      resetEnvio();
     } else {
       showSnackbar({
         message: result.message || 'Ocurrió un error al realizar el envio',
@@ -50,7 +59,7 @@ const SucursalEnvioView = () => {
       });
       setIsSaving(false);
     }
-  }, [realizarEnvio, resetEnvio, showSnackbar]);
+  }, [imprimirPdf, realizarEnvio, resetEnvio, showSnackbar]);
 
   return (
     <Box>

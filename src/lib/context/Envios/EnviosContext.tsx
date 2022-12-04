@@ -11,6 +11,7 @@ import { ISucursalEnvio } from './EnviosProvider';
 interface ContextProps {
   newEnvio: IEnvioNuevo;
   sucursalesPosibles: ISucursalEnvio[];
+  envioRealizado?: IArticuloMovimiento;
   getDetalle: () => IEnvioDetalle[];
   setSucursalDestino: (_sucursalDestino: string) => void;
 

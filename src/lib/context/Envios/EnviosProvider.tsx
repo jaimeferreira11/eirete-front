@@ -29,6 +29,7 @@ export const NEW_ENVIO_INITIAL_STATE: NewEnvioState = {
     sucursalDestino: '',
     sucursalOrigen: '',
   },
+  envioRealizado: undefined,
   sucursalesPosibles: [],
 };
 
@@ -67,7 +68,13 @@ export const EnviosProvider: FC<Props> = ({ children }) => {
       });
 
     return () => {};
-  }, [isLoading, state.sucursalesPosibles, sucursales, user?.sucursal._id]);
+  }, [
+    isLoading,
+    state.sucursalesPosibles,
+    sucursales,
+    user?.sucursal,
+    user?.sucursal._id,
+  ]);
 
   const getDetalle = (): IEnvioDetalle[] => state.newEnvio.detalles;
   const setSucursalDestino = (sucursalDestino: string): void =>
