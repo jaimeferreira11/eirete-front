@@ -18,7 +18,7 @@ export const MovimientosArticulosSucursal = () => {
 
   const { user } = useAuthProvider();
 
-  const [sucursalIdSelected] = useState(user!.sucursal);
+  const [sucursalIdSelected] = useState(user!.sucursal._id);
   // const [showModal, setShowModal] = useState(false);
 
   // const handleCloseModal = () => {
@@ -51,11 +51,13 @@ export const MovimientosArticulosSucursal = () => {
               indicatorColor="primary"
               aria-label="secondary tabs example"
             >
-              <Tab value="recibidos" label="Recibidos" className="tab-left" />
-              <Tab value="enviados" label="Enviados" className="tab-right" />
+              <Tab value="recibidos" label="Recibir" className="tab-left" />
+              <Tab value="enviados" label="Enviar" />
+              <Tab value="atencion" label="Reposición" />
+              <Tab value="finalizados" label="Envios Finalizados" />
               <Tab
                 value="rechazados"
-                label="Envios Rechazados"
+                label="Envíos rechazados"
                 className="tab-right"
               />
             </Tabs>
@@ -72,9 +74,21 @@ export const MovimientosArticulosSucursal = () => {
             <GenericTab value={actualTab} index={'enviados'}>
               <EnvioTab sucursalId={sucursalIdSelected} />
             </GenericTab>
-            <GenericTab value={actualTab} index={'rechazados'}>
+            <GenericTab value={actualTab} index={'atencion'}>
               <MovimientoArticuloDataGrid
                 estado="ATENCION"
+                sucursalId={sucursalIdSelected}
+              />
+            </GenericTab>
+            <GenericTab value={actualTab} index={'finalizados'}>
+              <MovimientoArticuloDataGrid
+                estado="FINALIZADO"
+                sucursalId={sucursalIdSelected}
+              />
+            </GenericTab>
+            <GenericTab value={actualTab} index={'rechazados'}>
+              <MovimientoArticuloDataGrid
+                estado="RECHAZADO"
                 sucursalId={sucursalIdSelected}
               />
             </GenericTab>

@@ -140,6 +140,14 @@ export const PedidoSummary: FC<Props> = ({
     return vuelto > 0 ? vuelto : 0;
   };
 
+  const handleInputNumberFocus = (
+    event: React.FocusEvent<HTMLInputElement>
+  ) => {
+    if (event.target.value === 'GS.0') {
+      event.target.value = 'GS.';
+    }
+  };
+
   return (
     <Box flex="50%" display="flex" flexDirection="column">
       <Box
@@ -281,6 +289,7 @@ export const PedidoSummary: FC<Props> = ({
             })
           }
           defaultValue={0}
+          onFocus={handleInputNumberFocus}
           value={getMontoMetodoPago('EFECTIVO') || 0}
           prefix={'GS.'}
         />
@@ -304,6 +313,7 @@ export const PedidoSummary: FC<Props> = ({
             })
           }
           defaultValue={0}
+          onFocus={handleInputNumberFocus}
           value={getMontoMetodoPago('TARJETA') || 0}
           prefix={'GS.'}
         />
@@ -328,6 +338,7 @@ export const PedidoSummary: FC<Props> = ({
             })
           }
           defaultValue={0}
+          onFocus={handleInputNumberFocus}
           value={getMontoMetodoPago('CHEQUE') || 0}
           prefix={'GS.'}
         />

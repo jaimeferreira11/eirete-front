@@ -25,6 +25,7 @@ interface ContextProps {
   updateCantidad: (_detalle: IEnvioDetalle, _cantidad: number) => void;
   resetEnvio: () => void;
   realizarEnvio: () => Promise<IEnpointResult>;
+  getCantidadTotalArticulos: () => Number;
 }
 
 export const EnviosContext = createContext({} as ContextProps);

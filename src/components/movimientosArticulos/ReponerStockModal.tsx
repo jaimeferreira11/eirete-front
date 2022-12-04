@@ -11,6 +11,7 @@ import {
   DialogContent,
   DialogTitle,
   Grid,
+  IconButton,
   Typography,
 } from '@mui/material';
 
@@ -26,12 +27,14 @@ interface Props {
   open: boolean;
   handleClose: () => void;
   envio?: IArticuloMovimiento;
+  isOnlyRead?: boolean;
 }
 
 export const ReponerStockModal: FC<Props> = ({
   open,
   handleClose,
   envio = undefined,
+  isOnlyRead = false,
 }) => {
   const [isSaving, setIsSaving] = useState(false);
   const { showSnackbar } = useUtilsProvider();
@@ -80,7 +83,12 @@ export const ReponerStockModal: FC<Props> = ({
       open={open}
       onClose={handleClose}
     >
-      <DialogTitle></DialogTitle>
+      <DialogTitle className="dialogTitle">
+        <div> </div>
+        <IconButton onClick={handleClose}>
+          <CloseOutlinedIcon />
+        </IconButton>
+      </DialogTitle>
       <DialogContent style={{ maxHeight: '450px' }}>
         <Box sx={{ px: 2 }}>
           <Box>
@@ -112,20 +120,26 @@ export const ReponerStockModal: FC<Props> = ({
         </Box>
         <Box sx={{ mt: 4 }}>
           <Grid container justifyContent="center">
-            <Grid container item xs={12} justifyContent="center">
+            <Grid
+              container
+              item
+              xs={12}
+              justifyContent="center"
+              sx={{ borderBottom: '0.1em solid #EAEAEA' }}
+            >
               <Grid item xs={5}>
                 <Typography fontWeight={500} textAlign="center">
-                  Producto
+                  ARTÍCULO
                 </Typography>
               </Grid>
               <Grid item xs={2}>
                 <Typography fontWeight={500} textAlign="center">
-                  Cantidad
+                  CANTIDAD
                 </Typography>
               </Grid>
               <Grid item xs={2}>
                 <Typography fontWeight={500} textAlign="center">
-                  Recibido
+                  RECIBIDO
                 </Typography>
               </Grid>
             </Grid>
@@ -137,15 +151,24 @@ export const ReponerStockModal: FC<Props> = ({
                 item
                 xs={12}
                 justifyContent="center"
+                sx={{ borderBottom: '0.1em solid #EAEAEA' }}
                 alignItems="center"
               >
-                <Grid item xs={5} sx={{ textAlign: 'center' }}>
+                <Grid item xs={5} sx={{ fontSize: '14px' }}>
                   {detalle.articulo.descripcion}
                 </Grid>
-                <Grid item xs={2} sx={{ textAlign: 'center' }}>
+                <Grid
+                  item
+                  xs={2}
+                  sx={{ textAlign: 'center', fontSize: '14px' }}
+                >
                   {detalle.enviado}
                 </Grid>
-                <Grid item xs={2} sx={{ textAlign: 'center' }}>
+                <Grid
+                  item
+                  xs={2}
+                  sx={{ textAlign: 'center', fontSize: '14px' }}
+                >
                   {detalle.recibido}
                 </Grid>
               </Grid>
@@ -154,26 +177,30 @@ export const ReponerStockModal: FC<Props> = ({
         </Box>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} color="error" disabled={isSaving}>
-          <CloseOutlinedIcon sx={{ fontSize: 20, marginRight: '5px' }} />
-          <Typography>{t('cancelar')}</Typography>
-        </Button>
-        <Button
-          type="submit"
-          color="success"
-          disabled={isSaving}
-          onClick={handleReponerStock}
-        >
-          {!isSaving && (
-            <CheckOutlinedIcon sx={{ fontSize: 20, marginRight: '5px' }} />
-          )}
+        {!isOnlyRead && (
+          <Button onClick={handleClose} color="error" disabled={isSaving}>
+            <CloseOutlinedIcon sx={{ fontSize: 20, marginRight: '5px' }} />
+            <Typography>{t('cancelar')}</Typography>
+          </Button>
+        )}
+        {!isOnlyRead && (
+          <Button
+            type="submit"
+            color="success"
+            disabled={isSaving}
+            onClick={handleReponerStock}
+          >
+            {!isSaving && (
+              <CheckOutlinedIcon sx={{ fontSize: 20, marginRight: '5px' }} />
+            )}
 
-          {isSaving ? (
-            <CircularProgress size="25px" color="info" />
-          ) : (
-            <Typography>{t('reponerStock')}</Typography>
-          )}
-        </Button>
+            {isSaving ? (
+              <CircularProgress size="25px" color="info" />
+            ) : (
+              <Typography>{t('reponerStock')}</Typography>
+            )}
+          </Button>
+        )}
       </DialogActions>
     </Dialog>
   );

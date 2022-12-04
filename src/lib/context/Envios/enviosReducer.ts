@@ -1,3 +1,4 @@
+import { IArticuloMovimiento } from '@core/interfaces';
 import { IEnvioDetalle } from '@lib/interfaces';
 import { ISucursalEnvio, NewEnvioState, NEW_ENVIO_INITIAL_STATE } from '.';
 
@@ -17,6 +18,10 @@ type ArqueoType =
   | {
       type: 'SetSucursalesPosibles';
       payload: ISucursalEnvio[];
+    }
+  | {
+      type: 'EnvioRealizado';
+      payload: IArticuloMovimiento;
     }
   | {
       type: 'ResetEnvio';
@@ -59,6 +64,11 @@ export const enviosReducer = (
       };
     case 'ResetEnvio':
       return NEW_ENVIO_INITIAL_STATE;
+    case 'EnvioRealizado':
+      return {
+        ...state,
+        envioRealizado: action.payload,
+      };
     default:
       return state;
   }

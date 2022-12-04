@@ -5,6 +5,7 @@ import {
   Box,
   Button,
   CircularProgress,
+  Grid,
   MenuItem,
   TextField,
   Typography,
@@ -21,10 +22,10 @@ const SucursalEnvioView = () => {
     newEnvio,
     resetEnvio,
     realizarEnvio,
+    getCantidadTotalArticulos,
   } = useEnvioProvider();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value);
     setSucursalDestino(event.target.value);
   };
 
@@ -33,6 +34,7 @@ const SucursalEnvioView = () => {
     const result = await realizarEnvio();
 
     if (!result.hasError) {
+      // TODO: descargar el pdf EnviarRecibirModal con el envio retornado del endpoint(debe mostrar el codigo)
       showSnackbar({
         message: 'Envio realizado exitosamente',
         type: 'success',
@@ -51,25 +53,53 @@ const SucursalEnvioView = () => {
   }, [realizarEnvio, resetEnvio, showSnackbar]);
 
   return (
-    <Box display="flex" flexDirection="column">
-      <Box sx={{ width: '100%' }}>
-        <TextField
-          select
-          size="small"
-          label={'Destino del envio'}
-          fullWidth
-          onChange={handleChange}
-          value={newEnvio.sucursalDestino || ''}
-        >
-          <MenuItem key={'empty'} value={''}></MenuItem>
-          {sucursalesPosibles?.map((sucursal) => (
-            <MenuItem key={sucursal._id} value={sucursal._id}>
-              {sucursal.descripcion}
-            </MenuItem>
-          ))}
-        </TextField>
-      </Box>
-      <Box display="flex" gap={2} sx={{ mt: 2 }}>
+    <Box>
+      <Grid
+        container
+        sx={{
+          borderTop: '0.1em solid #EAEAEA',
+          borderBottom: '0.1em solid #EAEAEA',
+          pt: 1,
+        }}
+        justifyContent="space-between"
+      >
+        <Grid item xs={6}>
+          <Typography style={{ fontWeight: 'bold' }}>
+            Destino de envío
+          </Typography>
+          <TextField
+            select
+            size="small"
+            label={''}
+            fullWidth
+            onChange={handleChange}
+            value={newEnvio.sucursalDestino || ''}
+          >
+            <MenuItem key={'empty'} value={''}></MenuItem>
+            {sucursalesPosibles?.map((sucursal) => (
+              <MenuItem key={sucursal._id} value={sucursal._id}>
+                {sucursal.descripcion}
+              </MenuItem>
+            ))}
+          </TextField>
+        </Grid>
+
+        <Grid item xs={4}>
+          <Box display="flex" sx={{ pt: 3 }}>
+            <Typography style={{ fontWeight: 'bold' }}>
+              Total de artículos:
+            </Typography>
+            <Typography
+              variant="h4"
+              sx={{ pl: 1 }}
+              style={{ fontWeight: 'bold' }}
+            >
+              {getCantidadTotalArticulos().toString()}
+            </Typography>
+          </Box>
+        </Grid>
+      </Grid>
+      <Box display="flex" gap={2} sx={{ mb: 6, mt: 2 }}>
         <Button
           disabled={isSaving}
           onClick={resetEnvio}

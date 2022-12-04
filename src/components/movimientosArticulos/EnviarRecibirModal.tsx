@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useCallback, useState } from 'react';
+import { ChangeEvent, FC, useCallback, useRef, useState } from 'react';
 
 import { useTranslation } from 'next-i18next';
 
@@ -11,6 +11,7 @@ import {
   DialogContent,
   DialogTitle,
   Grid,
+  IconButton,
   TextField,
   Typography,
 } from '@mui/material';
@@ -30,14 +31,17 @@ interface Props {
   open: boolean;
   handleClose: () => void;
   envio?: IArticuloMovimiento;
+  isOnlyRead?: boolean;
 }
 
 export const EnviarRecibirModal: FC<Props> = ({
   open,
   handleClose,
   envio = undefined,
+  isOnlyRead = false,
 }) => {
   const [isSaving, setIsSaving] = useState(false);
+  const [isRejecting, setIsRejecting] = useState(false);
 
   const { recibirEnvio, rechazarEnvio } = useEnvioProvider();
   const [detalleCambios, setDetalleCambios] = useState<
@@ -54,6 +58,7 @@ export const EnviarRecibirModal: FC<Props> = ({
   });
 
   const [codigoValue, setCodigoValue] = useState('');
+  const printRef = useRef();
 
   const handleCodigoChange = ({
     target,
@@ -86,11 +91,19 @@ export const EnviarRecibirModal: FC<Props> = ({
   };
 
   const checkCantidadesRecibidas = useCallback(() => {
-    const checkCantidades = detalleCambios.some(
+    const cantidadMayor = detalleCambios.some(
       (envioDetalle) => envioDetalle.recibido > envioDetalle.enviado
     );
 
-    return !checkCantidades;
+    if (cantidadMayor) return true;
+
+    let cantidad = 0;
+    detalleCambios.forEach((envioDetalle) => {
+      if (!envioDetalle.recibido) envioDetalle.recibido = 0;
+      cantidad += envioDetalle.recibido;
+    });
+
+    return cantidad === 0;
   }, [detalleCambios]);
 
   const handleRecibirPedido = useCallback(async () => {
@@ -147,7 +160,7 @@ export const EnviarRecibirModal: FC<Props> = ({
 
   const handleRechazarEnvio = useCallback(async () => {
     if (!envio) return;
-    setIsSaving(true);
+    setIsRejecting(true);
     const result = await rechazarEnvio({ ...envio, estado: 'RECHAZADO' });
 
     if (!result.hasError) {
@@ -156,7 +169,7 @@ export const EnviarRecibirModal: FC<Props> = ({
         type: 'success',
         show: true,
       });
-      setIsSaving(false);
+      setIsRejecting(false);
       handleClose();
     } else {
       showSnackbar({
@@ -164,7 +177,7 @@ export const EnviarRecibirModal: FC<Props> = ({
         type: 'error',
         show: true,
       });
-      setIsSaving(false);
+      setIsRejecting(false);
     }
   }, [envio, handleClose, rechazarEnvio, showSnackbar, t]);
 
@@ -188,48 +201,76 @@ export const EnviarRecibirModal: FC<Props> = ({
         setCodigoValue('');
       }}
     >
-      <DialogTitle></DialogTitle>
-      <DialogContent style={{ maxHeight: '450px' }}>
-        <Box sx={{ px: 2 }}>
-          <Box>
-            <Typography>
-              <b>{t('fecha')}:</b> {formateDate(envio?.fechaAlta)}{' '}
-            </Typography>
-          </Box>
-          <Box>
-            <Typography>
-              <b>{t('enviadoPor')}:</b> {envio?.usuarioAlta?.username}{' '}
-            </Typography>
-          </Box>
-          <Box>
-            <Typography>
-              <b>{t('enviadoDesde')}:</b> {envio?.sucursalOrigen?.descripcion}{' '}
-            </Typography>
-          </Box>
-        </Box>
+      <DialogTitle className="dialogTitle">
+        <div> </div>
+        <IconButton onClick={handleClose}>
+          <CloseOutlinedIcon />
+        </IconButton>
+      </DialogTitle>
+      <DialogContent style={{ maxHeight: '450px' }} ref={printRef}>
+        <Grid container sx={{ px: 2 }}>
+          <Grid item xs={6}>
+            <Box>
+              <Typography>
+                <b>{t('fecha')}:</b> {formateDate(envio?.fechaAlta)}{' '}
+              </Typography>
+            </Box>
+            <Box>
+              <Typography>
+                <b>{t('enviadoPor')}:</b> {envio?.usuarioAlta?.username}{' '}
+              </Typography>
+            </Box>
+            <Box>
+              <Typography>
+                <b>{t('enviadoDesde')}:</b> {envio?.sucursalOrigen?.descripcion}{' '}
+              </Typography>
+            </Box>
+          </Grid>
+          {envio?.codigo && (
+            <Grid item xs={6}>
+              <Box>
+                <Typography>
+                  <b>Código del envío</b>
+                </Typography>
+              </Box>
+              <Box sx={{ mt: 1 }}>
+                <Typography variant="h5">123456</Typography>
+              </Box>
+            </Grid>
+          )}
+        </Grid>
         <Box sx={{ mt: 4 }}>
-          <Grid container justifyContent="center">
-            <Grid container item xs={12} justifyContent="center">
-              <Grid item xs={5}>
+          <Grid container>
+            <Grid
+              container
+              item
+              xs={12}
+              sx={{ borderBottom: '0.1em solid #EAEAEA' }}
+            >
+              <Grid item xs={7}>
                 <Typography fontWeight={500} textAlign="center">
-                  Producto
+                  ARTÍCULO
                 </Typography>
               </Grid>
               <Grid item xs={2}>
-                <Typography fontWeight={500} textAlign="center">
-                  Cantidad
+                <Typography fontWeight={500} textAlign="end">
+                  CANTIDAD
                 </Typography>
               </Grid>
-              <Grid item xs={2}>
-                <Typography fontWeight={500} textAlign="center">
-                  Recibido
-                </Typography>
-              </Grid>
-              <Grid item xs={2}>
-                <Typography fontWeight={500} textAlign="center">
-                  Recibir
-                </Typography>
-              </Grid>
+
+              {isOnlyRead ? (
+                <Grid item xs={2}>
+                  <Typography fontWeight={500} textAlign="end">
+                    RECIBIDO
+                  </Typography>
+                </Grid>
+              ) : (
+                <Grid item xs={2}>
+                  <Typography fontWeight={500} textAlign="end">
+                    RECIBIR
+                  </Typography>
+                </Grid>
+              )}
             </Grid>
 
             {envio.detalles.map((detalle) => (
@@ -240,103 +281,123 @@ export const EnviarRecibirModal: FC<Props> = ({
                 xs={12}
                 justifyContent="center"
                 alignItems="center"
+                sx={{ borderBottom: '0.1em solid #EAEAEA' }}
               >
-                <Grid item xs={5} sx={{ textAlign: 'center' }}>
+                <Grid item xs={7} sx={{ fontSize: '14px' }}>
                   {detalle.articulo.descripcion}
                 </Grid>
-                <Grid item xs={2} sx={{ textAlign: 'center' }}>
+                <Grid
+                  item
+                  xs={2}
+                  sx={{ textAlign: 'center', fontSize: '14px' }}
+                >
                   {detalle.enviado}
                 </Grid>
-                <Grid item xs={2} sx={{ textAlign: 'center' }}>
-                  {detalle.recibido}
-                </Grid>
-                <Grid item xs={2} sx={{ textAlign: 'center' }}>
-                  <NumberFormat
-                    label="Recibir"
-                    fullWidth
-                    error={!calcularSaldos(detalle._id) || undefined}
-                    helperText={
-                      !calcularSaldos(detalle._id)
-                        ? 'Cantidad supera a lo enviado'
-                        : ''
-                    }
-                    disabled={detalle.enviado === detalle.recibido}
-                    displayType={'input'}
-                    customInput={TextField}
-                    thousandSeparator={'.'}
-                    decimalSeparator={','}
-                    allowNegative={false}
-                    decimalScale={0}
-                    onValueChange={debounce(
-                      (values: NumberFormatValues) =>
-                        handleChangeRecibido(
-                          detalle._id,
-                          detalle.enviado,
-                          values.floatValue || 0
-                        ),
-                      500
-                    )}
-                  />
-                </Grid>
+                {isOnlyRead ? (
+                  <Grid
+                    item
+                    xs={2}
+                    sx={{ textAlign: 'center', fontSize: '14px' }}
+                  >
+                    {detalle.recibido}
+                  </Grid>
+                ) : (
+                  <Grid item xs={1} sx={{ textAlign: 'center' }}>
+                    <NumberFormat
+                      label=""
+                      fullWidth
+                      error={!calcularSaldos(detalle._id) || undefined}
+                      helperText={
+                        !calcularSaldos(detalle._id)
+                          ? 'Cantidad supera a lo enviado'
+                          : ''
+                      }
+                      disabled={detalle.enviado === detalle.recibido}
+                      displayType={'input'}
+                      customInput={TextField}
+                      thousandSeparator={'.'}
+                      decimalSeparator={','}
+                      allowNegative={false}
+                      decimalScale={0}
+                      defaultValue={0}
+                      onValueChange={debounce(
+                        (values: NumberFormatValues) =>
+                          handleChangeRecibido(
+                            detalle._id,
+                            detalle.enviado,
+                            values.floatValue || 0
+                          ),
+                        500
+                      )}
+                    />
+                  </Grid>
+                )}
               </Grid>
             ))}
           </Grid>
         </Box>
       </DialogContent>
       <DialogActions>
-        <Grid container>
-          <Grid
-            item
-            xs={8}
-            style={{
-              display: 'flex',
-              justifyContent: 'flex-end',
-              paddingRight: '16px',
-            }}
-          >
-            <TextField
-              label="Código"
-              value={codigoValue}
-              onChange={handleCodigoChange}
-            />
-          </Grid>
-          <Grid item xs={2}>
-            <Button
-              onClick={handleRechazarEnvio}
-              color="error"
-              disabled={isSaving}
+        <Grid container style={{ justifyContent: 'flex-end' }}>
+          {!isOnlyRead && (
+            <Grid
+              item
+              xs={6}
+              style={{
+                display: 'flex',
+                justifyContent: 'flex-end',
+                paddingRight: '16px',
+              }}
             >
-              {!isSaving && (
-                <CheckOutlinedIcon sx={{ fontSize: 20, marginRight: '5px' }} />
-              )}
-              <CloseOutlinedIcon sx={{ fontSize: 20, marginRight: '5px' }} />
-              {isSaving ? (
-                <CircularProgress size="25px" color="info" />
-              ) : (
-                <Typography>{t('rechazar')}</Typography>
-              )}
-            </Button>
-          </Grid>
-          <Grid item xs={2}>
-            <Button
-              type="submit"
-              color="success"
-              disabled={
-                isSaving || (!codigoValue && checkCantidadesRecibidas())
-              }
-              onClick={handleRecibirPedido}
-            >
-              {!isSaving && (
-                <CheckOutlinedIcon sx={{ fontSize: 20, marginRight: '5px' }} />
-              )}
+              <TextField
+                label="Código"
+                value={codigoValue}
+                onChange={handleCodigoChange}
+              />
+            </Grid>
+          )}
+          {!isOnlyRead && (
+            <Grid item xs={2}>
+              <Button
+                onClick={handleRechazarEnvio}
+                color="error"
+                sx={{ width: '90%' }}
+                disabled={isRejecting}
+              >
+                <CloseOutlinedIcon sx={{ fontSize: 20, marginRight: '5px' }} />
+                {isRejecting ? (
+                  <CircularProgress size="25px" color="info" />
+                ) : (
+                  <Typography>{t('rechazar')}</Typography>
+                )}
+              </Button>
+            </Grid>
+          )}
+          {!isOnlyRead && (
+            <Grid item xs={2}>
+              <Button
+                type="submit"
+                color="success"
+                sx={{ width: '90%' }}
+                disabled={
+                  isSaving || !codigoValue || checkCantidadesRecibidas()
+                }
+                onClick={handleRecibirPedido}
+              >
+                {!isSaving && (
+                  <CheckOutlinedIcon
+                    sx={{ fontSize: 20, marginRight: '5px' }}
+                  />
+                )}
 
-              {isSaving ? (
-                <CircularProgress size="25px" color="info" />
-              ) : (
-                <Typography>{t('recibir')}</Typography>
-              )}
-            </Button>
-          </Grid>
+                {isSaving ? (
+                  <CircularProgress size="25px" color="info" />
+                ) : (
+                  <Typography>{t('recibir')}</Typography>
+                )}
+              </Button>
+            </Grid>
+          )}
         </Grid>
       </DialogActions>
     </Dialog>

@@ -5,7 +5,7 @@
     "responsable": "Responsable",
     "verDetalles": "Ver detalles",
     "labelRowsPerPage": "Nro. artículos por página",
-    "noRowsLabel": "Sin artículos que mostrar",
+    "noRowsLabel": "Sin movimientos que mostrar",
     "title": "Artículos",
     "acciones": "Acciones",
     "enviadoDesde": "Enviado desde",
@@ -27,7 +27,7 @@
     "reponerExitoso": "Envio repuesto exitosamente"
   },
   "articulos": {
-    "title": "Productos",
+    "title": "Artículos",
     "search": "Buscar",
     "sinStock": "Sin stock",
     "detalles": "Envío"
