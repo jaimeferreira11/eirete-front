@@ -13,6 +13,7 @@ export interface IArticuloMovimiento {
   estado: string;
   fechaModif: string;
   usuarioModif: Usuario;
+  obs: string;
 }
 
 export interface IArticuloMovimientoDetalle {

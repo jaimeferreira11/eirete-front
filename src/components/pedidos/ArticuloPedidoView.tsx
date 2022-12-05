@@ -15,7 +15,7 @@ export const ArticuloPedidoView: FC<Props> = ({ item }) => {
   const { t } = useTranslation('pedidos', { keyPrefix: 'articulos' });
   const { setArticuloDetalle } = usePedidosProvider();
 
-  const hasStock = item.stock > 0;
+  const hasStock = item.stock - item.stockBloqueado > 0;
 
   return (
     <Box

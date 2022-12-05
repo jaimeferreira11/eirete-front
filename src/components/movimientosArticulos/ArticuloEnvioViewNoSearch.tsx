@@ -17,7 +17,7 @@ export const ArticuloEnvioViewNoSearch: FC<Props> = ({ item }) => {
   });
   const { setArticuloDetalle } = useEnvioProvider();
 
-  const hasStock = item.stock > 0;
+  const hasStock = item.stock - item.stockBloqueado > 0;
 
   return (
     <Box
@@ -40,6 +40,7 @@ export const ArticuloEnvioViewNoSearch: FC<Props> = ({ item }) => {
     >
       <Typography variant="subtitle1" sx={{ color: '#2C2C2C' }}>
         {item.articulo.codigo} - {item.articulo.descripcion}
+        {hasStock ? ' (' + (item.stock - item.stockBloqueado) + ')' : ''}
       </Typography>
       <Box display={'flex'} alignItems="center" gap={2}>
         <Typography variant="subtitle1" sx={{ color: '#2C2C2C' }}>
