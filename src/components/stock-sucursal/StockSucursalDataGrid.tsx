@@ -34,10 +34,12 @@ export const StockSucursalDataGrid = () => {
   const { sucursales } = useSucursal();
   const { user } = useAuthProvider();
 
-  const [sucursalIdSelected, setSucursalIdSelected] = useState(user!.sucursal);
+  const [sucursalIdSelected, setSucursalIdSelected] = useState(
+    user!.sucursal._id
+  );
 
   useEffect(() => {
-    setSucursalIdSelected(user!.sucursal);
+    setSucursalIdSelected(user!.sucursal._id);
   }, []);
 
   const handleChangeSucursal = (event: any) => {

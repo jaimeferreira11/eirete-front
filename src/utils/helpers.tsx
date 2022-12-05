@@ -108,8 +108,10 @@ export const clearNumberFormat = (value: number): number => {
   return num ? Number(num) : 0;
 };
 
-export const handleDownloadPdf = async (printRef: MutableRefObject<any>) => {
-  console.log('printRef', printRef);
+export const handleDownloadPdf = async (
+  printRef: MutableRefObject<any>,
+  fileName?: string
+) => {
   const element = printRef.current;
   const canvas = await html2canvas(element);
   const data = canvas.toDataURL('image/png');
@@ -120,5 +122,9 @@ export const handleDownloadPdf = async (printRef: MutableRefObject<any>) => {
   const pdfHeight = (imgProperties.height * pdfWidth) / imgProperties.width;
 
   pdf.addImage(data, 'PNG', 0, 0, pdfWidth, pdfHeight);
-  pdf.save('print.pdf');
+
+  const temporalTime = new Date().getTime();
+  pdf.save(
+    fileName ? `${fileName}-${temporalTime}.pdf` : `file-${temporalTime}.pdf`
+  );
 };

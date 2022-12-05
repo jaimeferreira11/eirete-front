@@ -5,6 +5,7 @@ export * from './useCajasProvider';
 export * from './useCategoriaMovimientosProvider';
 export * from './useCierreCajaProvider';
 export * from './useClienteProvider';
+export * from './useEnvioProvider';
 export * from './useEstadisticasProvider';
 export * from './useFamiliasProvider';
 export * from './useLineasProvider';

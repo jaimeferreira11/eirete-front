@@ -40,7 +40,7 @@ input[type='number']::-webkit-outer-spin-button {
   overflow-x: hidden !important;
 }
 .MuiGrid-root {
-  margin-bottom: 10px !important;
+  margin-bottom: 5px !important;
 }
 
 /* Scroll */
@@ -61,4 +61,10 @@ input[type='number']::-webkit-outer-spin-button {
 
 ::-webkit-scrollbar-thumb:window-inactive {
   background: rgba(234, 234, 234, 0.7);
+}
+
+.dialogTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

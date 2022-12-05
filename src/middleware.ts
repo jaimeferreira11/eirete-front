@@ -37,6 +37,7 @@ export const config = {
     '/cierre-caja',
     '/articulos',
     '/pedidos',
+    '/movimientos-articulos',
   ],
   unstable_includeFiles: [
     'node_modules/next/dist/compiled/@edge-runtime/primitives/**/*.+(js|json)',

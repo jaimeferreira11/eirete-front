@@ -185,6 +185,24 @@ let lightTheme = createTheme({
             },
           },
         },
+        {
+          props: { variant: 'outlined', color: 'error' },
+          style: {
+            color: '#f44336ad',
+          },
+        },
+        {
+          props: { color: 'secondary' },
+          style: {
+            backgroundColor: '#F3F3F3 !important',
+            color: '#121212 !important',
+            ':hover': {
+              backgroundColor: '#d8d8d8 !important',
+              color: '#121212',
+              transition: 'all 0.3s ease-in-out',
+            },
+          },
+        },
       ],
     },
     MuiIconButton: {

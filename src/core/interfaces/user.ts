@@ -1,4 +1,5 @@
 import { IPerfil } from '.';
+import { ISucursal } from './sucursal';
 
 export interface IUser {
   _id: string;
@@ -10,7 +11,7 @@ export interface IUser {
   perfiles: IPerfil[];
   correo?: string;
   celular?: string;
-  sucursal: string;
+  sucursal: ISucursal;
   turno: string;
 }
 

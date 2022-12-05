@@ -8,13 +8,10 @@ import {
   Button,
   Checkbox,
   CircularProgress,
-  FormControl,
   Grid,
   IconButton,
   InputAdornment,
-  InputLabel,
   MenuItem,
-  OutlinedInput,
   TextField,
   Typography,
 } from '@mui/material';
@@ -22,6 +19,7 @@ import {
 import { TipoPedido, TipoPedidoArray } from '@core/interfaces/TipoPedidos';
 import { usePedidosProvider, useUtilsProvider } from '@lib/hooks';
 import { useTranslation } from 'next-i18next';
+import NumberFormat from 'react-number-format';
 import { formatNumber } from 'src/utils';
 import { TiposPago } from '../../core/interfaces/MetodoPago';
 
@@ -140,6 +138,14 @@ export const PedidoSummary: FC<Props> = ({
     const vuelto = getTotal() - importeTotal;
 
     return vuelto > 0 ? vuelto : 0;
+  };
+
+  const handleInputNumberFocus = (
+    event: React.FocusEvent<HTMLInputElement>
+  ) => {
+    if (event.target.value === 'GS.0') {
+      event.target.value = 'GS.';
+    }
   };
 
   return (
@@ -263,126 +269,79 @@ export const PedidoSummary: FC<Props> = ({
         </Grid>
       </Grid>
       <Box display="flex" justifyContent="space-evenly" gap={3} sx={{ my: 4 }}>
-        <FormControl fullWidth>
-          <InputLabel htmlFor="outlined-adornment-amount">
-            {t('efectivo')}
-          </InputLabel>
-          <OutlinedInput
-            disabled={importeTotal === 0}
-            type="number"
-            inputProps={{
-              min: 0,
-            }}
-            size="small"
-            id="efectivo-adornment"
-            startAdornment={
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignContent: 'center',
-                  textAlign: 'center',
-                  backgroundColor: '#F3F3F3',
-                  height: 38,
-                  width: 38,
-                  marginLeft: -13,
-                  marginRight: 5,
-                }}
-              >
-                <InputAdornment position="start">&nbsp; GS.</InputAdornment>
-              </div>
-            }
-            label={t('cantidad')}
-            onChange={(e) =>
-              handleChangeMonto({
-                importe: Number(e.target.value),
-                descripcion: 'EFECTIVO',
-              })
-            }
-            value={formatNumber(getMontoMetodoPago('EFECTIVO')) || ''}
-          />
-        </FormControl>
-        <FormControl fullWidth>
-          <InputLabel htmlFor="outlined-adornment-amount">
-            {t('tarjeta')}
-          </InputLabel>
-          <OutlinedInput
-            disabled={importeTotal === 0}
-            type="number"
-            inputProps={{
-              min: 0,
-            }}
-            size="small"
-            id="tarjeta-adornment"
-            startAdornment={
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignContent: 'center',
-                  textAlign: 'center',
-                  backgroundColor: '#F3F3F3',
-                  height: 38,
-                  width: 38,
-                  marginLeft: -13,
-                  marginRight: 5,
-                }}
-              >
-                <InputAdornment position="start">&nbsp; GS.</InputAdornment>
-              </div>
-            }
-            label={t('cantidad')}
-            onChange={(e) =>
-              handleChangeMonto({
-                importe: Number(e.target.value),
-                descripcion: 'TARJETA',
-              })
-            }
-            value={formatNumber(getMontoMetodoPago('TARJETA')) || ''}
-          />
-        </FormControl>
-        <FormControl fullWidth>
-          <InputLabel htmlFor="outlined-adornment-amount">
-            {t('cheque')}
-          </InputLabel>
-          <OutlinedInput
-            disabled={importeTotal === 0}
-            type="number"
-            inputProps={{
-              min: 0,
-            }}
-            id="cheque-adornment-amount"
-            size="small"
-            startAdornment={
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignContent: 'center',
-                  textAlign: 'center',
-                  backgroundColor: '#F3F3F3',
-                  height: 38,
-                  width: 38,
-                  marginLeft: -13,
-                  marginRight: 5,
-                }}
-              >
-                <InputAdornment position="start">&nbsp; GS.</InputAdornment>
-              </div>
-            }
-            label={t('cantidad')}
-            onChange={(e) =>
-              handleChangeMonto({
-                importe: Number(e.target.value),
-                descripcion: 'CHEQUE',
-              })
-            }
-            value={formatNumber(getMontoMetodoPago('CHEQUE')) || ''}
-          />
-        </FormControl>
+        <NumberFormat
+          label={t('efectivo')}
+          fullWidth
+          // error={!!errors.precioVenta}
+          // helperText={errors.precioVenta?.message}
+          disabled={importeTotal === 0}
+          displayType={'input'}
+          customInput={TextField}
+          thousandSeparator={'.'}
+          decimalSeparator={','}
+          allowNegative={false}
+          decimalScale={0}
+          allowLeadingZeros={false}
+          onValueChange={(values) =>
+            handleChangeMonto({
+              importe: Number(values.floatValue),
+              descripcion: 'EFECTIVO',
+            })
+          }
+          defaultValue={0}
+          onFocus={handleInputNumberFocus}
+          value={getMontoMetodoPago('EFECTIVO') || 0}
+          prefix={'GS.'}
+        />
+        <NumberFormat
+          label={t('tarjeta')}
+          fullWidth
+          // error={!!errors.precioVenta}
+          // helperText={errors.precioVenta?.message}
+          disabled={importeTotal === 0}
+          displayType={'input'}
+          customInput={TextField}
+          thousandSeparator={'.'}
+          decimalSeparator={','}
+          allowNegative={false}
+          decimalScale={0}
+          allowLeadingZeros={false}
+          onValueChange={(values) =>
+            handleChangeMonto({
+              importe: Number(values.floatValue),
+              descripcion: 'TARJETA',
+            })
+          }
+          defaultValue={0}
+          onFocus={handleInputNumberFocus}
+          value={getMontoMetodoPago('TARJETA') || 0}
+          prefix={'GS.'}
+        />
+
+        <NumberFormat
+          label={t('cheque')}
+          fullWidth
+          // error={!!errors.precioVenta}
+          // helperText={errors.precioVenta?.message}
+          disabled={importeTotal === 0}
+          displayType={'input'}
+          customInput={TextField}
+          thousandSeparator={'.'}
+          decimalSeparator={','}
+          allowNegative={false}
+          decimalScale={0}
+          allowLeadingZeros={false}
+          onValueChange={(values) =>
+            handleChangeMonto({
+              importe: Number(values.floatValue),
+              descripcion: 'CHEQUE',
+            })
+          }
+          defaultValue={0}
+          onFocus={handleInputNumberFocus}
+          value={getMontoMetodoPago('CHEQUE') || 0}
+          prefix={'GS.'}
+        />
       </Box>
 
       <Box

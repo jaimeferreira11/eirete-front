@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { IStockArticuloSucursal } from '@core/interfaces';
 
-import { usePedidosProvider } from '@lib/hooks';
+import { useEnvioProvider } from '@lib/hooks';
 import { Box, Chip, IconButton, Typography } from '@mui/material';
 import { useTranslation } from 'next-i18next';
 import { formatCurrency } from 'src/utils';
@@ -11,9 +11,11 @@ interface Props {
   item: IStockArticuloSucursal;
 }
 
-export const ArticuloPedidoView: FC<Props> = ({ item }) => {
-  const { t } = useTranslation('pedidos', { keyPrefix: 'articulos' });
-  const { setArticuloDetalle } = usePedidosProvider();
+export const ArticuloEnvioViewNoSearch: FC<Props> = ({ item }) => {
+  const { t } = useTranslation('movimientosArticulos', {
+    keyPrefix: 'articulos',
+  });
+  const { setArticuloDetalle } = useEnvioProvider();
 
   const hasStock = item.stock - item.stockBloqueado > 0;
 
@@ -38,6 +40,7 @@ export const ArticuloPedidoView: FC<Props> = ({ item }) => {
     >
       <Typography variant="subtitle1" sx={{ color: '#2C2C2C' }}>
         {item.articulo.codigo} - {item.articulo.descripcion}
+        {hasStock ? ' (' + (item.stock - item.stockBloqueado) + ')' : ''}
       </Typography>
       <Box display={'flex'} alignItems="center" gap={2}>
         <Typography variant="subtitle1" sx={{ color: '#2C2C2C' }}>

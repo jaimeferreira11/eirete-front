@@ -1,0 +1,39 @@
+{
+  "listado": {
+    "fecha": "Fecha y hora",
+    "hora": "Hora",
+    "responsable": "Responsable",
+    "verDetalles": "Ver detalles",
+    "labelRowsPerPage": "Nro. artículos por página",
+    "noRowsLabel": "Sin movimientos que mostrar",
+    "title": "Artículos",
+    "acciones": "Acciones",
+    "enviadoDesde": "Enviado desde",
+    "enviadoPor": "Enviado por",
+    "estado": "Estado",
+    "actionsDescription": "Acciones aplicables",
+    "enviarRechazar": "Recibir/Rechazar",
+    "reponerStock": "Reponer",
+    "rechazar": "Rechazar",
+    "recibir": "Recibir",
+    "cancelar": "Cancelar",
+    "recibidoExitoso": "Articulos recibidos exitosamente",
+    "recibidoError": "Ocurrió un error al recibir los articulos",
+    "rechazoExitoso": "Envio rechazado exitosamente",
+    "rechazoError": "Ocurrió un error al rechazar el envio",
+    "rechazadoDesde": "Rechazado desde",
+    "rechazadoPor": "Rechazado por",
+    "reponerError": "Ocurrió un error al reponer los articulos",
+    "reponerExitoso": "Envio repuesto exitosamente"
+  },
+  "articulos": {
+    "title": "Artículos",
+    "search": "Buscar",
+    "sinStock": "Sin stock",
+    "detalles": "Envío"
+  },
+  "detalleEnvio": {
+    "title": "Detalles de envío",
+    "emptyDetail": "Agregue articulos para envio"
+  }
+}

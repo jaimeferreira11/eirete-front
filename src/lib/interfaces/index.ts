@@ -3,6 +3,7 @@ export * from './LineasArticulosSearch';
 export * from './NewArticulo';
 export * from './NewCaja';
 export * from './NewCliente';
+export * from './NewEnvio';
 export * from './NewFamiliaArticulo';
 export * from './NewLineaArticulo';
 export * from './NewMovimiento';

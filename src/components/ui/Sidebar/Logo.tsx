@@ -1,9 +1,12 @@
+import { useAuthProvider } from '@lib/hooks';
 import GrainIcon from '@mui/icons-material/Grain';
 import { Box, Typography } from '@mui/material';
 import { useTranslation } from 'next-i18next';
 
 export const Logo = () => {
   const { t } = useTranslation('sidebar', { keyPrefix: 'logo' });
+  const { user } = useAuthProvider();
+
   return (
     <Box
       display="flex"
@@ -27,7 +30,7 @@ export const Logo = () => {
         {t('texto1')}
       </Typography>
       <Typography variant="h6" fontWeight={400}>
-        {t('texto2')}
+        {user?.sucursal?.descripcion || ''}
       </Typography>
     </Box>
   );
