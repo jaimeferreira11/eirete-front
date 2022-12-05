@@ -39,9 +39,8 @@ const SucursalEnvioView: FC<Props> = ({ imprimirPdf }) => {
     const result = await realizarEnvio();
 
     if (!result.hasError) {
-      // TODO: descargar el pdf EnviarRecibirModal con el envio retornado del endpoint(debe mostrar el codigo)
       showSnackbar({
-        message: 'Envio realizado exitosamente',
+        message: 'Envio realizado exitosamente. Descargando comprobante..',
         type: 'success',
         show: true,
       });
@@ -49,7 +48,7 @@ const SucursalEnvioView: FC<Props> = ({ imprimirPdf }) => {
       setTimeout(async () => {
         await imprimirPdf();
         resetEnvio();
-      }, 1500);
+      }, 500);
       setIsSaving(false);
     } else {
       showSnackbar({

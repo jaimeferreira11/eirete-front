@@ -6,8 +6,8 @@ const EnvioRealizadoView = () => {
 
   if (!envioRealizado) return null;
   return (
-    <Box sx={{ p: 2, mb: 1, border: '1px solid #707070' }}>
-      <Typography variant="h4" fontWeight={600}>
+    <Box sx={{ p: 2, mb: 1, border: '0.1em solid #EAEAEA' }}>
+      <Typography variant="h4" fontWeight={500}>
         Código de envio: {envioRealizado.codigo}
       </Typography>
     </Box>

@@ -33,7 +33,7 @@
     "detalles": "Envío"
   },
   "detalleEnvio": {
-    "title": "Envío",
+    "title": "Detalles de envío",
     "emptyDetail": "Agregue articulos para envio"
   }
 }

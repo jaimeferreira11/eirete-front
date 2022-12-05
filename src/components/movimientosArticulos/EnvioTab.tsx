@@ -35,7 +35,7 @@ export const EnvioTab: FC<Props> = ({ sucursalId }) => {
   };
 
   const imprimirPdf = async () => {
-    handleDownloadPdf(printRef);
+    handleDownloadPdf(printRef, 'Envio');
   };
 
   return (
