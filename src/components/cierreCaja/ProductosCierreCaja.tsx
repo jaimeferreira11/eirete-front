@@ -7,7 +7,9 @@ import { useMemo } from 'react';
 export const ProductosCierreCaja = () => {
   const { user } = useAuthProvider();
 
-  const { articulosSucursal, isLoading } = useStockPorSucursal(user?.sucursal);
+  const { articulosSucursal, isLoading } = useStockPorSucursal(
+    user?.sucursal._id
+  );
 
   const articulosExistentes = useMemo(() => {
     if (isLoading) return [];
