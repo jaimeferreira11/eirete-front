@@ -32,3 +32,40 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Deploy in Ubuntu server
+
+- Descargar el codigo desde el github
+
+- Instalar las dependencias
+
+  `npm install`
+
+- Configurar las variables de entorno en el archivo `/.env`
+
+- Configurar variables de entorno
+
+```
+  export NEXT_PUBLIC_API_EIRETE=
+  export NEXTAUTH_SECRET=
+```
+
+- Intall pm2
+
+  `sudo npm install pm2 -g`
+
+- Hacer el build
+
+  `npm run build`
+
+- Correr la aplicacion
+
+  `pm2 --name eirete-front start npm -- start`
+
+- Guardar la configuracion
+
+  `pm2 save`
+
+- Configurar el autoinicio
+
+  `pm2 startup`
